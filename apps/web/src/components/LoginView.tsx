@@ -68,7 +68,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, onDemoLogin, load
         </button>
       </form>
 
-      {import.meta.env.DEV && <div className="demo-accounts-box">
+      {(import.meta.env.DEV || import.meta.env.VITE_ENABLE_DEMO === 'true') && <div className="demo-accounts-box">
         <p className="demo-title">Pilih Akun Demo Cepat (Klik Langsung):</p>
         <div className="demo-buttons">
           <button

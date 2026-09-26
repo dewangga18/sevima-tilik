@@ -24,7 +24,7 @@ func main() {
 	defer cancel()
 
 	log.Println("Connecting to PostgreSQL database...")
-	demoEnabled := cfg.AppEnv == "development"
+	demoEnabled := cfg.AppEnv == "development" || os.Getenv("ENABLE_DEMO_LOGIN") == "true"
 	db, err := repository.Connect(ctx, cfg.DatabaseURL, demoEnabled)
 	if err != nil {
 		log.Fatalf("Failed to initialize database: %v", err)
