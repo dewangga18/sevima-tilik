@@ -100,14 +100,8 @@ body {
 .brand-logo {
   width: 36px;
   height: 36px;
-  background: var(--color-primary);
-  color: #fff;
   border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.25rem;
+  object-fit: cover;
 }
 
 .brand-text {
