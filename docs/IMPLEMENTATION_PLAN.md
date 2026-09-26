@@ -11,7 +11,7 @@ Urutan implementasi/checkpoint:
 - [x] REST Gemini, structured output, validasi server, timeout, batas request dan rate limit per pengguna.
 - [x] Generator kelas 4 level 1–2 -> draft PostgreSQL -> review/aktivasi admin existing.
 - [x] Deploy API/web Railway setelah checkpoint generator local lolos; verifikasi pengaturan key dan draft di deployment.
-- [ ] Idempotensi durable, uji error/authorization/provider invalid, build dan checkpoint local UI.
+- [x] Idempotensi durable, uji error/authorization/provider invalid, build dan checkpoint UI live desktop/mobile.
 
 Generator untuk guru/admin; review bank hanya admin. Asisten guru assigned dan admin siswa enrolled sesuai arahan terbaru. Penambahan skill/prasyarat kurikulum menunggu klarifikasi; penambahan soal ke skill existing masuk scope. Asisten tidak mengubah nilai/mastery. Model awal `gemini-3.8-flash`, bisa diganti admin; key pengguna berhasil menghasilkan draft di local dan Railway. Model 2.5 ditolak Google untuk pengguna baru; pengaturan memakai Gemini 3.8 Flash.
 
@@ -390,3 +390,6 @@ Baca `AGENTS.md`, guide yang relevan, `docs/PRODUCT.md`, lalu plan ini. Verifika
 - Panggilan Gemini nyata local dan Railway menghasilkan draft 200; replay request_id sama menghasilkan kandidat yang sama. Gemini 2.5 mengembalikan 404 untuk akun baru; Gemini 3.8 Flash terbukti berhasil.
 - Railway API/web rebuild dan deploy sukses; health live 200, anonymous settings 401; key dipasang melalui API admin, bukan env provider.
 - Pending: asisten guru/admin, penambahan skill/prasyarat kurikulum, scanner/batch; review pedagogis draft nyata oleh admin. Pagination seluruh kandidat tetap perlu perluasan; urutan newest-first memastikan draft baru tampil pada halaman awal.
+
+- Browser live 1280px/375px: simpan settings tanpa membuka key, hapus-key -> batal, generator real draft pada mobile, provider quota/error pada desktop, filter kandidat, guru generate dan settings admin tersembunyi, serta keyboard Tab lolos. Tidak ada overflow horizontal atau pageerror. Screenshot disimpan sementara saat verifikasi, tidak masuk source.
+- Rebuild Docker local API/web terakhir sukses. Commit/push `d7e9ffb` memicu rebuild Railway berikutnya; kedua service SUCCESS.
