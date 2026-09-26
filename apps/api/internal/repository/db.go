@@ -66,6 +66,12 @@ func Connect(ctx context.Context, databaseURL string, seedDemoUsers bool) (*DB, 
 
 func (db *DB) Migrate(ctx context.Context) error {
 	schema := `
+ CREATE TABLE IF NOT EXISTS ai_settings (
+ id INT PRIMARY KEY CHECK(id=1), ciphertext BYTEA NOT NULL, model TEXT NOT NULL, updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+ );
+ CREATE TABLE IF NOT EXISTS ai_generation_requests (
+ user_id TEXT NOT NULL, request_id TEXT NOT NULL, input_hash TEXT NOT NULL, response JSONB NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), PRIMARY KEY(user_id,request_id)
+ );
 	CREATE TABLE IF NOT EXISTS users (
 		id TEXT PRIMARY KEY,
 		email TEXT UNIQUE NOT NULL,

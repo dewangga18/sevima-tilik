@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { CandidateReview, CandidateStatus, QuestionBankSummary } from '../types'
 import { api } from '../services/api'
 import './QuestionBankReview.css'
+import { AIGenerator } from './AIGenerator'
 
 const reviewFilters: { id: CandidateStatus; label: string }[] = [
   { id: 'draft', label: 'Menunggu review' },
@@ -116,7 +117,7 @@ function CandidateCard({ candidate, onDecided }: { candidate: CandidateReview; o
 
   return <li className="bank-candidate">
     <div className="bank-candidate-head">
-      <strong>{question.prompt}</strong>
+      <strong>{question.question}</strong>
       <span className="bank-candidate-meta">
         {question.skill} · level {question.difficulty} · {question.purpose} · kelas {question.grade}
       </span>
@@ -132,7 +133,7 @@ function CandidateCard({ candidate, onDecided }: { candidate: CandidateReview; o
       })}
     </ol>
     {question.explanation && <p className="bank-explanation"><strong>Penjelasan:</strong> {question.explanation}</p>}
-    {question.misconceptions?.length > 0 && <p className="bank-explanation"><strong>Misconception:</strong> {question.misconceptions.map(m => m.wrong_answer).join(', ')}</p>}
+    {question.possible_misconceptions?.length > 0 && <p className="bank-explanation"><strong>Misconception:</strong> {question.possible_misconceptions.map(m => m.wrong_answer).join(', ')}</p>}
     <p className="bank-candidate-source">Sumber: {candidate.source_file}{question.license_note ? ` · ${question.license_note}` : ''}</p>
 
     {isDraft && !candidate.eligible && <p className="bank-blocked" role="note">{candidate.blocked_reason}</p>}
@@ -171,6 +172,7 @@ export function QuestionBankReview() {
   }
 
   return <div className="admin-view">
+    <AIGenerator onGenerated={() => { if (status === 'draft') void load(); else setStatus('draft'); void reloadSummary() }} />
     <section className="admin-list" aria-labelledby="bank-summary-title" aria-busy={summaryLoading}>
       <h2 id="bank-summary-title">Ringkasan bank soal</h2>
       {summaryLoading ? <p role="status">Memuat ringkasan bank soal...</p>

@@ -82,6 +82,8 @@ func main() {
 	adminHandler := handler.NewAdminHandler(adminService)
 	bankService := service.NewQuestionBankService(db)
 	bankHandler := handler.NewQuestionBankHandler(bankService)
+	aiSettings := service.NewAISettingsService(db, cfg.AIStorageKey)
+	aiHandler := handler.NewAIHandler(aiSettings, service.NewAIGeneratorService(db, aiSettings))
 
 	mux := http.NewServeMux()
 
@@ -153,6 +155,11 @@ func main() {
 	mux.Handle("POST /api/admin/question-bank/candidates/{id}/approve", adminMux(bankHandler.Approve))
 	mux.Handle("POST /api/admin/question-bank/candidates/{id}/reject", adminMux(bankHandler.Reject))
 
+	mux.Handle("GET /api/admin/ai-settings", adminMux(aiHandler.Settings))
+	mux.Handle("PUT /api/admin/ai-settings", adminMux(aiHandler.SaveSettings))
+	mux.Handle("DELETE /api/admin/ai-settings", adminMux(aiHandler.DeleteSettings))
+	mux.Handle("POST /api/ai/generate-question", apiLimiter.Middleware(authHandler.AuthMiddleware(http.HandlerFunc(aiHandler.Generate))))
+
 	// Middleware chain: Logging -> CORS
 	wrappedMux := loggingMiddleware(corsMiddleware(cfg.AllowedOrigin)(mux))
 
@@ -161,7 +168,7 @@ func main() {
 		Addr:         addr,
 		Handler:      wrappedMux,
 		ReadTimeout:  15 * time.Second,
-		WriteTimeout: 15 * time.Second,
+		WriteTimeout: 35 * time.Second,
 		IdleTimeout:  60 * time.Second,
 	}
 

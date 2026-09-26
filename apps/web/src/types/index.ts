@@ -219,12 +219,12 @@ export interface QuestionCandidate {
   skill: string
   difficulty: number
   question_type: string
-  prompt: string
+  question: string
   options: QuestionCandidateOption[]
-  // Answer key is only ever returned to the admin review endpoint.
+  // Answer key is returned to admin review and the requesting teacher/admin generator.
   correct_answer: string
   explanation: string
-  misconceptions: { wrong_answer: string; reason: string }[]
+  possible_misconceptions: { wrong_answer: string; reason: string }[]
   source_title: string
   license_note: string
 }
@@ -250,3 +250,18 @@ export interface BankReviewReport {
   activated: boolean
   report: { applied: boolean; items: { id: string; status: string; reason: string; action: string }[] }
 }
+
+export interface AISettingsView {
+  configured: boolean
+  storage_ready: boolean
+  model: string
+  updated_at?: string
+}
+export interface AIGenerateInput {
+  request_id: string
+  skill_id: string
+  grade_level: 4
+  difficulty: number
+  purpose: 'diagnostic' | 'practice' | 'reassessment'
+}
+export interface AIGeneratedDraft { candidate: Omit<CandidateReview, 'eligible' | 'blocked_reason'> }

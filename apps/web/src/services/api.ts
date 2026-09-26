@@ -1,4 +1,4 @@
-import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession, TeacherClass, StudentOverview, StudentInsight, AdminClass, ClassRoster, Role, QuestionBankSummary, CandidateReview, CandidateStatus, BankReviewReport } from '../types'
+import type { AISettingsView, AIGenerateInput, AIGeneratedDraft, User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession, TeacherClass, StudentOverview, StudentInsight, AdminClass, ClassRoster, Role, QuestionBankSummary, CandidateReview, CandidateStatus, BankReviewReport } from '../types'
 
 const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
@@ -70,6 +70,11 @@ export const api = {
     const res = await fetch(`${API_BASE}/health`)
     return res.json()
   },
+
+  getAISettings: () => request<AISettingsView>('/api/admin/ai-settings'),
+  saveAISettings: (input: { api_key?: string; model: string }) => request<AISettingsView>('/api/admin/ai-settings', { method: 'PUT', body: JSON.stringify(input) }),
+  deleteAISettings: () => request<AISettingsView>('/api/admin/ai-settings', { method: 'DELETE' }),
+  generateQuestion: (input: AIGenerateInput) => request<AIGeneratedDraft>('/api/ai/generate-question', { method: 'POST', body: JSON.stringify(input) }),
 
   // Auth
   login: async (email: string, password: string): Promise<{ user: User; token: string }> => {

@@ -17,6 +17,20 @@ func (db *DB) RegisterQuestionBank(ctx context.Context, entries []domain.BankEnt
 		return nil, err
 	}
 	defer tx.Rollback()
+	report, err := registerQuestionBankTx(ctx, tx, entries, apply)
+	if err != nil {
+		return nil, err
+	}
+	if apply {
+		if err = tx.Commit(); err != nil {
+			return nil, err
+		}
+	}
+	return report, nil
+}
+
+func registerQuestionBankTx(ctx context.Context, tx *sql.Tx, entries []domain.BankEntry, apply bool) (*domain.BankImportReport, error) {
+	var err error
 	if _, err = tx.ExecContext(ctx, `SELECT pg_advisory_xact_lock(hashtextextended('question-bank-import',0))`); err != nil {
 		return nil, err
 	}
@@ -107,9 +121,6 @@ func (db *DB) RegisterQuestionBank(ctx context.Context, entries []domain.BankEnt
 		report.Items = append(report.Items, item)
 	}
 	if apply {
-		if err = tx.Commit(); err != nil {
-			return nil, err
-		}
 		report.Applied = true
 	}
 	return report, nil

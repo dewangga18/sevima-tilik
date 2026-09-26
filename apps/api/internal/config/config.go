@@ -5,6 +5,7 @@ import (
 )
 
 type Config struct {
+	AIStorageKey  string
 	Port          string
 	AppEnv        string
 	AllowedOrigin string
@@ -33,6 +34,7 @@ func Load() *Config {
 	}
 
 	return &Config{
+		AIStorageKey:  os.Getenv("AI_STORAGE_KEY"),
 		Port:          port,
 		AppEnv:        appEnv,
 		AllowedOrigin: allowedOrigin,

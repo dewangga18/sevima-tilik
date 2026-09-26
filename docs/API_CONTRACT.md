@@ -376,11 +376,35 @@ Request `{"user_id":"usr-..."}`. Id harus ada dengan role `teacher`; akun siswa/
 
 Request body yang sama. Melepas guru berlaku segera: request guru berikutnya ke kelas yang sudah dilepas menghasilkan `403 Akses ditolak` pada `/api/teacher/classes/{class_id}/students` dan `/api/teacher/students/{student_id}/insight`, tanpa perlu login ulang, karena assignment diperiksa di backend pada setiap request. Guru tetap kehilangan akses kelas lain yang tidak ditugaskan kepadanya. Status dan error sama dengan endpoint assignment.
 
-## Slice AI — DIBATALKAN, tidak diimplementasikan
+## Generator AI: kontrak implementasi aktif (26 September 2026)
 
-Integrasi AI dibatalkan atas arahan pengguna karena waktu tidak cukup. **Tidak ada route, handler, konfigurasi, atau tabel AI di repository ini.** Halaman Bank soal yang aktif adalah review manual oleh manusia dan tidak bergantung AI.
+Envelope standar `{success,data,error}`. Semua route memerlukan session. Guru/admin dapat generate draft tanpa data siswa. Asisten/evidence AI masih ditunda; izin produk admin untuk analisis tidak menambahkan endpoint pada slice ini. Review seluruh kandidat/publish tetap admin; guru hanya menerima kandidat dari request generator miliknya. Tidak ada upload foto/scanner. Key Gemini tersimpan AES-256-GCM di PostgreSQL, tidak berada pada env, response, log, atau localStorage. `AI_STORAGE_KEY` env backend adalah kunci enkripsi base64 32 byte, bukan API key. Tanpa kunci enkripsi valid, pengaturan masih dapat dibaca tetapi simpan/provider menghasilkan 503. Response AI memakai `Cache-Control: no-store`.
 
-Bagian di bawah disimpan hanya sebagai catatan desain yang tidak pernah dijalankan. Endpoint yang disebut **tidak terdaftar di router** dan akan menjawab `404` router default. Jangan jadikan panduan implementasi.
+### GET /api/admin/ai-settings
+
+Admin only: 200 `{configured:boolean,storage_ready:boolean,model:string,updated_at?:timestamp}`. Tidak pernah mengembalikan key, ciphertext atau potongan key. 401 session invalid, 403 role lain, 500 kegagalan storage. Read-only/idempoten.
+
+### PUT /api/admin/ai-settings
+
+Admin only. Body `{api_key?:string,model:string}` maksimal 4 KiB. Model harus `gemini-` diikuti huruf kecil/angka/titik/hyphen, maksimal 100 karakter. Key jika diisi 16–512 karakter ASCII non-whitespace. Key kosong/tidak ada mempertahankan key lama (ditolak jika belum ada). 200 metadata yang sama GET. 400 input invalid, 401/403 auth, 503 storage encryption belum siap, 500 storage. Idempoten secara semantik; tidak memanggil provider dan tidak menjanjikan key valid. Last write wins; updated_at mencatat perubahan.
+
+### DELETE /api/admin/ai-settings
+
+Admin only: hapus key/model tersimpan, 200 metadata configured=false. Tidak memerlukan encryption key; idempoten. Request provider baru langsung menggunakan pengaturan terbaru; panggilan yang sudah berjalan mungkin selesai. 401/403 auth, 500 storage.
+
+### POST /api/ai/generate-question
+
+Guru/admin. Body `{request_id:string,skill_id:string,grade_level:4,difficulty:1|2,purpose:"diagnostic"|"practice"|"reassessment"}` maksimal 4 KiB. request_id 16–80 karakter alfanumerik/hyphen/underscore, dibuat client dan dipertahankan saat retry. Skill harus memiliki lesson kelas <=4. Tidak menerima prompt bebas/PII. 200 `{candidate:QuestionCandidateRecord}` dengan status `draft`, provenance Gemini/model dan catatan review wajib. Validasi empat opsi unik, kunci menunjuk opsi, ekuivalensi numerik, explanation dan metadata; validasi struktur tidak membuktikan kebenaran pedagogis. Tidak ada publish otomatis, aktivasi hanya endpoint review admin existing.
+
+Aturan POST generator: 400 input invalid, 401 session invalid, 403 role ditolak, 409 request_id dipakai dengan payload berbeda atau sedang diproses, 429 maksimum 6 panggilan baru/menit/pengguna atau kapasitas 2 panggilan provider bersamaan (Retry-After detik), 503 key belum dikonfigurasi/encryption belum siap atau provider quota/unavailable, 502 credential provider ditolak/output invalid, 504 timeout provider, 500 storage. Error tidak membawa body provider/rahasia. Timeout provider 25 detik; total handler 28 detik, tanpa retry provider otomatis. Response sukses dan draft tersimpan atomik dalam transaksi PostgreSQL dengan kunci per pengguna/request_id. Retry ID/payload sama mengembalikan hasil tersimpan tanpa biaya baru; berbeda menghasilkan 409. Request gagal sebelum commit dapat diulang dengan ID sama, dan bisa menimbulkan biaya provider ulang. Hasil tersimpan sampai lifecycle penghapusan data aplikasi. Tidak ada jaminan exactly-once biaya untuk crash sebelum commit.
+
+Referensi integrasi REST dan schema: https://ai.google.dev/gemini-api/docs/generate-content/structured-output
+
+## Catatan desain AI yang dibatalkan (historis)
+
+Catatan saat pembatalan lama: integrasi belum diimplementasikan. Generator kemudian diaktifkan kembali sesuai kontrak aktif di atas. Asisten/scanner/batch di bawah tetap belum diimplementasikan.
+
+Bagian di bawah disimpan hanya sebagai catatan desain yang tidak pernah dijalankan. Endpoint asisten/scanner/batch **tidak terdaftar di router** dan menjawab `404`; generator mengikuti kontrak aktif di atas. Jangan jadikan panduan implementasi.
 
 Aturan yang berlaku untuk semua endpoint AI ini, baik saat ini maupun nanti:
 
@@ -392,7 +416,7 @@ Aturan yang berlaku untuk semua endpoint AI ini, baik saat ini maupun nanti:
 - Foto atau base64 tidak boleh masuk log. Redaksi/crop, permission, dan retensi foto ditetapkan sebelum endpoint scanner diaktifkan.
 - Output model tidak pernah langsung mengubah score, mastery, role, atau assignment.
 
-### POST /api/ai/generate-question (usulan)
+### POST /api/ai/generate-question (usulan lama, digantikan kontrak aktif)
 
 Purpose: draft soal untuk review guru/admin. Akses: session dengan role `teacher` atau `admin`. Request usulan: `{skill_id,grade_level,difficulty}`. Response usulan: draft soal terstruktur plus status review. Aturan: hasil selalu berstatus `draft` dan tidak pernah dipublikasikan ke bank aktif; aktivasi tetap lewat alur import/review Phase 3B. `403` untuk siswa. Admin tidak otomatis mendapat akses baca data akademik semua siswa hanya karena role-nya.
 

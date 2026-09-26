@@ -444,3 +444,9 @@ Keep these assumptions portable:
 - [ ] source code changes are visible during local development
 - [ ] no real secrets are committed or baked into images
 - [ ] a clean machine only needs Docker to run the project
+
+## Generator AI: pengaturan storage
+
+`AI_STORAGE_KEY` adalah kunci AES-GCM backend (base64, 32 byte). Simpan sebagai secret runtime local/Railway dan pertahankan nilainya saat restart/deploy; menggantinya membuat key provider tersimpan tidak dapat dibaca sampai admin memasukkan ulang key. Database/backup hanya memuat ciphertext provider. Jangan masukkan nilai ini ke frontend, build args, source, atau log.
+
+Key Gemini diatur dari **admin > Pengaturan AI** dan disimpan terenkripsi di PostgreSQL, sesuai instruksi pengguna; tidak memakai `GEMINI_API_KEY` env. Model default `gemini-3.8-flash`, bisa diganti admin. Tombol simpan tidak memvalidasi kredensial terhadap provider; kegagalan key/model/kuota muncul saat membuat draft. Guru memakai **Buat draft soal**; admin memakai **Bank soal**. Generasi tidak otomatis menerbitkan soal.

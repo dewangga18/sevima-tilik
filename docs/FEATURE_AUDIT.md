@@ -45,3 +45,8 @@ Manajemen administrasi minimum tersedia sebagai vertical slice penuh: `AdminServ
 Perubahan role dan status aktif berlaku pada request berikutnya tanpa login ulang karena session divalidasi ulang ke database tiap request. Menonaktifkan akun juga menghapus session, sehingga akses dicabut dua lapis. `grade_level` dikosongkan saat role menjadi guru/admin agar guru tidak diam-diam membawa kelas siswa.
 
 Belum ada penghapusan akun/kelas permanen dan belum ada reset kata sandi. Endpoint AI belum ada kode; hanya kontrak usulan di `docs/API_CONTRACT.md`. Reward, streak, daily goal, dan achievement belum diimplementasikan; aturan XP sudah diputuskan dan tercatat di `docs/IMPLEMENTATION_PLAN.md` Phase 5.
+
+
+## Update generator AI, 26 September 2026
+
+Generator draft kelas 4 tersedia untuk guru/admin, level 1–2 dan purpose diagnostic/practice/reassessment. Admin mengatur model/key pada Pengaturan AI; key terenkripsi PostgreSQL, tidak dibaca balik API. Model aktif Gemini 3.8 Flash (2.5 ditolak Google untuk akun baru). Local dan Railway lolos generasi nyata serta replay idempoten. Aktivasi tetap review admin; scoring/mastery tidak berubah karena generation. Asisten analisis, scanner/batch, dan penambahan skill kurikulum belum tersedia. Kontrak aktif: `docs/API_CONTRACT.md`.

@@ -2,7 +2,20 @@
 
 ## Status
 
-Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal), Phase 4 (kelas, insight guru), dan Phase 6 (reliability) selesai. Phase 5 berjalan: administrasi minimum (akun, role, kelas, enrollment, assignment) sudah lolos checkpoint; reward, streak, daily goal, dan achievement belum diimplementasikan, aturan engagement-nya sudah diputuskan. Seluruh integrasi AI (Slice AI, AI-A, AI-B, AI-C) **dibatalkan** atas arahan pengguna karena waktu tidak cukup; tidak ada kode, route, konfigurasi, atau tabel AI di repository. Phase 7 perluasan ditunda sesuai arahan pengguna. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+### Scope aktif: generator soal [P1], local sampai Railway, 26 September 2026
+
+Pengguna mengaktifkan kembali generator soal dan asisten guru dengan Gemini, dengan fokus satu fitur: generator soal local sampai deploy Railway. Asisten dan penambahan skill kurikulum ditunda; scanner AI-B/AI-C tetap dibatalkan. Provider key disimpan terenkripsi di PostgreSQL dan diganti melalui halaman admin, sesuai arahan terbaru yang menggantikan aturan provider key harus env. Kunci enkripsi tetap env backend; tidak ada dependency baru. Deploy Railway diizinkan pengguna; commit/push bukan kebutuhan deploy CLI.
+
+Urutan implementasi/checkpoint:
+- [x] Storage AES-GCM, pengaturan admin write-only, hapus/ganti key, dan konfigurasi local.
+- [x] REST Gemini, structured output, validasi server, timeout, batas request dan rate limit per pengguna.
+- [x] Generator kelas 4 level 1–2 -> draft PostgreSQL -> review/aktivasi admin existing.
+- [x] Deploy API/web Railway setelah checkpoint generator local lolos; verifikasi pengaturan key dan draft di deployment.
+- [ ] Idempotensi durable, uji error/authorization/provider invalid, build dan checkpoint local UI.
+
+Generator untuk guru/admin; review bank hanya admin. Asisten guru assigned dan admin siswa enrolled sesuai arahan terbaru. Penambahan skill/prasyarat kurikulum menunggu klarifikasi; penambahan soal ke skill existing masuk scope. Asisten tidak mengubah nilai/mastery. Model awal `gemini-3.8-flash`, bisa diganti admin; key pengguna berhasil menghasilkan draft di local dan Railway. Model 2.5 ditolak Google untuk pengguna baru; pengaturan memakai Gemini 3.8 Flash.
+
+Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal), Phase 4 (kelas, insight guru), dan Phase 6 (reliability) selesai. Phase 5 berjalan: administrasi minimum (akun, role, kelas, enrollment, assignment) sudah lolos checkpoint; reward, streak, daily goal, dan achievement belum diimplementasikan, aturan engagement-nya sudah diputuskan. Pembatalan AI sebelumnya digantikan scope aktif generator di atas. Generator AI-A kini tersedia; asisten, AI-B/AI-C, dan penambahan skill kurikulum tetap ditunda. Phase 7 perluasan ditunda sesuai arahan pengguna. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
 
 Plan ini menjadi sumber eksekusi tunggal, termasuk generator soal, asisten guru, dan usulan scanner tulisan tangan dari plan AI lama. Semua checklist baru masih pending; rencana endpoint bukan klaim fitur sudah tersedia. Scanner direncanakan sebagai koreksi berbantuan review manusia setelah core P0, bukan penilaian akademis otomatis oleh LLM.
 
@@ -281,7 +294,7 @@ Demo checkpoint: aktivitas memberi reward sekali -> hari belajar tercatat -> ach
 
 Scope cut memerlukan catatan persetujuan karena handover menyebut fitur ini must-have. Seed akun adalah fallback demo untuk management, bukan klaim fitur management selesai.
 
-### Slice AI: konfigurasi dan batas bersama [P1, setelah checkpoint P0] — DIBATALKAN
+### Slice AI: rencana lama, generator diaktifkan kembali pada scope aktif di atas
 
 Dependencies: Phase 4 authorization/evidence dan Phase 3B draft bank. Selaraskan scope scanner dengan `docs/PRODUCT.md` sebelum implementasi. Pilihan provider/model, biaya/kuota, aturan penyimpanan foto dan izin penggunaan data harus ditentukan; dependency baru tetap memerlukan persetujuan. Jangan memakai nama/model lama tanpa memeriksa ketersediaannya saat implementasi.
 
@@ -291,7 +304,7 @@ Dependencies: Phase 4 authorization/evidence dan Phase 3B draft bank. Selaraskan
 - [ ] FE memiliki loading/error/empty/success, timeout dan retry dengan draft tetap tersimpan. Provider tidak tersedia harus ditampilkan jelas; fallback memakai input manual, evidence aktual atau template. Mock demo harus berlabel simulasi dan tidak disimpan sebagai OCR/evidence/nilai nyata.
 - [ ] Definisikan kontrak lengkap di `docs/API_CONTRACT.md` sebelum setiap endpoint: method/path, role/owner/assignment/environment, fields, status/error aman, retry/idempotency dan aturan penyimpanan. Usulan route di bawah belum kontrak aktif.
 
-### Slice AI-A: Generator soal dan asisten guru [P1] — DIBATALKAN
+### Slice AI-A: rencana lama; generator aktif, asisten ditunda
 
 - [ ] Guru/admin meminta draft soal kelas 4 dengan skill/difficulty; validasi struktur, kunci, opsi, penjelasan dan metadata, lalu review sebelum publish. Cegah publish otomatis atau bank soal aktif berubah karena output model mentah.
 - [ ] Form/modal generator memilih skill, grade, difficulty dan konteks; simpan ke draft PostgreSQL melalui alur Phase 3B, bukan tombol yang langsung menerbitkan soal ke assessment.
@@ -368,3 +381,12 @@ Jangan memotong diagnostic evidence, prerequisite check, lesson/practice/reasses
 ## Handoff untuk sesi AI berikutnya
 
 Baca `AGENTS.md`, guide yang relevan, `docs/PRODUCT.md`, lalu plan ini. Verifikasi status repo dan keputusan pending. Mulai dari fase tertinggi yang belum selesai, batasi perubahan ke slice aktif, catat checkpoint dan blockers, lalu lanjutkan hanya jika checkpoint lolos. Jangan commit/push/deploy tanpa instruksi yang sesuai.
+
+
+## Checkpoint generator AI, 26 September 2026
+
+- Go test/vet lewat container local, web build/lint, serta test PostgreSQL draft -> replay -> conflict -> review/aktivasi fixture lolos. Fixture tes dibersihkan; soal AI nyata tetap draft menunggu review manusia.
+- Key tersimpan AES-GCM. Guru/siswa ditolak dari pengaturan admin; siswa ditolak generate. Metadata tidak mengembalikan key. Input/output invalid, opsi numerik ekuivalen, ciphertext tampered, blocked/truncated/quota provider diuji.
+- Panggilan Gemini nyata local dan Railway menghasilkan draft 200; replay request_id sama menghasilkan kandidat yang sama. Gemini 2.5 mengembalikan 404 untuk akun baru; Gemini 3.8 Flash terbukti berhasil.
+- Railway API/web rebuild dan deploy sukses; health live 200, anonymous settings 401; key dipasang melalui API admin, bukan env provider.
+- Pending: asisten guru/admin, penambahan skill/prasyarat kurikulum, scanner/batch; review pedagogis draft nyata oleh admin. Pagination seluruh kandidat tetap perlu perluasan; urutan newest-first memastikan draft baru tampil pada halaman awal.

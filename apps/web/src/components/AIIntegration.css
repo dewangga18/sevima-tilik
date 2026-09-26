@@ -1,0 +1,15 @@
+/* Extend the existing management surface: flat panels, inherited type and
+   forest action color keep attention on the form and reviewable output. */
+.ai-section { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); min-width: 0; }
+.ai-section h2 { margin: 0 0 var(--space-3); font-size: var(--font-size-xl); }
+.ai-section p { margin: var(--space-3) 0; max-width: 70ch; overflow-wrap: anywhere; }
+.ai-section fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.ai-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--space-4); }
+.ai-section .form-group { margin: var(--space-4) 0; }
+.ai-section input, .ai-section select { width: 100%; min-width: 0; min-height: 44px; }
+.ai-section .ai-note { color: var(--color-muted); font-size: var(--font-size-sm); }
+.ai-preview { margin-top: var(--space-6); padding-top: var(--space-5); border-top: 1px solid var(--color-border); overflow-wrap: anywhere; }
+.ai-preview h3 { font-size: var(--font-size-lg); }
+.ai-preview ol { padding-inline-start: var(--space-5); }
+.ai-key-actions { margin-top: var(--space-5); display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.ai-key-actions p { flex-basis: 100%; }

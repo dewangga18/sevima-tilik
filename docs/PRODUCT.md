@@ -50,6 +50,8 @@ Demo kelas 8/aljabar dari handover menjadi skenario perluasan setelah demo kelas
 
 ## AI Agent Actions
 
+Arahan 26 September 2026: fokus generator soal memakai Gemini, local sampai Railway; asisten analisis dan penambahan skill kurikulum ditunda. Generator tersedia untuk guru dan admin; review/publish tetap admin. Asisten tersedia untuk guru pada siswa assigned dan admin pada siswa yang terdaftar di kelas. Arahan terbaru secara eksplisit memberi admin akses evidence individual melalui fitur analisis ini. Provider key disimpan terenkripsi di PostgreSQL, dapat diganti/dihapus dari halaman admin, dan tidak dikembalikan oleh API. Kunci enkripsi storage tetap env backend. Scanner/batch masih di luar slice aktif.
+
 Core scoring, grading, graph traversal, mastery, dan keputusan path bersifat deterministic. AI dapat membantu hint, penjelasan, dan contoh alternatif; kegagalan AI tidak boleh memutus pembelajaran.
 
 Asisten analisis guru dan generate draft soal masuk scope arahan terbaru. Dua aksi asisten: mengambil bukti skill siswa yang diizinkan dan menyiapkan rekomendasi/intervensi terstruktur. Agent tidak diberi wewenang mengubah nilai, role, atau mengeksekusi assignment tanpa persetujuan. Kebutuhan dan provider harus dikonfirmasi sebelum implementasi integrasi.

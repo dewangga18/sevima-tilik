@@ -31,7 +31,7 @@ const candidateColumns = `id,status,review_note,source_file,content_hash,registe
 // ListCandidates returns stored candidates with a given review status. The
 // status filter is validated by the service before reaching this query.
 func (db *DB) ListCandidates(ctx context.Context, status string, limit int) ([]domain.QuestionCandidateRecord, error) {
-	rows, err := db.QueryContext(ctx, `SELECT `+candidateColumns+` FROM question_candidates WHERE status=$1 ORDER BY id LIMIT $2`, status, limit)
+	rows, err := db.QueryContext(ctx, `SELECT `+candidateColumns+` FROM question_candidates WHERE status=$1 ORDER BY registered_at DESC, id DESC LIMIT $2`, status, limit)
 	if err != nil {
 		return nil, fmt.Errorf("list candidates: %w", err)
 	}
