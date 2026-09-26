@@ -55,6 +55,21 @@ func main() {
 	authService := service.NewAuthService(userRepo, demoEnabled)
 	diagService := service.NewDiagnosticService(curriculumRepo, assessmentRepo)
 
+	// Periodic stale-assessment cleanup: abandoned attempts stop showing as
+	// "sedang mengerjakan" forever. Teacher aggregation excludes these.
+	go func() {
+		if _, err := diagService.CleanupStaleAssessments(context.Background(), 2); err != nil {
+			log.Printf("Assessment cleanup error: %v", err)
+		}
+		ticker := time.NewTicker(30 * time.Minute)
+		defer ticker.Stop()
+		for range ticker.C {
+			if _, err := diagService.CleanupStaleAssessments(context.Background(), 2); err != nil {
+				log.Printf("Assessment cleanup error: %v", err)
+			}
+		}
+	}()
+
 	// Handlers
 	isProduction := cfg.AppEnv == "production"
 	authHandler := handler.NewAuthHandler(authService, isProduction)

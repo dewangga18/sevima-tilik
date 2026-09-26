@@ -285,3 +285,9 @@ func (s *DiagnosticService) GetSkills(ctx context.Context, gradeLevel int) ([]do
 func (s *DiagnosticService) GetHistory(ctx context.Context, studentID string) (*domain.AssessmentHistory, error) {
 	return s.assessmentRepo.GetHistoryByStudent(ctx, studentID)
 }
+
+// CleanupStaleAssessments marks abandoned in-progress assessments as timed out
+// This prevents students from being locked out when they abandon an assessment
+func (s *DiagnosticService) CleanupStaleAssessments(ctx context.Context, hoursOld int) (int64, error) {
+	return s.assessmentRepo.CleanupStaleAssessments(ctx, hoursOld)
+}

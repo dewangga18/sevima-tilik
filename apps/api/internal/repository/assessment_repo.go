@@ -283,3 +283,21 @@ func (r *AssessmentRepository) SaveEvaluation(ctx context.Context, assessmentID 
 
 	return tx.Commit()
 }
+
+// CleanupStaleAssessments marks in-progress assessments older than specified hours as abandoned
+func (r *AssessmentRepository) CleanupStaleAssessments(ctx context.Context, hoursOld int) (int64, error) {
+	result, err := r.db.ExecContext(ctx, `
+		UPDATE assessments 
+		SET status = $1, 
+		    completed_at = NOW(),
+		    stop_reason = $2
+		WHERE status = $3 
+		  AND started_at < NOW() - INTERVAL '1 hour' * $4
+	`, string(domain.AssessmentCompleted), "abandoned_timeout", string(domain.AssessmentInProgress), hoursOld)
+	
+	if err != nil {
+		return 0, fmt.Errorf("cleanup stale assessments: %w", err)
+	}
+	
+	return result.RowsAffected()
+}

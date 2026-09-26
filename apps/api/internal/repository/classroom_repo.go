@@ -17,6 +17,7 @@ func (db *DB) GetTeacherClasses(ctx context.Context, teacherID string) ([]domain
 		SELECT c.id, c.name, c.grade_level,
 			(SELECT COUNT(*) FROM enrollments e WHERE e.classroom_id = c.id),
 			(SELECT COUNT(*) FROM enrollments e JOIN assessments a ON a.student_id = e.student_id AND a.status = 'completed'
+					AND a.stop_reason <> 'abandoned_timeout'
 				WHERE e.classroom_id = c.id)
 		FROM teacher_assignments ta
 		JOIN classrooms c ON c.id = ta.classroom_id
@@ -48,7 +49,8 @@ func (db *DB) GetClassStudents(ctx context.Context, classroomID string) ([]domai
 	rows, err := db.QueryContext(ctx, `
 		WITH latest AS (
 			SELECT DISTINCT ON (student_id) id, student_id, status, completed_at
-			FROM assessments WHERE status = 'completed'
+			FROM assessments
+			WHERE status = 'completed' AND stop_reason <> 'abandoned_timeout'
 			ORDER BY student_id, completed_at DESC NULLS LAST
 		)
 		SELECT u.id, u.name,
@@ -107,7 +109,7 @@ func (db *DB) GetStudentInsight(ctx context.Context, studentID string) (*domain.
 	var completedAt sql.NullTime
 	err = db.QueryRowContext(ctx, `
 		SELECT id, completed_at, target_skill_id, learning_path FROM assessments
-		WHERE student_id = $1 AND status = 'completed'
+		WHERE student_id = $1 AND status = 'completed' AND stop_reason <> 'abandoned_timeout'
 		ORDER BY completed_at DESC NULLS LAST LIMIT 1`, studentID).Scan(&assessmentID, &completedAt, &targetSkill, &learningPath)
 	if errors.Is(err, sql.ErrNoRows) {
 		return insight, nil
