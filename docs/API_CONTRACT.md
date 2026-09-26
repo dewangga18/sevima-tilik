@@ -41,13 +41,13 @@ Semua endpoint terlindungi dapat mengembalikan `401` jika session tidak ditemuka
 | POST | `/api/auth/logout` | Token/cookie opsional | 200 |
 | GET | `/api/auth/me` | Session | 200 |
 | GET | `/api/skills` | Publik, seeded curriculum | 200 |
-| POST | `/api/diagnostic/start` | Session | 200 |
-| POST | `/api/diagnostic/submit` | Session + owner attempt | 200 |
-| GET | `/api/diagnostic/latest` | Session, hanya milik user | 200 |
-| GET | `/api/diagnostic/history` | Session, hanya milik user | 200 |
-| GET | `/api/diagnostic/{id}` | Session + owner attempt | 200 |
+| POST | `/api/diagnostic/start` | Session siswa | 200 |
+| POST | `/api/diagnostic/submit` | Session siswa + owner attempt | 200 |
+| GET | `/api/diagnostic/latest` | Session siswa, hanya milik user | 200 |
+| GET | `/api/diagnostic/history` | Session siswa, hanya milik user | 200 |
+| GET | `/api/diagnostic/{id}` | Session siswa + owner attempt | 200 |
 
-Saat ini diagnostic routes belum membatasi role ke student secara terpisah; ownership tetap wajib. Tidak ada endpoint untuk membaca assessment milik siswa lain atau teacher analytics pada fase ini.
+Semua route `/api/diagnostic/*` memerlukan session dengan role `student`. Session tidak valid menghasilkan `401`; role teacher/admin menghasilkan `403` dengan pesan `Fitur ini hanya tersedia untuk siswa`, sebelum request body atau resource diproses. Ownership tetap wajib: siswa tidak dapat membaca/submit attempt siswa lain (`403 Akses ditolak`). Pembatasan berlaku di seluruh environment. Retry setelah `401/403` tidak melakukan perubahan; login dengan akun yang berhak sebelum mencoba lagi. Tidak ada endpoint untuk membaca assessment milik siswa lain atau teacher analytics pada fase ini.
 
 ## GET /health
 

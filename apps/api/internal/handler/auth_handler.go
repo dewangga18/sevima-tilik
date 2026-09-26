@@ -148,6 +148,26 @@ func (h *AuthHandler) AuthMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+// StudentMiddleware authenticates first, then restricts diagnostic actions by role.
+func (h *AuthHandler) StudentMiddleware(next http.Handler) http.Handler {
+	return h.AuthMiddleware(requireStudent(next))
+}
+
+func requireStudent(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user, ok := r.Context().Value(UserContextKey).(*domain.User)
+		if !ok || user == nil {
+			WriteError(w, http.StatusUnauthorized, "Sesi tidak ditemukan atau telah kedaluwarsa")
+			return
+		}
+		if user.Role != domain.RoleStudent {
+			WriteError(w, http.StatusForbidden, "Fitur ini hanya tersedia untuk siswa")
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
 func extractToken(r *http.Request) string {
 	// 1. Check Authorization header
 	authHeader := r.Header.Get("Authorization")

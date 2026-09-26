@@ -142,8 +142,10 @@ Bukti: frontend build/lint lolos tanpa warning; browser student/guru/admin pada 
 
 ### Audit batas role sebelum melanjutkan core flow [P0]
 
-- [ ] Batasi route diagnostic siswa dengan role student di backend; teacher/admin saat ini juga dapat memanggil route tersebut untuk ID session sendiri. Update API contract sebelum implementasi.
-- [ ] Pertahankan ownership untuk latest/history/detail/submit; tambah regresi HTTP siswa A terhadap assessment siswa B dan role nonstudent terhadap route siswa.
+- [x] Seluruh route diagnostic siswa memakai student middleware setelah session validation; teacher/admin ditolak 403 sebelum body/resource diproses. Kontrak API diperbarui.
+- [x] Ownership latest/history/detail/submit tetap berlaku; regression guard meliputi lima route dan semua role, smoke HTTP lintas owner menghasilkan 403.
+
+Checkpoint role guard: **LOLOS**. Go race tests, vet/build lolos; HTTP teacher/admin start/submit/latest/history/detail menghasilkan 403, tanpa session 401, siswa latest/history 200, resource tidak ada 404, detail siswa lain 403.
 
 Audit fitur terbaru berada di `docs/FEATURE_AUDIT.md`; perubahan scope AI/admin di bawah tidak melewati checkpoint core learning Phase 2–4.
 
@@ -152,6 +154,8 @@ Audit fitur terbaru berada di `docs/FEATURE_AUDIT.md`; perubahan scope AI/admin 
 Goal: differentiator utama sudah tampak pada hasil siswa.
 
 Dependencies: Phase 1, rubric engine disetujui, graph dan bank soal lengkap untuk slice.
+
+Persiapan Phase 2 sudah dimulai di `docs/DIAGNOSTIC_RULES.md`: inventory aktual dan acceptance fixtures draft tersedia. Konfirmasi minimum evidence/threshold/max questions masih menunggu jawaban pengguna; engine belum diganti. Bank saat ini 3 soal total per skill, belum 3 per skill per level sesuai target konten.
 
 - [ ] Implementasikan service deterministic: pilih soal berdasarkan bukti, grade entry point, difficulty, backtracking, batas assessment, dan confidence.
 - [ ] Simpan target skill dan provenance jawaban prasyarat; bedakan visible gap, kandidat root gap, misconception candidate, dan belum cukup bukti.
