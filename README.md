@@ -2,9 +2,9 @@
 
 **Temukan pijakan belajar berikutnya.**
 
-Aplikasi diagnostic learning dan adaptive numeracy untuk siswa kelas 4 SD hingga kelas 9 SMP. Tilik membantu menemukan konsep dan prasyarat yang belum dipahami siswa, menentukan pembelajaran berikutnya, dan membantu guru memilih intervensi berdasarkan bukti belajar.
+Aplikasi diagnostic learning dan adaptive numeracy untuk siswa kelas 4 SD hingga kelas 9 SMP. Tilik menemukan konsep dan prasyarat yang belum dipahami siswa, menentukan pembelajaran berikutnya, dan membantu guru memilih intervensi berdasarkan bukti belajar.
 
-Tilik menelusuri jawaban siswa untuk membantu menjawab dua pertanyaan: **apa yang perlu dipelajari berikutnya?** dan **mengapa siswa kesulitan?**
+Tilik menelusuri jawaban siswa untuk menjawab dua pertanyaan: **apa yang perlu dipelajari berikutnya?** dan **mengapa siswa kesulitan?**
 
 Contohnya, siswa kesulitan membandingkan pecahan. Tilik memeriksa pemahaman pecahan senilai sebagai salah satu prasyarat. Jika jawaban menunjukkan kemungkinan gap di konsep tersebut, siswa diarahkan ke micro lesson dan latihan yang sesuai, kemudian dinilai kembali. Guru dapat melihat bukti kesulitan dan rekomendasi pembelajaran berikutnya.
 
@@ -14,7 +14,13 @@ Kontrak endpoint yang sudah tersedia: [docs/API_CONTRACT.md](docs/API_CONTRACT.m
 
 MVP pertama memprioritaskan kelas 4 dan pengalaman web. React Native + Expo menjadi perluasan setelah demo web selesai.
 
-Status: login/session, beranda siswa, riwayat/statistik, dan diagnostic progresif kelas 4 sudah berjalan melalui Go/PostgreSQL/Docker. Attempt baru memakai aturan demo progressive-demo-v1 dengan pemeriksaan prasyarat serta rekomendasi review; hasil legacy tetap tersedia. Guru/admin memiliki shell dashboard, tetapi data kelas/administrasi belum terhubung. Micro lesson, adaptive practice, reassessment, dan progress/path terbaru sudah tersedia untuk enam skill kelas 4. Aturan score masih demo awal; mastery jangka panjang belum tersedia.
+Status:
+
+- Berjalan: login/session, beranda siswa, riwayat/statistik, diagnostic progresif kelas 4 (Go/PostgreSQL/Docker).
+- Attempt baru memakai aturan demo `progressive-demo-v1` dengan pemeriksaan prasyarat dan rekomendasi review; hasil legacy tetap tersedia.
+- Micro lesson, adaptive practice, reassessment, dan progress/path tersedia untuk enam skill kelas 4.
+- Dashboard guru/admin masih shell tanpa data kelas.
+- Aturan score masih demo awal; mastery jangka panjang belum tersedia.
 
 ## Core Features
 
@@ -60,7 +66,7 @@ README.md
 
 ## Local Setup
 
-Docker adalah runtime lokal acuan. Siapkan Docker CLI, Docker Compose, dan runtime container. Jika menggunakan Colima pada macOS, jalankan terlebih dahulu:
+Prasyarat: Docker CLI dan Docker Compose. Jika memakai Colima pada macOS, jalankan terlebih dahulu:
 
 ```bash
 colima start
@@ -73,7 +79,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-Then open:
+Kemudian buka:
 
 ```text
 Frontend: http://localhost:5173
@@ -81,17 +87,17 @@ API:      http://localhost:8080
 Health:   http://localhost:8080/health
 ```
 
-Stop the stack with:
+Hentikan stack dengan:
 
 ```bash
 docker compose down
 ```
 
-Native Node/Go setup is optional and documented in `guides/DEPLOYMENT.md`.
+Setup native Node/Go bersifat opsional dan didokumentasikan di `guides/DEPLOYMENT.md`.
 
 ## Environment Variables
 
-Di development, tombol akun demo memakai `POST /api/auth/demo-login` dengan role yang diizinkan backend; frontend tidak menyimpan password demo. Endpoint dan seed akun demo hanya aktif pada `APP_ENV=development`. Production menolak akun/session demo yang tersisa dan tidak menampilkan tombol tersebut. Akun pengguna production perlu disediakan melalui proses pengelolaan akun yang sesuai.
+Di development, tombol akun demo memakai `POST /api/auth/demo-login` dengan role yang diizinkan backend; frontend tidak menyimpan password demo. Endpoint dan seed akun demo hanya aktif pada `APP_ENV=development`. Production menolak akun/session demo yang tersisa. Akun production dibuat lewat proses administratif, bukan demo-login.
 
 Frontend example:
 
@@ -108,13 +114,13 @@ DATABASE_URL=
 ALLOWED_ORIGIN=http://localhost:5173
 ```
 
-Never commit real secrets.
+Jangan commit secret asli.
 
 ## Runtime & Deployment
 
-The current priority is a reproducible Docker-based local environment. Cloud hosting is selected only after the MVP is stable.
+Prioritas saat ini adalah lingkungan lokal berbasis Docker yang reproducible. Cloud hosting baru dipilih setelah MVP stabil.
 
-Container setup and future deployment rules: `guides/DEPLOYMENT.md`.
+Container setup dan aturan deployment lanjutan: `guides/DEPLOYMENT.md`.
 
 ## Project Guides
 
@@ -129,6 +135,3 @@ Container setup and future deployment rules: `guides/DEPLOYMENT.md`.
 | `guides/DEPLOYMENT.md` | Docker-first local runtime, env, CI/CD, deployment portability |
 | `guides/GIT_CONVENTION.md` | commit format |
 
-## Referensi desain
-
-Arah UI Tilik mengambil inspirasi dari sapaan personal, statistik ringkas, serta aksen hijau gelap dan lime pada [referensi Gamified Learning App](docs/assets/gamified-learning-reference.png). Gambar ini adalah referensi eksternal yang diberikan pengguna, bukan screenshot Tilik. Panduan penerapannya berada di [Design Direction](guides/DESIGN_DIRECTION.md); elemen spin dan coins tidak termasuk scope MVP.

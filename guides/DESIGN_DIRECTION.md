@@ -4,7 +4,7 @@ Tilik serves grades 4–9, prioritizing grade 4. Student screens should feel wel
 
 ## Reference and palette
 
-The supplied [Gamified Learning App screenshot](../docs/assets/gamified-learning-reference.png) informs personal greetings, compact statistics, dark green surfaces, and a lime primary action. It is inspiration rather than a clone. Spin wheels, coins, and invented engagement statistics are outside the current scope. The Figma page could not be inspected directly.
+Personal greetings, compact statistics, dark green surfaces, and a lime primary action inform the visual direction. Spin wheels, coins, and invented engagement statistics are outside the current scope.
 
 Use forest green `#284d3a`, lime `#d8ef62`, a light canvas `#f6f7f3`, white surfaces, text `#17261e`, and muted text `#58645b`. The invitation panel is the main dark surface; learning questions retain a light canvas for mathematical readability. Tokens live in `apps/web/src/App.css`.
 

@@ -1,32 +1,42 @@
-# React + TypeScript + Vite
+# Tilik Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Frontend web Tilik: React 19 + TypeScript + Vite. Berisi alur siswa (login, beranda, diagnostic progresif kelas 4, micro lesson, adaptive practice, reassessment, progress) dan shell dashboard guru/admin.
 
-Currently, two official plugins are available:
+Konsumsi API Go via `src/services/api.ts`. Kontrak endpoint: [docs/API_CONTRACT.md](../../docs/API_CONTRACT.md).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Menjalankan
 
-## React Compiler
+Cara utama adalah Docker Compose dari root repository (lihat [README root](../../README.md)).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Jalankan native (opsional):
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+cp .env.example .env
+npm install
+npm run dev        # http://localhost:5173
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Skrip
+
+| Perintah | Fungsi |
+|---|---|
+| `npm run dev` | dev server Vite |
+| `npm run build` | typecheck (`tsc -b`) + build produksi |
+| `npm run lint` | oxlint |
+| `npm run preview` | preview hasil build |
+
+## Environment
+
+| Variabel | Contoh | Keterangan |
+|---|---|---|
+| `VITE_API_URL` | `http://localhost:8080` | Base URL API backend |
+
+## Struktur
+
+```text
+src/
+  components/   # layar dan komponen UI
+  services/     # klien API
+  types/        # tipe bersama
+  App.css       # design tokens (warna, spacing)
+```
