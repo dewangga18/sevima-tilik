@@ -111,6 +111,9 @@ func (s *DiagnosticService) SubmitDiagnostic(ctx context.Context, studentID, ass
 	if assessment.StudentID != studentID {
 		return nil, ErrForbidden
 	}
+	if assessment.RuleVersion == ProgressiveRuleVersion {
+		return nil, ErrInvalidDiagnosticAnswer
+	}
 	if assessment.Status != domain.AssessmentInProgress {
 		return nil, ErrAssessmentCompleted
 	}
@@ -247,6 +250,10 @@ func prepareAssessmentForClient(assessment *domain.Assessment) {
 	if assessment == nil {
 		return
 	}
+	if assessment.Status != domain.AssessmentCompleted && assessment.RuleVersion == ProgressiveRuleVersion {
+		assessment.Results = nil
+		assessment.LearningPath = nil
+	}
 	for i := range assessment.Items {
 		question := assessment.Items[i].Question
 		if question == nil {
@@ -254,6 +261,10 @@ func prepareAssessmentForClient(assessment *domain.Assessment) {
 		}
 		question.AnswerKey = ""
 		if assessment.Status != domain.AssessmentCompleted {
+			if assessment.RuleVersion == ProgressiveRuleVersion {
+				item := &assessment.Items[i]
+				item.IsCorrect = nil
+			}
 			question.Explanation = ""
 			question.Misconception = ""
 		}

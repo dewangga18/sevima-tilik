@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { Assessment, AssessmentHistory, User } from '../types'
 import { api } from '../services/api'
 import { StudentHome } from './StudentHome'
+import { ProgressiveQuiz } from './ProgressiveQuiz'
 import { DiagnosticQuiz } from './DiagnosticQuiz'
 import { DiagnosticResult } from './DiagnosticResult'
 
@@ -111,6 +112,23 @@ export function StudentDashboard({ user, navigation }: { user: User; navigation:
     }
   }
 
+  async function answerDiagnostic(questionId: string, answer: string) {
+    if (!current || submitting) return
+    setSubmitting(true)
+    setActionError('')
+    try {
+      const updated = await api.answerDiagnostic(current.id, questionId, answer)
+      setCurrent(updated)
+      setLatest(updated)
+      if (updated.status === 'completed') {
+        setScreen(previous => previous === 'home' ? 'home' : 'result')
+        await refreshDashboard()
+      }
+    } catch {
+      setActionError('Jawaban belum bisa disimpan. Coba kirim lagi dengan pilihan yang sama. Jika sudah tersimpan, buka kembali aktivitas dari beranda.')
+    } finally { setSubmitting(false) }
+  }
+
   function goHome() {
     setScreen('home')
     setActionError('')
@@ -128,7 +146,9 @@ export function StudentDashboard({ user, navigation }: { user: User; navigation:
       {busy && <p role="status">Menyiapkan aktivitas...</p>}
     </div>}
     {current?.status === 'in_progress' && <div hidden={screen !== 'quiz'}>
-      <DiagnosticQuiz key={current.id} assessment={current} onSubmit={submitDiagnostic} submitting={submitting} />
+      {current.rule_version === 'progressive-demo-v1'
+        ? <ProgressiveQuiz key={current.items?.find(item => !item.answered_at)?.question_id || current.id} assessment={current} onAnswer={answerDiagnostic} submitting={submitting} />
+        : <DiagnosticQuiz key={current.id} assessment={current} onSubmit={submitDiagnostic} submitting={submitting} />}
     </div>}
     {screen === 'result' && current?.status === 'completed' && <DiagnosticResult assessment={current} onRetake={startDiagnostic} retaking={busy} />}
   </div>

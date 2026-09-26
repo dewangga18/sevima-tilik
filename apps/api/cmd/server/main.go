@@ -67,6 +67,7 @@ func main() {
 	mux.HandleFunc("GET /api/skills", diagHandler.GetSkills)
 
 	// Diagnostic routes (protected)
+	mux.Handle("POST /api/diagnostic/answer", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Answer)))
 	mux.Handle("POST /api/diagnostic/start", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Start)))
 	mux.Handle("POST /api/diagnostic/submit", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Submit)))
 	mux.Handle("GET /api/diagnostic/latest", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetLatest)))

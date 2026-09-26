@@ -14,7 +14,7 @@ Kontrak endpoint yang sudah tersedia: [docs/API_CONTRACT.md](docs/API_CONTRACT.m
 
 MVP pertama memprioritaskan kelas 4 dan pengalaman web. React Native + Expo menjadi perluasan setelah demo web selesai.
 
-Status: scaffold frontend, backend, dan konfigurasi Docker sudah tersedia. Fitur pembelajaran masih mengikuti implementation plan; scaffold belum berarti checkpoint Docker atau fitur produk sudah lolos verifikasi.
+Status: login/session, beranda siswa, riwayat/statistik, dan diagnostic progresif kelas 4 sudah berjalan melalui Go/PostgreSQL/Docker. Attempt baru memakai aturan demo progressive-demo-v1 dengan pemeriksaan prasyarat serta rekomendasi review; hasil legacy tetap tersedia. Guru/admin memiliki shell dashboard, tetapi data kelas/administrasi belum terhubung. Micro lesson, practice, reassessment, dan mastery jangka panjang belum tersedia.
 
 ## Core Features
 
@@ -39,7 +39,7 @@ Evaluasi jawaban dan mastery menggunakan aturan deterministic. AI dapat membantu
 | Backend | Go |
 | Mobile (optional after web MVP) | React Native + Expo |
 | Database | PostgreSQL |
-| Auth | Belum ditetapkan |
+| Auth | Session backend PostgreSQL, bcrypt; demo-login development saja |
 | Local Runtime | Docker Compose |
 | Deployment | Container-ready, provider TBD |
 

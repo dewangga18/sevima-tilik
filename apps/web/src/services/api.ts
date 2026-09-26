@@ -93,6 +93,13 @@ export const api = {
     })
   },
 
+  answerDiagnostic: async (assessmentId: string, questionId: string, answer: string): Promise<Assessment> => {
+    return request<Assessment>('/api/diagnostic/answer', {
+      method: 'POST',
+      body: JSON.stringify({ assessment_id: assessmentId, question_id: questionId, student_answer: answer }),
+    })
+  },
+
   submitDiagnostic: async (
     assessmentId: string,
     answers: { question_id: string; student_answer: string }[]

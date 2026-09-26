@@ -34,3 +34,7 @@ Desktop/mobile dalam satu inspection batch, lalu maksimal satu batch koreksi. Ce
 - Accessibility: Tab reaches named navigation controls, activity heading receives focus, options expose pressed state, targets are 44px minimum, reduced-motion reset is present. Essential palette contrast 6.19–14.65:1.
 - Recovery: controlled network failures display unavailable data and retry; retry restores the profile. Empty, active, and completed states checked.
 - Validation: frontend build/lint, Go race tests with real isolated PostgreSQL, and Go vet pass.
+
+## Progressive diagnostic Phase 2
+
+ProgressiveQuiz mempertahankan satu tindakan Kirim jawaban, menampilkan jumlah jawaban tersimpan dan cap tanpa total soal palsu, serta mempertahankan pilihan saat network error. Setelah commit, soal berikutnya mendapat fokus. Hasil menampilkan status evidence demo, kandidat prasyarat, dan path topologis dengan penjelasan; tidak menyatakan mastery tervalidasi atau membuat tombol lesson palsu. Browser menguji strong 3 soal dan gap 18 soal, retry, history reopen, serta overflow 320/768/1280px.

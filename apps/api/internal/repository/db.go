@@ -135,6 +135,14 @@ func (db *DB) Migrate(ctx context.Context) error {
 		is_root_gap BOOLEAN NOT NULL DEFAULT FALSE,
 		updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 	);
+ ALTER TABLE assessments ADD COLUMN IF NOT EXISTS rule_version TEXT NOT NULL DEFAULT 'legacy-v1';
+ ALTER TABLE assessments ADD COLUMN IF NOT EXISTS target_skill_id TEXT NOT NULL DEFAULT '';
+ ALTER TABLE assessments ADD COLUMN IF NOT EXISTS revision INT NOT NULL DEFAULT 0;
+ ALTER TABLE assessments ADD COLUMN IF NOT EXISTS stop_reason TEXT NOT NULL DEFAULT '';
+ ALTER TABLE assessments ADD COLUMN IF NOT EXISTS learning_path JSONB NOT NULL DEFAULT '[]';
+ ALTER TABLE assessment_items ADD COLUMN IF NOT EXISTS probe_for_skill_id TEXT NOT NULL DEFAULT '';
+ ALTER TABLE skill_evidence ADD COLUMN IF NOT EXISTS related_target_skill_id TEXT NOT NULL DEFAULT '';
+
 	`
 	_, err := db.ExecContext(ctx, schema)
 	return err

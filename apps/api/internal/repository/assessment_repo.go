@@ -50,8 +50,13 @@ func (r *AssessmentRepository) CreateAssessment(ctx context.Context, a *domain.A
 }
 
 func (r *AssessmentRepository) GetAssessmentByID(ctx context.Context, id string) (*domain.Assessment, error) {
-	row := r.db.QueryRowContext(ctx, `
-		SELECT id, student_id, grade_level, status, started_at, completed_at
+	tx, err := r.db.BeginTx(ctx, &sql.TxOptions{Isolation: sql.LevelRepeatableRead, ReadOnly: true})
+	if err != nil {
+		return nil, err
+	}
+	defer tx.Rollback()
+	row := tx.QueryRowContext(ctx, `
+		SELECT id, student_id, grade_level, status, started_at, completed_at, rule_version, target_skill_id, revision, stop_reason, learning_path
 		FROM assessments
 		WHERE id = $1
 	`, id)
@@ -59,11 +64,18 @@ func (r *AssessmentRepository) GetAssessmentByID(ctx context.Context, id string)
 	var a domain.Assessment
 	var statusStr string
 	var completedAt sql.NullTime
-	if err := row.Scan(&a.ID, &a.StudentID, &a.GradeLevel, &statusStr, &a.StartedAt, &completedAt); err != nil {
+	var pathJSON []byte
+	if err := row.Scan(&a.ID, &a.StudentID, &a.GradeLevel, &statusStr, &a.StartedAt, &completedAt, &a.RuleVersion, &a.TargetSkillID, &a.Revision, &a.StopReason, &pathJSON); err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
 		}
 		return nil, fmt.Errorf("scan assessment: %w", err)
+	}
+	if err := json.Unmarshal(pathJSON, &a.LearningPath); err != nil {
+		return nil, fmt.Errorf("decode learning path: %w", err)
+	}
+	if a.RuleVersion == "progressive-demo-v1" {
+		a.MaxQuestions = 18
 	}
 	a.Status = domain.AssessmentStatus(statusStr)
 	if completedAt.Valid {
@@ -71,9 +83,9 @@ func (r *AssessmentRepository) GetAssessmentByID(ctx context.Context, id string)
 	}
 
 	// Fetch items
-	rows, err := r.db.QueryContext(ctx, `
+	rows, err := tx.QueryContext(ctx, `
 		SELECT ai.id, ai.assessment_id, ai.question_id, ai.order_index, ai.student_answer, ai.is_correct, ai.answered_at,
-		       q.skill_id, q.difficulty, q.prompt, q.options, q.explanation
+		       q.skill_id, q.difficulty, q.prompt, q.options, q.explanation, ai.probe_for_skill_id
 		FROM assessment_items ai
 		JOIN questions q ON q.id = ai.question_id
 		WHERE ai.assessment_id = $1
@@ -95,14 +107,16 @@ func (r *AssessmentRepository) GetAssessmentByID(ctx context.Context, id string)
 		err := rows.Scan(
 			&item.ID, &item.AssessmentID, &item.QuestionID, &item.OrderIndex,
 			&studentAns, &isCorrect, &answeredAt,
-			&q.SkillID, &q.Difficulty, &q.Prompt, &optsJSON, &q.Explanation,
+			&q.SkillID, &q.Difficulty, &q.Prompt, &optsJSON, &q.Explanation, &item.ProbeForSkillID,
 		)
 		if err != nil {
 			return nil, err
 		}
 
 		q.ID = item.QuestionID
-		_ = json.Unmarshal(optsJSON, &q.Options)
+		if err := json.Unmarshal(optsJSON, &q.Options); err != nil {
+			return nil, fmt.Errorf("decode question options: %w", err)
+		}
 		item.Question = &q
 
 		if studentAns.Valid {
@@ -117,9 +131,12 @@ func (r *AssessmentRepository) GetAssessmentByID(ctx context.Context, id string)
 		a.Items = append(a.Items, item)
 	}
 
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("read assessment items: %w", err)
+	}
 	// Fetch results/evidence
-	eRows, err := r.db.QueryContext(ctx, `
-		SELECT se.skill_id, s.name, se.status, se.total_answered, se.total_correct, se.evidence_count, se.confidence, se.is_root_gap
+	eRows, err := tx.QueryContext(ctx, `
+		SELECT se.skill_id, s.name, se.status, se.total_answered, se.total_correct, se.evidence_count, se.confidence, se.is_root_gap, se.related_target_skill_id
 		FROM skill_evidence se
 		JOIN skills s ON s.id = se.skill_id
 		WHERE se.assessment_id = $1
@@ -133,7 +150,7 @@ func (r *AssessmentRepository) GetAssessmentByID(ctx context.Context, id string)
 	for eRows.Next() {
 		var res domain.SkillResult
 		var statusStr string
-		err := eRows.Scan(&res.SkillID, &res.SkillName, &statusStr, &res.TotalAnswered, &res.TotalCorrect, &res.EvidenceCount, &res.Confidence, &res.IsRootGap)
+		err := eRows.Scan(&res.SkillID, &res.SkillName, &statusStr, &res.TotalAnswered, &res.TotalCorrect, &res.EvidenceCount, &res.Confidence, &res.IsRootGap, &res.RelatedTargetSkillID)
 		if err != nil {
 			return nil, err
 		}
@@ -141,6 +158,12 @@ func (r *AssessmentRepository) GetAssessmentByID(ctx context.Context, id string)
 		a.Results = append(a.Results, res)
 	}
 
+	if err := eRows.Err(); err != nil {
+		return nil, fmt.Errorf("read skill evidence: %w", err)
+	}
+	if err := tx.Commit(); err != nil {
+		return nil, err
+	}
 	return &a, nil
 }
 
@@ -168,7 +191,7 @@ func (r *AssessmentRepository) GetHistoryByStudent(ctx context.Context, studentI
 		SELECT a.id, a.grade_level, a.status, a.started_at, a.completed_at,
 		       (SELECT COUNT(*) FROM assessment_items WHERE assessment_id = a.id),
 		       (SELECT COUNT(*) FROM assessment_items WHERE assessment_id = a.id AND student_answer <> ''),
-		       (SELECT COUNT(*) FROM assessment_items WHERE assessment_id = a.id AND is_correct = TRUE),
+		       CASE WHEN a.status = 'completed' THEN (SELECT COUNT(*) FROM assessment_items WHERE assessment_id = a.id AND is_correct = TRUE) END,
 		       (SELECT COUNT(*) FROM skill_evidence WHERE assessment_id = a.id AND evidence_count > 0),
 		       COUNT(*) FILTER (WHERE a.status = $2) OVER ()
 		FROM assessments a

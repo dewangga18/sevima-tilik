@@ -114,3 +114,27 @@ func (r *CurriculumRepository) GetQuestionByID(ctx context.Context, id string) (
 	}
 	return &q, nil
 }
+
+func (r *CurriculumRepository) GetQuestionBank(ctx context.Context) ([]domain.Question, error) {
+	rows, err := r.db.QueryContext(ctx, `SELECT id,skill_id,difficulty,prompt,options,answer_key,explanation,misconception FROM questions ORDER BY skill_id,difficulty,id`)
+	if err != nil {
+		return nil, fmt.Errorf("query question bank: %w", err)
+	}
+	defer rows.Close()
+	questions := make([]domain.Question, 0)
+	for rows.Next() {
+		var q domain.Question
+		var options []byte
+		if err := rows.Scan(&q.ID, &q.SkillID, &q.Difficulty, &q.Prompt, &options, &q.AnswerKey, &q.Explanation, &q.Misconception); err != nil {
+			return nil, err
+		}
+		if err := json.Unmarshal(options, &q.Options); err != nil {
+			return nil, err
+		}
+		questions = append(questions, q)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return questions, nil
+}

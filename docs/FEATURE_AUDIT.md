@@ -4,13 +4,17 @@ Tanggal: 26 September 2026. Scope berdasarkan arahan pengguna terbaru; pemeriksa
 
 | Role / fitur | Status saat ini | Target |
 |---|---|---|
-| Siswa: data sendiri, latest/history/statistik | Tersedia: query menggunakan ID session; detail/submit memeriksa owner | Isolasi dan role student enforced; teacher/admin 403 |
+| Siswa: data sendiri, latest/history/statistik | Tersedia: query menggunakan ID session; detail/submit/answer memeriksa owner | Isolasi dan role student enforced; teacher/admin 403 |
 | Guru: kelas assigned, lebih dari satu | Belum tersedia: tidak ada tabel classroom/enrollment/teacher assignment | Otorisasi setiap resource dan query berdasarkan assignment |
 | Guru: data siswa/dashboard | Shell dashboard dengan kurikulum aktual; data kelas/completion belum tersedia | Data aktual API, completion dan insight dari evidence |
 | Guru/admin: generate soal | Belum tersedia | Draft -> validasi -> review -> publish |
 | Guru: asisten analisis seorang siswa | Belum tersedia | Ambil evidence authorized -> analisis/rekomendasi; provider pending |
 | Ranking completion | Belum tersedia; opsional | Tentukan eligibility/window; bukan ranking nilai/mastery |
 | Admin: akun/role/kelas/penempatan | Shell admin terpisah tersedia; CRUD belum tersedia | Alur admin terpisah dan permission backend |
+
+## Diagnostic Phase 2
+
+Attempt baru menggunakan progressive-demo-v1: satu soal pending, evidence per jawaban, pemeriksaan prerequisite, kandidat gap dan path review. Legacy results tetap bisa dibuka/diselesaikan. Is_correct dan correct_count tidak tersedia saat pengerjaan aktif. Lesson/practice/reassessment belum tersedia; path adalah rekomendasi, bukan aktivitas belajar yang sudah berfungsi.
 
 ## Temuan yang perlu ditangani
 

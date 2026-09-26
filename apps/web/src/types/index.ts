@@ -29,6 +29,7 @@ export interface Question {
 }
 
 export interface AssessmentItem {
+  probe_for_skill_id?: string
   id: string
   assessment_id: string
   question_id: string
@@ -39,9 +40,10 @@ export interface AssessmentItem {
   answered_at?: string
 }
 
-export type SkillStatus = 'unassessed' | 'needs_practice' | 'mastered'
+export type SkillStatus = 'unassessed' | 'needs_practice' | 'mastered' | 'strong_evidence' | 'inconclusive'
 
 export interface SkillResult {
+  related_target_skill_id?: string
   skill_id: string
   skill_name: string
   status: SkillStatus
@@ -55,6 +57,12 @@ export interface SkillResult {
 export type AssessmentStatus = 'in_progress' | 'completed'
 
 export interface Assessment {
+  rule_version?: string
+  target_skill_id?: string
+  revision?: number
+  max_questions?: number
+  stop_reason?: 'evidence_complete' | 'insufficient_evidence' | 'question_limit'
+  learning_path?: { skill_id: string; skill_name: string; reason: string }[]
   id: string
   student_id: string
   grade_level: number
@@ -73,7 +81,7 @@ export interface AssessmentSummary {
   completed_at?: string
   question_count: number
   answered_count: number
-  correct_count: number
+  correct_count?: number
   assessed_skill_count: number
 }
 

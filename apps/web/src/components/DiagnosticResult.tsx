@@ -12,18 +12,19 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
   onRetake,
   retaking = false,
 }) => {
+  const progressive = assessment.rule_version === 'progressive-demo-v1'
   const items = assessment.items || []
   const results = assessment.results || []
 
   const totalCorrect = items.filter((it) => it.is_correct === true).length
   const totalItems = items.length
 
-  const masteredCount = results.filter((r) => r.status === 'mastered').length
+  const masteredCount = results.filter((r) => r.status === 'mastered' || r.status === 'strong_evidence').length
   const needsPracticeCount = results.filter((r) => r.status === 'needs_practice').length
   const unassessedCount = results.filter((r) => r.status === 'unassessed').length
 
   return (
-    <div className="results-container">
+    <div className={`results-container ${progressive ? 'progressive-results' : ''}`}>
       <p className="assessment-success" role="status">Jawaban tersimpan. Hasil cek pemahaman siap dilihat.</p>
       {/* Top Banner */}
       <div className="results-summary-card">
@@ -46,7 +47,7 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
           </div>
           <div className="stat-card stat-success">
             <span className="stat-num">{masteredCount}</span>
-            <span className="stat-label">Konsep Dikuasai</span>
+            <span className="stat-label">{progressive ? 'Bukti kuat' : 'Konsep dikuasai'}</span>
           </div>
           <div className="stat-card stat-warning">
             <span className="stat-num">{needsPracticeCount}</span>
@@ -59,17 +60,29 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
         </div>
       </div>
 
+      {progressive && <section className="diagnostic-insight" aria-labelledby="diagnostic-insight-title">
+        <h3 id="diagnostic-insight-title">Pijakan belajar berikutnya</h3>
+        <p>Materi yang diperiksa: <strong>{results.find(result => result.skill_id === assessment.target_skill_id)?.skill_name}</strong>.</p>
+        <p>{assessment.stop_reason === 'question_limit' ? 'Batas soal tercapai. Sebagian konsep mungkin masih memerlukan bukti tambahan.' : assessment.stop_reason === 'insufficient_evidence' ? 'Bukti belum cukup untuk menyimpulkan semua konsep yang diperiksa.' : 'Pemeriksaan pada jalur ini selesai berdasarkan jawabanmu.'}</p>
+        <div className="root-gap-insight"><h4>Kandidat gap prasyarat</h4>{results.some(result => result.is_root_gap)
+          ? <ul>{results.filter(result => result.is_root_gap).map(result => <li key={result.skill_id}><strong>{result.skill_name}</strong> · {result.total_correct}/{result.total_answered} jawaban benar. Prasyarat diperiksa langsung; ini kandidat untuk ditinjau.</li>)}</ul>
+          : <p>Belum ada kandidat gap prasyarat yang didukung bukti cukup. Kesulitan pada materi utama tidak otomatis berarti fondasinya lemah.</p>}</div>
+        <h4>Urutan review yang disarankan</h4>
+        {assessment.learning_path?.length ? <ol className="diagnostic-learning-path">{assessment.learning_path.map(item => <li key={item.skill_id}><strong>{item.skill_name}</strong><p>{item.reason}</p></li>)}</ol> : <p>Tidak ada review tambahan yang teridentifikasi dari jalur ini. Konsep yang belum diuji tetap belum dinilai.</p>}
+        <p className="invitation-note">Materi dan latihan untuk rekomendasi ini belum tersedia di versi ini.</p>
+      </section>}
+
       {/* Per-Skill Evidence Section */}
       <div className="skills-section">
         <h3>Peta Penguasaan Konsep & Bukti (Per-Skill)</h3>
         <p className="section-desc">
-          Evaluasi objektif per konsep materi berdasarkan bukti jawaban siswa:
+          {progressive ? 'Klasifikasi dari aturan demo awal. Ini belum ukuran mastery akademis yang tervalidasi.' : 'Hasil dari aturan diagnostic awal berdasarkan jawaban siswa.'}
         </p>
 
         {results.length === 0 && <p>Belum ada bukti konsep yang tersedia pada hasil ini.</p>}
         <div className="skills-grid">
           {results.map((res) => {
-            const isMastered = res.status === 'mastered'
+            const isMastered = res.status === 'mastered' || res.status === 'strong_evidence'
             const isNeedsPractice = res.status === 'needs_practice'
 
             return (
@@ -83,10 +96,10 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
                   <h4 className="skill-title">{res.skill_name}</h4>
                   <span className={`status-badge status-${res.status}`}>
                     {isMastered
-                      ? '✓ Dikuasai'
+                      ? progressive ? 'Bukti kuat' : 'Dikuasai'
                       : isNeedsPractice
-                      ? '⚠️ Perlu Latihan'
-                      : '— Belum Dinilai'}
+                      ? 'Perlu penguatan'
+                      : res.status === 'inconclusive' ? 'Belum pasti' : 'Belum dinilai'}
                   </span>
                 </div>
 

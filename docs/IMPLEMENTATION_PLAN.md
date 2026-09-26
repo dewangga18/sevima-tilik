@@ -28,7 +28,7 @@ Gabungan tidak menghapus prioritas P0 -> P1 -> P2 -> P3 atau keputusan yang masi
 | Database dan driver | PostgreSQL dikonfirmasi pengguna; implementasi memakai pgx yang sudah tersedia | Tidak |
 | Auth | Tentukan provider atau implementasi session minimum dan hashing teruji; akun demo siswa/guru, bukan guest sebagai pengganti auth | Phase 1 |
 | Slice kelas 4 | Usulan jalur pecahan di bawah, menunggu review | Phase 1 content |
-| Bank soal dan rubric | Belum tersedia; susun seed kecil lalu review kunci, level, prasyarat, distractor | Phase 1 diagnostic |
+| Bank soal dan rubric | Seed 18 soal tersedia; progressive-demo-v1 memakai tiga jawaban per skill dan cap 18. Ini aturan demo, bukan rubric pendidikan tervalidasi | Variasi konten Phase 3 |
 | Desain | Konteks sudah jelas; isi direction dan tokens sebelum UI | Phase 1 UI |
 | AI | Opsional; provider, biaya, dan kebutuhan agent belum dikonfirmasi | Integrasi AI saja |
 | Docker lokal | Cek terakhir: Colima belum berjalan, plugin `docker compose` belum dikenali | Checkpoint Docker |
@@ -55,7 +55,7 @@ Setiap soal punya skill ID, topic/domain, difficulty, grade range, tipe, opsi, k
 
 - Versikan aturan pemilihan soal, evidence, mastery, difficulty, dan stopping condition.
 - Pisahkan status belum dinilai dari skor rendah. Confidence dan jumlah bukti terlihat pada hasil guru.
-- Tentukan minimum bukti untuk suspected gap/mastered, ambang status, window jawaban terbaru, dan batas panjang assessment. Angka belum disetujui; jangan menebaknya saat coding.
+- Versi progressive-demo-v1 menggunakan minimum tiga jawaban dan cap 18 dengan label evidence, bukan Mastered. Window mastery/reassessment Phase 3 tetap harus ditentukan sebelum implementasi; jangan menyamakan evidence diagnostic dengan mastery tervalidasi.
 - Satu kesalahan tidak cukup untuk menyatakan root gap. Root gap hanya kandidat setelah soal prasyarat memberi bukti; beberapa kandidat dan hasil inconclusive harus didukung.
 - Backtracking memakai visited set, batas langkah, urutan tie-break stabil, serta deteksi cycle pada seed.
 - Jawaban salah berulang menurunkan level/memeriksa prasyarat; jawaban benar konsisten menaikkan level dalam rentang konten yang tersedia.
@@ -168,19 +168,24 @@ Goal: differentiator utama sudah tampak pada hasil siswa.
 
 Dependencies: Phase 1, rubric engine disetujui, graph dan bank soal lengkap untuk slice.
 
-Persiapan Phase 2 sudah dimulai di `docs/DIAGNOSTIC_RULES.md`: inventory aktual dan acceptance fixtures draft tersedia. Konfirmasi minimum evidence/threshold/max questions masih menunggu jawaban pengguna; engine belum diganti. Bank saat ini 3 soal total per skill, belum 3 per skill per level sesuai target konten.
+Phase 2 memakai `progressive-demo-v1` dari usulan aturan demo yang disampaikan sebelum instruksi melanjutkan: tiga jawaban per skill, strong 3/3, weak 0–1/3, mixed 2/3, maksimal 18 soal. Inventory dan aturan berada di `docs/DIAGNOSTIC_RULES.md`. Bank 3 soal total per skill cukup untuk diagnostic demo dengan fallback level tersedia; target 3 soal per level dan bank reassessment terpisah tetap pekerjaan konten Phase 3, tidak diklaim selesai.
 
 - [x] Validasi graph prasyarat sebelum diagnostic baru: missing references, duplicate skill/edge, self-cycle/cycle ditolak; topological tie-break stabil. Query errors diteruskan, bukan disembunyikan; bank soal kosong tidak membuat attempt kosong.
 - [x] Uji structural fixtures DAG bercabang, urutan input berbeda, cycle/missing/duplicate, serta PostgreSQL failed-start tanpa assessment tersimpan.
-- [ ] Implementasikan service deterministic: pilih soal berdasarkan bukti, grade entry point, difficulty, backtracking, batas assessment, dan confidence.
-- [ ] Simpan target skill dan provenance jawaban prasyarat; bedakan visible gap, kandidat root gap, misconception candidate, dan belum cukup bukti.
-- [ ] Bentuk learning path dari prerequisite yang belum dikuasai dengan urutan topologis; jangan mengunci path karena skill belum pernah diukur seolah gagal.
-- [ ] UI hasil menampilkan alasan rekomendasi dan tombol belajar skill berikutnya; API tidak mengirim kunci soal aktif.
-- [ ] Uji fixture kuat/gap/campuran, graph bercabang/cycle, stop condition, dan exhaustion di dekat service Go.
+- [x] Implementasikan service deterministic: pilih soal berdasarkan bukti, grade entry point, difficulty, backtracking, batas assessment, dan confidence.
+- [x] Simpan target skill dan provenance jawaban prasyarat; bedakan visible gap, kandidat root gap, misconception candidate, dan belum cukup bukti.
+- [x] Bentuk learning path dari prerequisite yang belum dikuasai dengan urutan topologis; jangan mengunci path karena skill belum pernah diukur seolah gagal.
+- [x] UI hasil menampilkan alasan rekomendasi, kandidat root gap/provenance, dan urutan review; API tidak mengirim kunci/penjelasan/correctness aktif.
+- [ ] Tombol belajar mengarah ke lesson nyata setelah slice lesson Phase 3 tersedia; saat ini UI menyatakan materi/latihan belum tersedia, tidak membuat aksi palsu.
+- [x] Uji fixture kuat/gap/campuran, graph bercabang/cycle, stop condition, dan exhaustion di dekat service Go.
 
-Demo checkpoint: siswa gagal perbandingan pecahan -> sistem memeriksa pecahan senilai -> evidence menunjukkan kandidat gap -> path mendahulukan lesson pecahan senilai. Siswa kuat mendapat soal lebih menantang yang tersedia; jawaban campuran tidak menghasilkan diagnosis pasti. Replay fixture menghasilkan hasil sama.
+Demo checkpoint diagnostic -> kandidat gap -> rekomendasi path: **LOLOS**. Lesson/practice belum termasuk checkpoint ini.
+
+Skenario: siswa gagal perbandingan pecahan -> sistem memeriksa pecahan senilai -> evidence menunjukkan kandidat gap -> path mendahulukan lesson pecahan senilai. Siswa kuat mendapat soal lebih menantang yang tersedia; jawaban campuran tidak menghasilkan diagnosis pasti. Replay fixture menghasilkan hasil sama.
 
 Fallback: semua penjelasan memakai template reviewed; AI tidak diperlukan. Jika evidence kurang, hasil inconclusive dengan langkah review berikutnya, bukan root gap buatan.
+
+Bukti: Go race tests dengan PostgreSQL terisolasi memverifikasi strong/mixed/prerequisite gap/exhaustion, cap 18, provenance/path topologis, retry completion, concurrent start/answer (termasuk jawaban berbeda), rollback storage, ownership dan legacy compatibility. Browser memverifikasi target kuat berhenti setelah 3 soal, jalur target/pecahan senilai lemah -> kandidat Perkalian Dasar pada 18 soal, hasil/path tersimpan dapat dibuka dari history. Network failure mempertahankan pilihan dan retry; hasil tidak overflow pada 320/768/1280px. Build/lint frontend dan Go vet/build lolos.
 
 ## Phase 3: Lesson -> adaptive practice -> reassessment [P0]
 

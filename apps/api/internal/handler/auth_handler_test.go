@@ -35,7 +35,7 @@ func TestDemoLoginDisabledAndInvalidRole(t *testing.T) {
 
 func TestStudentRouteRoles(t *testing.T) {
 	routes := []struct{ method, path string }{
-		{"POST", "/api/diagnostic/start"}, {"POST", "/api/diagnostic/submit"},
+		{"POST", "/api/diagnostic/start"}, {"POST", "/api/diagnostic/submit"}, {"POST", "/api/diagnostic/answer"},
 		{"GET", "/api/diagnostic/latest"}, {"GET", "/api/diagnostic/history"}, {"GET", "/api/diagnostic/attempt-id"},
 	}
 	for _, route := range routes {
