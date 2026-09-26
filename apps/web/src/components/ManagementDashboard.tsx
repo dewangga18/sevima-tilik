@@ -63,7 +63,7 @@ export function ManagementDashboard({ user, onLogout, loggingOut }: { user: User
   const pending = pendingContent[page]
   return <div className="management-layout">
     <aside className="management-sidebar">
-      <div className="management-brand"><img className="brand-logo" src="/tilik-icon.png" alt="" aria-hidden="true" /><div><strong>Tilik</strong><span>Dashboard {isAdmin ? 'admin' : 'guru'}</span></div></div>
+      <div className="management-brand"><img className="brand-logo" src="/tilik-wordmark.png" alt="" aria-hidden="true" /><div><strong>Tilik</strong><span>Dashboard {isAdmin ? 'admin' : 'guru'}</span></div></div>
       <button type="button" className="btn btn-secondary management-menu-toggle" aria-expanded={menuOpen} aria-controls="management-navigation" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? 'Tutup menu' : 'Buka menu'}</button>
       <nav id="management-navigation" className={menuOpen ? 'management-navigation is-open' : 'management-navigation'} aria-label={`Navigasi ${isAdmin ? 'admin' : 'guru'}`}>
         {pages.map(item => <button type="button" key={item.id} className={page === item.id ? 'management-nav-item is-current' : 'management-nav-item'} aria-current={page === item.id ? 'page' : undefined} onClick={() => navigate(item.id)}>{item.label}</button>)}

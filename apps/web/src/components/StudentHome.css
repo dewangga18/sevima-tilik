@@ -100,7 +100,7 @@
 @media (max-width: 360px) {
   .profile-statistics { grid-template-columns: minmax(0, 1fr); }
   .user-name { max-width: 10ch; }
-  .brand-logo { width: var(--space-6); height: var(--space-6); }
+  .brand-logo { height: var(--space-6); width: auto; }
 }
 
 .skill-card-top { flex-wrap: wrap; gap: var(--space-2); }

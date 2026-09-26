@@ -13,7 +13,7 @@ export const Navbar: React.FC<NavbarProps> = ({ user, onLogout, loggingOut = fal
     <header className="navbar">
       <div className="navbar-container">
         <div className="navbar-brand">
-          <img className="brand-logo" src="/tilik-icon.png" alt="" />
+          <img className="brand-logo" src="/tilik-wordmark.png" alt="Tilik" />
           <div className="brand-text">
             <span className="brand-title">Tilik</span>
             <span className="brand-tag">Diagnostic Numeracy</span>
