@@ -12,6 +12,8 @@ FROM base AS build
 COPY . .
 ARG VITE_API_URL
 ENV VITE_API_URL=${VITE_API_URL}
+ARG VITE_ENABLE_DEMO=true
+ENV VITE_ENABLE_DEMO=${VITE_ENABLE_DEMO}
 RUN test -n "$VITE_API_URL" || (echo "VITE_API_URL build argument is required" >&2; exit 1)
 RUN npm run build
 
