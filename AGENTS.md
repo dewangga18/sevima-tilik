@@ -7,6 +7,7 @@ This repository uses small, focused guides. Read only the guides relevant to the
 Before implementation:
 
 1. `guides/PRD.md` — discover missing requirements, confirm the product direction, prioritize scope, and create the implementation plan.
+   Product-specific scope lives in `docs/PRODUCT.md`; execution status and phase checkpoints live in `docs/IMPLEMENTATION_PLAN.md`. Read both before implementation; do not treat the PRD guide as a filled product PRD.
 2. `guides/ARCHITECTURE.md` — respect the agreed stack and boundaries.
 3. `guides/CLEAN_CODE.md` — apply implementation rules.
 4. For UI work: `guides/DESIGN_SYSTEM.md` + `guides/DESIGN_DIRECTION.md`.

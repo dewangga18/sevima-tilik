@@ -1,12 +1,16 @@
-# Project Name
+# Tilik
 
-One-sentence description of the product and its primary user.
+Aplikasi diagnostic learning dan adaptive numeracy untuk siswa kelas 4–9, dengan demo pertama berfokus pada kelas 4.
+
+Scope produk: [docs/PRODUCT.md](docs/PRODUCT.md). Rencana implementasi dan checkpoint per fase: [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
+
+Status: perencanaan; aplikasi dan konfigurasi Docker belum diimplementasikan. Instruksi runtime di bawah adalah target setup setelah Phase 1 selesai.
 
 ## Core Features
 
-- _____
-- _____
-- _____
+- Diagnostic assessment dan pemeriksaan prerequisite gap.
+- Learning path, micro lesson, adaptive practice, dan mastery progress.
+- Insight guru tentang kesulitan siswa dan intervensi berikutnya.
 
 ## Tech Stack
 
@@ -14,6 +18,7 @@ One-sentence description of the product and its primary user.
 |---|---|
 | Frontend | React + TypeScript |
 | Backend | Go |
+| Mobile (optional after web MVP) | React Native + Expo |
 | Database | _____ |
 | Auth | _____ |
 | Local Runtime | Docker Compose |
