@@ -128,3 +128,7 @@ Container setup and future deployment rules: `guides/DEPLOYMENT.md`.
 | `guides/SECURITY.md` | security floor |
 | `guides/DEPLOYMENT.md` | Docker-first local runtime, env, CI/CD, deployment portability |
 | `guides/GIT_CONVENTION.md` | commit format |
+
+## Referensi desain
+
+Arah UI Tilik mengambil inspirasi dari sapaan personal, statistik ringkas, serta aksen hijau gelap dan lime pada [referensi Gamified Learning App](docs/assets/gamified-learning-reference.png). Gambar ini adalah referensi eksternal yang diberikan pengguna, bukan screenshot Tilik. Panduan penerapannya berada di [Design Direction](guides/DESIGN_DIRECTION.md); elemen spin dan coins tidak termasuk scope MVP.
