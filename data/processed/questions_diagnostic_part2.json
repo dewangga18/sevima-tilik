@@ -1,0 +1,388 @@
+[
+  {
+    "id": "diag-equiv-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_equiv",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Pecahan manakah yang senilai dengan 1/2?",
+    "options": [
+      {
+        "id": "A",
+        "text": "2/4"
+      },
+      {
+        "id": "B",
+        "text": "1/4"
+      },
+      {
+        "id": "C",
+        "text": "3/4"
+      },
+      {
+        "id": "D",
+        "text": "2/3"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Pecahan 1/2 senilai dengan 2/4 karena jika pembilang dan penyebut dikalikan dengan angka yang sama (2), hasilnya 2/4. Ini adalah konsep pecahan senilai dasar.",
+    "prerequisite_skills": [
+      "frac_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menganggap semua pecahan dengan pembilang 1 sama nilainya"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Menganggap pecahan dengan penyebut sama memiliki nilai sama"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-equiv-003",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_equiv",
+    "difficulty": 3,
+    "cognitive_level": "reasoning",
+    "question_type": "multiple_choice",
+    "context": "abstract",
+    "question": "Jika 2/3 = 8/x, berapakah nilai x?",
+    "options": [
+      {
+        "id": "A",
+        "text": "12"
+      },
+      {
+        "id": "B",
+        "text": "10"
+      },
+      {
+        "id": "C",
+        "text": "6"
+      },
+      {
+        "id": "D",
+        "text": "16"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Untuk mencari nilai x, kita lihat bahwa 2/3 = 8/x. Pembilang 2 dikalikan 4 menjadi 8, jadi penyebut 3 juga harus dikalikan 4 menjadi 12. Atau dengan perkalian silang: 2 × x = 3 × 8 → 2x = 24 → x = 12.",
+    "prerequisite_skills": [
+      "frac_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menambahkan 2 ke penyebut 8"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengurangi 2 dari penyebut 8"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mengalikan 3 dengan 8 (tanpa memperhatikan proporsi)"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-cmpden-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_cmp_same_den",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Manakah pecahan yang lebih besar: 3/5 atau 2/5?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3/5"
+      },
+      {
+        "id": "B",
+        "text": "2/5"
+      },
+      {
+        "id": "C",
+        "text": "Sama besar"
+      },
+      {
+        "id": "D",
+        "text": "Tidak dapat dibandingkan"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Ketika penyebut sama (5), pecahan dengan pembilang lebih besar adalah pecahan yang lebih besar. 3/5 > 2/5 karena 3 > 2.",
+    "prerequisite_skills": [
+      "frac_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mengira pecahan dengan pembilang lebih kecil lebih besar"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengira semua pecahan dengan penyebut sama sama nilainya"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-cmpden-003",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_cmp_same_den",
+    "difficulty": 3,
+    "cognitive_level": "reasoning",
+    "question_type": "multiple_choice",
+    "context": "abstract",
+    "question": "Urutkan pecahan berikut dari yang terkecil ke terbesar: 7/10, 3/10, 9/10, 1/10",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/10, 3/10, 7/10, 9/10"
+      },
+      {
+        "id": "B",
+        "text": "9/10, 7/10, 3/10, 1/10"
+      },
+      {
+        "id": "C",
+        "text": "1/10, 7/10, 3/10, 9/10"
+      },
+      {
+        "id": "D",
+        "text": "3/10, 1/10, 7/10, 9/10"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Karena semua pecahan memiliki penyebut sama (10), kita cukup membandingkan pembilangnya. Urutan pembilang dari terkecil ke terbesar: 1, 3, 7, 9. Jadi urutan pecahan: 1/10, 3/10, 7/10, 9/10.",
+    "prerequisite_skills": [
+      "frac_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mengurutkan dari terbesar ke terkecil"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Tidak memperhatikan urutan pembilang dengan benar"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Menukar posisi 1/10 dan 3/10"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-cmpdiff-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_cmp_diff_den",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Manakah yang lebih besar: 1/2 atau 1/4?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/2"
+      },
+      {
+        "id": "B",
+        "text": "1/4"
+      },
+      {
+        "id": "C",
+        "text": "Sama besar"
+      },
+      {
+        "id": "D",
+        "text": "Tidak dapat dibandingkan"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Ketika pembilang sama (1), pecahan dengan penyebut lebih kecil adalah pecahan yang lebih besar. 1/2 > 1/4 karena 2 < 4.",
+    "prerequisite_skills": [
+      "frac_equiv",
+      "frac_cmp_same_den"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mengira pecahan dengan penyebut lebih besar lebih besar"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengira semua pecahan dengan pembilang 1 sama nilainya"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-cmpdiff-002",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_cmp_diff_den",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "visual",
+    "question": "Budi memiliki 3/4 pita merah dan 2/3 pita biru. Manakah pita yang lebih panjang?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Pita merah"
+      },
+      {
+        "id": "B",
+        "text": "Pita biru"
+      },
+      {
+        "id": "C",
+        "text": "Sama panjang"
+      },
+      {
+        "id": "D",
+        "text": "Tidak dapat ditentukan"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Untuk membandingkan 3/4 dan 2/3, kita samakan penyebutnya ke KPK dari 4 dan 3 yaitu 12. 3/4 = 9/12, 2/3 = 8/12. Karena 9/12 > 8/12, maka pita merah (3/4) lebih panjang.",
+    "prerequisite_skills": [
+      "frac_equiv",
+      "frac_cmp_same_den"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Membandingkan pembilang langsung (3 vs 2) tanpa menyamakan penyebut"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mengira tidak dapat dibandingkan karena penyebut berbeda"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-cmpdiff-003",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_cmp_diff_den",
+    "difficulty": 3,
+    "cognitive_level": "reasoning",
+    "question_type": "multiple_choice",
+    "context": "abstract",
+    "question": "Urutkan pecahan berikut dari yang terkecil ke terbesar: 2/3, 3/4, 5/6, 1/2",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/2, 2/3, 3/4, 5/6"
+      },
+      {
+        "id": "B",
+        "text": "5/6, 3/4, 2/3, 1/2"
+      },
+      {
+        "id": "C",
+        "text": "1/2, 3/4, 2/3, 5/6"
+      },
+      {
+        "id": "D",
+        "text": "2/3, 1/2, 5/6, 3/4"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Samakan semua penyebut ke KPK dari 2, 3, 4, 6 yaitu 12. 1/2 = 6/12, 2/3 = 8/12, 3/4 = 9/12, 5/6 = 10/12. Urutan dari terkecil: 6/12 (1/2), 8/12 (2/3), 9/12 (3/4), 10/12 (5/6).",
+    "prerequisite_skills": [
+      "frac_equiv",
+      "frac_cmp_same_den"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mengurutkan dari terbesar ke terkecil"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Tidak menyamakan penyebut dengan benar sehingga urutan salah"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Membandingkan pembilang tanpa memperhatikan penyebut yang berbeda"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  }
+]

@@ -1,0 +1,422 @@
+[
+  {
+    "id": "diag-mul_basic-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian",
+    "skill": "mul_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Berapakah hasil dari 4 × 3?",
+    "options": [
+      {
+        "id": "A",
+        "text": "12"
+      },
+      {
+        "id": "B",
+        "text": "7"
+      },
+      {
+        "id": "C",
+        "text": "9"
+      },
+      {
+        "id": "D",
+        "text": "16"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "4 × 3 = 12 karena 4 diulang sebanyak 3 kali: 4 + 4 + 4 = 12.",
+    "prerequisite_skills": [
+      "penjumlahan_berulang"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menjumlahkan 4 + 3 = 7, bukan mengalikan"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengalikan 3 × 3 = 9, bukan 4 × 3"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-mul_basic-002",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian",
+    "skill": "mul_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Rani membeli 5 bungkus permen. Setiap bungkus berisi 8 permen. Berapa total permen yang dibeli Rani?",
+    "options": [
+      {
+        "id": "A",
+        "text": "40"
+      },
+      {
+        "id": "B",
+        "text": "35"
+      },
+      {
+        "id": "C",
+        "text": "45"
+      },
+      {
+        "id": "D",
+        "text": "48"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total permen = jumlah bungkus × permen per bungkus = 5 × 8 = 40.",
+    "prerequisite_skills": [
+      "penjumlahan_berulang"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menjumlahkan 5 + 8 + 5 + 8 + 5 = 35 (penjumlahan berulang salah)"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mengalikan 6 × 8 = 48, salah membaca jumlah bungkus"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-mul_basic-003",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian",
+    "skill": "mul_basic",
+    "difficulty": 3,
+    "cognitive_level": "reasoning",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Pak Budi memiliki kebun dengan 12 baris pohon mangga. Setiap baris berisi 15 pohon. Dia ingin menambahkan 3 pohon di setiap baris. Berapa total pohon mangga setelah ditambahkan?",
+    "options": [
+      {
+        "id": "A",
+        "text": "216"
+      },
+      {
+        "id": "B",
+        "text": "180"
+      },
+      {
+        "id": "C",
+        "text": "195"
+      },
+      {
+        "id": "D",
+        "text": "228"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Pertama: hitung pohon per baris setelah penambahan: 15 + 3 = 18 pohon per baris. Kedua: kalikan dengan jumlah baris: 12 × 18 = 216.",
+    "prerequisite_skills": [
+      "penjumlahan_berulang"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menghitung 12 × 15 = 180 (lupa menambahkan 3 pohon per baris)"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Menghitung (12 + 3) × 15 = 225, salah menambahkan baris bukan pohon per baris"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-div_basic-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian",
+    "skill": "div_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Berapakah hasil dari 12 ÷ 3?",
+    "options": [
+      {
+        "id": "A",
+        "text": "4"
+      },
+      {
+        "id": "B",
+        "text": "6"
+      },
+      {
+        "id": "C",
+        "text": "3"
+      },
+      {
+        "id": "D",
+        "text": "9"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "12 ÷ 3 = 4 karena 4 × 3 = 12.",
+    "prerequisite_skills": [
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Mengambil angka pembagi (3) sebagai hasil"
+      },
+      {
+        "wrong_answer": "B",
+        "reason": "Membagi 12 ÷ 2 = 6, salah membaca pembagi"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-div_basic-002",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian",
+    "skill": "div_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Ibu memiliki 20 kue yang akan dibagikan sama rata kepada 5 anak. Berapa kue yang didapat setiap anak?",
+    "options": [
+      {
+        "id": "A",
+        "text": "4"
+      },
+      {
+        "id": "B",
+        "text": "5"
+      },
+      {
+        "id": "C",
+        "text": "6"
+      },
+      {
+        "id": "D",
+        "text": "3"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Jumlah kue ÷ jumlah anak = 20 ÷ 5 = 4 kue per anak.",
+    "prerequisite_skills": [
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mengambil jumlah anak (5) sebagai hasil"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Membagi 30 ÷ 5 = 6, salah membaca jumlah kue"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-div_basic-003",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian",
+    "skill": "div_basic",
+    "difficulty": 3,
+    "cognitive_level": "reasoning",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah sekolah membeli 84 buku tulis untuk dibagikan kepada siswa. Jika setiap siswa mendapat 6 buku, dan ada 2 siswa yang tidak hadir, berapa banyak siswa yang hadir?",
+    "options": [
+      {
+        "id": "A",
+        "text": "12"
+      },
+      {
+        "id": "B",
+        "text": "14"
+      },
+      {
+        "id": "C",
+        "text": "16"
+      },
+      {
+        "id": "D",
+        "text": "18"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Pertama: hitung total siswa yang seharusnya: 84 ÷ 6 = 14 siswa. Kedua: kurangi siswa yang tidak hadir: 14 - 2 = 12 siswa.",
+    "prerequisite_skills": [
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Hanya menghitung 84 ÷ 6 = 14, lupa mengurangi siswa tidak hadir"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Menghitung (84 - 2) ÷ 6 = 13.67 ≈ 14, salah mengurangi sebelum membagi"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-frac_rep-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_rep",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Manakah yang menunjukkan pecahan 3/4?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3 bagian dari 4 bagian sama besar"
+      },
+      {
+        "id": "B",
+        "text": "4 bagian dari 3 bagian sama besar"
+      },
+      {
+        "id": "C",
+        "text": "3 bagian dari 5 bagian sama besar"
+      },
+      {
+        "id": "D",
+        "text": "4 bagian dari 5 bagian sama besar"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Pecahan 3/4 berarti 3 bagian dari total 4 bagian yang sama besar.",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Membalik pembilang dan penyebut: 4/3 bukan 3/4"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Salah membaca penyebut: 3/5 bukan 3/4"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-frac_rep-002",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan",
+    "skill": "frac_rep",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah kue dipotong menjadi 8 bagian sama besar. Jika Rani memakan 3 potong, pecahan berapa yang menunjukkan bagian kue yang dimakan Rani?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3/8"
+      },
+      {
+        "id": "B",
+        "text": "5/8"
+      },
+      {
+        "id": "C",
+        "text": "3/5"
+      },
+      {
+        "id": "D",
+        "text": "8/3"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Kue dibagi 8 bagian sama besar (penyebut = 8), Rani makan 3 bagian (pembilang = 3), jadi pecahannya adalah 3/8.",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menghitung sisa kue: 8 - 3 = 5, jadi 5/8"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Membalik pembilang dan penyebut: 8/3 bukan pecahan yang tepat"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  }
+]

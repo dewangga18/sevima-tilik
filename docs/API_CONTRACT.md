@@ -234,6 +234,8 @@ Bulk `/api/diagnostic/submit` hanya untuk `legacy-v1`. Progressive attempt ditol
 
 ## Learning Phase 3: shared access/errors
 
+Bank konten tambahan dikelola oleh command backend lokal, bukan endpoint publik. Hanya kandidat approved yang disalin ke tabel questions aktif; draft/rejected dan metadata/key tetap server-only. Aktivasi pertama dibatasi enam skill kelas 4 dengan lesson tersedia, level 1–2; graph/kelas baru tidak otomatis aktif. Import ID/content immutable tidak mengubah item, opsi, jawaban atau hasil attempt yang sudah tersimpan. Retry import tidak membuat duplikasi. Bentuk response/auth endpoint diagnostic dan learning tetap sama.
+
 Semua `/api/learning/*` memakai student middleware: 401 session invalid, 403 nonstudent `Fitur ini hanya tersedia untuk siswa`; resource owner berbeda 403 `Akses ditolak`. Semua environment. JSON write maksimal 16 KiB, field asing/trailing JSON/non-object invalid 400 `Permintaan belajar tidak valid`. Detail storage hanya log server. 404 `Aktivitas atau materi tidak ditemukan`; 409 `Aktivitas atau jawaban sudah berubah. Buka kembali dari beranda.` untuk immutable answer/stage conflict; 409 `Soal baru untuk skill ini belum cukup. Pilih rekomendasi lain atau coba setelah materi ditambah.` untuk bank exhaustion; 500 `Data belajar belum bisa diproses. Silakan coba lagi.`. Retry read aman; retry write memakai payload yang sama.
 
 ## GET /api/learning/lessons/{skill_id}

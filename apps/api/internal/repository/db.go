@@ -105,6 +105,15 @@ func (db *DB) Migrate(ctx context.Context) error {
 		explanation TEXT NOT NULL,
 		misconception TEXT DEFAULT ''
 	);
+	CREATE TABLE IF NOT EXISTS question_candidates (
+		id TEXT PRIMARY KEY,
+		content_hash TEXT NOT NULL,
+		source_file TEXT NOT NULL,
+		payload JSONB NOT NULL,
+		status TEXT NOT NULL CHECK(status IN ('draft','approved','rejected')),
+		review_note TEXT NOT NULL,
+		registered_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+	);
 
 	CREATE TABLE IF NOT EXISTS assessments (
 		id TEXT PRIMARY KEY,

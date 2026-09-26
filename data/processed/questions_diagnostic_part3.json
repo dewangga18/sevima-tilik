@@ -1,0 +1,375 @@
+[
+  {
+    "id": "diag-pv-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Nilai Tempat",
+    "skill": "place_value",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Dalam bilangan 4.567, angka 5 menempati nilai tempat ...",
+    "options": [
+      {
+        "id": "A",
+        "text": "ratusan"
+      },
+      {
+        "id": "B",
+        "text": "puluhan"
+      },
+      {
+        "id": "C",
+        "text": "ribuan"
+      },
+      {
+        "id": "D",
+        "text": "puluhan ribu"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Angka 5 berada pada posisi ketiga dari kanan, yaitu ratusan (567). Nilai tempat dari kanan: satuan (7), puluhan (6), ratusan (5), ribuan (4).",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin mengira posisi kedua dari kanan (puluhan) padahal 5 adalah posisi ketiga (ratusan)."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin mengira angka 4 yang menempati ribuan, bukan angka 5."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-pv-002",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Nilai Tempat",
+    "skill": "place_value",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Budi memiliki uang Rp 235.750. Berapa nilai angka 7 pada bilangan tersebut?",
+    "options": [
+      {
+        "id": "A",
+        "text": "7"
+      },
+      {
+        "id": "B",
+        "text": "70"
+      },
+      {
+        "id": "C",
+        "text": "700"
+      },
+      {
+        "id": "D",
+        "text": "7.000"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "Pada bilangan 235.750, angka 7 berada pada posisi ratusan (750). Nilai angka 7 adalah 7 × 100 = 700.",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin mengira posisi puluhan (70) karena melihat angka 7 di tengah-tengah."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin mengacaukan dengan nilai tempat ribuan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-nc-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Manakah bilangan yang paling kecil?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1.234"
+      },
+      {
+        "id": "B",
+        "text": "2.143"
+      },
+      {
+        "id": "C",
+        "text": "1.243"
+      },
+      {
+        "id": "D",
+        "text": "1.234,5"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Bilangan 1.234 adalah yang paling kecil karena angka ribuan sama (1), tetapi angka ratusan (2) sama dengan C, sementara angka puluhan (3) sama dengan C, dan angka satuan (4) sama dengan C. Bandingkan dengan D: 1.234,5 lebih besar karena memiliki bagian desimal.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin tidak memperhatikan angka puluhan (4 vs 3)."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin mengira bilangan dengan koma selalu lebih kecil."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-nc-002",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Toko A menjual 2.345 buah apel, Toko B menjual 2.435 buah, dan Toko C menjual 2.354 buah. Urutkan toko dari yang menjual apel paling sedikit hingga paling banyak.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Toko A - Toko C - Toko B"
+      },
+      {
+        "id": "B",
+        "text": "Toko A - Toko B - Toko C"
+      },
+      {
+        "id": "C",
+        "text": "Toko C - Toko A - Toko B"
+      },
+      {
+        "id": "D",
+        "text": "Toko B - Toko C - Toko A"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "2.345 (Toko A) < 2.354 (Toko C) < 2.435 (Toko B). Bandingkan angka ratusan: 300 vs 400 vs 300, lalu angka puluhan: 40 vs 50 vs 30.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin salah urut karena hanya melihat angka terakhir."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin membalik urutan dari besar ke kecil."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-nc-003",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 3,
+    "cognitive_level": "reasoning",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Tiga bilangan memiliki selisih yang sama. Bilangan pertama adalah 2.500, bilangan ketiga adalah 3.500. Berapakah bilangan kedua?",
+    "options": [
+      {
+        "id": "A",
+        "text": "2.750"
+      },
+      {
+        "id": "B",
+        "text": "3.000"
+      },
+      {
+        "id": "C",
+        "text": "3.250"
+      },
+      {
+        "id": "D",
+        "text": "3.750"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Selisih antara bilangan pertama dan ketiga adalah 3.500 - 2.500 = 1.000. Karena ada 3 bilangan dengan selisih sama, maka selisih antar bilangan adalah 1.000 ÷ 2 = 500. Jadi bilangan kedua = 2.500 + 500 = 3.000.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Mungkin menghitung rata-rata tanpa membagi selisih dengan benar."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin mengira selisih antar bilangan adalah 750, bukan 500."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-fm-001",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Manakah yang merupakan faktor dari 12?",
+    "options": [
+      {
+        "id": "A",
+        "text": "5"
+      },
+      {
+        "id": "B",
+        "text": "7"
+      },
+      {
+        "id": "C",
+        "text": "3"
+      },
+      {
+        "id": "D",
+        "text": "8"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "Faktor dari 12 adalah bilangan yang membagi 12 tanpa sisa: 1, 2, 3, 4, 6, 12. Jadi 3 adalah faktor dari 12 karena 12 ÷ 3 = 4 (tanpa sisa).",
+    "prerequisite_skills": [
+      "mul_basic",
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Mungkin mengira 5 adalah faktor karena dekat dengan 6."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin mengira 8 adalah faktor karena 12 - 8 = 4."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "diag-fm-002",
+    "purpose": "diagnostic",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Andi memiliki 24 kelereng. Ia ingin membaginya sama rata kepada beberapa teman. Kepada berapa teman saja Andi dapat membagi kelerengnya tanpa sisa?",
+    "options": [
+      {
+        "id": "A",
+        "text": "2, 3, 4, 6, 8, 12"
+      },
+      {
+        "id": "B",
+        "text": "2, 3, 4, 6, 8, 12, 24"
+      },
+      {
+        "id": "C",
+        "text": "1, 2, 3, 4, 6, 8, 12, 24"
+      },
+      {
+        "id": "D",
+        "text": "1, 2, 3, 4, 6, 8, 12"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "Faktor dari 24 adalah: 1, 2, 3, 4, 6, 8, 12, 24. Artinya Andi dapat membagi kepada 1, 2, 3, 4, 6, 8, 12, atau 24 teman dengan masing-masing mendapat jumlah kelereng yang sama tanpa sisa.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Mungkin lupa menyertakan 1 dan 24."
+      },
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin lupa menyertakan 1."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin lupa menyertakan 24."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  }
+]

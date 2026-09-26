@@ -1,0 +1,868 @@
+[
+  {
+    "id": "prac-mul_basic-001",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian Dasar",
+    "skill": "mul_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Andi memiliki 3 kotak pensil. Setiap kotak berisi 5 pensil. Berapa total pensil yang dimiliki Andi?",
+    "options": [
+      {
+        "id": "A",
+        "text": "15"
+      },
+      {
+        "id": "B",
+        "text": "8"
+      },
+      {
+        "id": "C",
+        "text": "10"
+      },
+      {
+        "id": "D",
+        "text": "12"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Untuk mencari total pensil, kita kalikan jumlah kotak dengan pensil per kotak: 3 × 5 = 15.",
+    "prerequisite_skills": [
+      "addition_basic",
+      "counting"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menjumlahkan 3 + 5 = 8, bukan mengalikan"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Hanya menghitung salah satu kotak (5) atau salah menghitung perkalian"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-mul_basic-002",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian Dasar",
+    "skill": "mul_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Setiap hari, Rina minum 4 gelas air putih. Berapa banyak gelas air yang diminum Rina dalam 7 hari?",
+    "options": [
+      {
+        "id": "A",
+        "text": "28"
+      },
+      {
+        "id": "B",
+        "text": "11"
+      },
+      {
+        "id": "C",
+        "text": "24"
+      },
+      {
+        "id": "D",
+        "text": "21"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Kita kalikan gelas per hari dengan jumlah hari: 4 × 7 = 28.",
+    "prerequisite_skills": [
+      "addition_basic",
+      "counting"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menjumlahkan 4 + 7 = 11, bukan mengalikan"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengalikan 4 × 6 = 24, salah menghitung hari"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-mul_basic-003",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian Dasar",
+    "skill": "mul_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Dalam satu kelas ada 6 baris kursi. Setiap baris ada 5 kursi. Berapa total kursi di kelas tersebut?",
+    "options": [
+      {
+        "id": "A",
+        "text": "30"
+      },
+      {
+        "id": "B",
+        "text": "11"
+      },
+      {
+        "id": "C",
+        "text": "25"
+      },
+      {
+        "id": "D",
+        "text": "20"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total kursi = baris × kursi per baris = 6 × 5 = 30.",
+    "prerequisite_skills": [
+      "addition_basic",
+      "counting"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menjumlahkan 6 + 5 = 11"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengalikan 5 × 5 = 25, salah menghitung baris"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-mul_basic-004",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian Dasar",
+    "skill": "mul_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Pak Budi membeli 8 bungkus permen. Setiap bungkus berisi 12 permen. Dia memberikan 5 permen kepada anaknya. Berapa sisa permen yang dimiliki Pak Budi?",
+    "options": [
+      {
+        "id": "A",
+        "text": "91"
+      },
+      {
+        "id": "B",
+        "text": "96"
+      },
+      {
+        "id": "C",
+        "text": "101"
+      },
+      {
+        "id": "D",
+        "text": "88"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total permen = 8 × 12 = 96. Setelah diberikan 5 permen, sisa = 96 - 5 = 91.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Hanya menghitung total permen (96), lupa mengurangi yang diberikan"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Menghitung 8 × 11 = 88, salah perkalian"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-mul_basic-005",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian Dasar",
+    "skill": "mul_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Seorang petani memiliki 9 keranjang apel. Setiap keranjang berisi 15 apel. Jika 20 apel sudah terjual, berapa apel yang tersisa?",
+    "options": [
+      {
+        "id": "A",
+        "text": "115"
+      },
+      {
+        "id": "B",
+        "text": "135"
+      },
+      {
+        "id": "C",
+        "text": "105"
+      },
+      {
+        "id": "D",
+        "text": "120"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total apel = 9 × 15 = 135. Setelah dijual 20, sisa = 135 - 20 = 115.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Hanya menghitung total apel (135), lupa mengurangi yang terjual"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengalikan 7 × 15 = 105, salah menghitung keranjang"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-mul_basic-006",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perkalian Dasar",
+    "skill": "mul_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Di perpustakaan, ada 7 rak buku. Setiap rak memuat 14 buku. Jika 25 buku dipinjam siswa, berapa buku yang masih tersedia di perpustakaan?",
+    "options": [
+      {
+        "id": "A",
+        "text": "73"
+      },
+      {
+        "id": "B",
+        "text": "98"
+      },
+      {
+        "id": "C",
+        "text": "89"
+      },
+      {
+        "id": "D",
+        "text": "103"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total buku = 7 × 14 = 98. Setelah dipinjam 25, sisa = 98 - 25 = 73.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Hanya menghitung total buku (98), lupa mengurangi yang dipinjam"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Menghitung 7 × 12 = 84, lalu 84 + 5 = 89, salah perhitungan"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-div_basic-001",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian Dasar",
+    "skill": "div_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Rani memiliki 12 permen. Dia ingin membaginya sama rata kepada 3 temannya. Berapa permen yang diterima setiap teman?",
+    "options": [
+      {
+        "id": "A",
+        "text": "4"
+      },
+      {
+        "id": "B",
+        "text": "3"
+      },
+      {
+        "id": "C",
+        "text": "6"
+      },
+      {
+        "id": "D",
+        "text": "5"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "12 permen dibagi 3 teman = 12 ÷ 3 = 4 permen per teman.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Membagi 12 ÷ 4 = 3, salah menghitung jumlah teman"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Membagi 12 ÷ 2 = 6, salah memahami soal"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-div_basic-002",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian Dasar",
+    "skill": "div_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Ada 20 kue. Kue-kue tersebut akan dimasukkan ke dalam 4 kotak dengan jumlah sama rata. Berapa kue dalam setiap kotak?",
+    "options": [
+      {
+        "id": "A",
+        "text": "5"
+      },
+      {
+        "id": "B",
+        "text": "4"
+      },
+      {
+        "id": "C",
+        "text": "6"
+      },
+      {
+        "id": "D",
+        "text": "8"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "20 kue dibagi 4 kotak = 20 ÷ 4 = 5 kue per kotak.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Membagi 20 ÷ 5 = 4, salah menghitung pembagi"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Membagi 24 ÷ 4 = 6, salah membaca jumlah kue"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-div_basic-003",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian Dasar",
+    "skill": "div_basic",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "15 bola basket akan dibagikan kepada 5 tim. Berapa bola yang diterima setiap tim?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3"
+      },
+      {
+        "id": "B",
+        "text": "5"
+      },
+      {
+        "id": "C",
+        "text": "4"
+      },
+      {
+        "id": "D",
+        "text": "2"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "15 bola dibagi 5 tim = 15 ÷ 5 = 3 bola per tim.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Membagi 15 ÷ 3 = 5, salah menghitung jumlah tim"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Membagi 16 ÷ 4 = 4, salah membaca jumlah bola"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-div_basic-004",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian Dasar",
+    "skill": "div_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Bu Siti memiliki 48 butir telur. Dia membaginya sama rata kepada 6 tetangga. Setelah itu, setiap tetangga memberikan 2 telur kepada anaknya. Berapa telur yang tersisa untuk setiap tetangga?",
+    "options": [
+      {
+        "id": "A",
+        "text": "6"
+      },
+      {
+        "id": "B",
+        "text": "8"
+      },
+      {
+        "id": "C",
+        "text": "10"
+      },
+      {
+        "id": "D",
+        "text": "4"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Telur per tetangga = 48 ÷ 6 = 8. Setelah diberikan 2 telur, sisa = 8 - 2 = 6 telur per tetangga.",
+    "prerequisite_skills": [
+      "div_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Hanya menghitung telur awal per tetangga (8), lupa mengurangi"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Menjumlahkan 8 + 2 = 10, salah memahami operasi"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-div_basic-005",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian Dasar",
+    "skill": "div_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Pak Joko membeli 36 bibit tanaman. Dia menanamnya di 9 pot dengan jumlah sama rata. Setelah 1 minggu, 1 tanaman di setiap pot mati. Berapa tanaman yang masih hidup di setiap pot?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3"
+      },
+      {
+        "id": "B",
+        "text": "4"
+      },
+      {
+        "id": "C",
+        "text": "5"
+      },
+      {
+        "id": "D",
+        "text": "2"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Tanaman per pot = 36 ÷ 9 = 4. Setelah 1 mati, sisa = 4 - 1 = 3 tanaman per pot.",
+    "prerequisite_skills": [
+      "div_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Hanya menghitung tanaman awal per pot (4), lupa mengurangi yang mati"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Menjumlahkan 4 + 1 = 5, salah memahami operasi"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-div_basic-006",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pembagian Dasar",
+    "skill": "div_basic",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Ada 42 siswa yang akan dibagi menjadi 7 kelompok. Setiap kelompok mendapat 2 lembar kertas untuk menggambar. Berapa total lembar kertas yang dibutuhkan?",
+    "options": [
+      {
+        "id": "A",
+        "text": "14"
+      },
+      {
+        "id": "B",
+        "text": "6"
+      },
+      {
+        "id": "C",
+        "text": "21"
+      },
+      {
+        "id": "D",
+        "text": "12"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Jumlah kelompok = 42 ÷ 7 = 6 kelompok. Total kertas = 6 × 2 = 14 lembar.",
+    "prerequisite_skills": [
+      "div_basic",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Hanya menghitung jumlah kelompok (6), lupa mengalikan dengan kertas"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengalikan 42 ÷ 2 = 21, salah memahami soal"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-frac_rep-001",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan Sederhana",
+    "skill": "frac_rep",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah kue dibagi menjadi 4 bagian sama besar. Jika 1 bagian dimakan, pecahan yang menunjukkan bagian kue yang dimakan adalah...",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/4"
+      },
+      {
+        "id": "B",
+        "text": "1/2"
+      },
+      {
+        "id": "C",
+        "text": "3/4"
+      },
+      {
+        "id": "D",
+        "text": "1/3"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Kue dibagi 4 bagian, 1 bagian dimakan = 1/4.",
+    "prerequisite_skills": [
+      "counting",
+      "division_concept"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mengira setengah kue (1/2) karena hanya melihat satu bagian"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengira sisa kue (3/4) bukan bagian yang dimakan"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-frac_rep-002",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan Sederhana",
+    "skill": "frac_rep",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah pizza dibagi menjadi 8 potong sama besar. Jika 3 potong telah dimakan, pecahan pizza yang tersisa adalah...",
+    "options": [
+      {
+        "id": "A",
+        "text": "5/8"
+      },
+      {
+        "id": "B",
+        "text": "3/8"
+      },
+      {
+        "id": "C",
+        "text": "1/2"
+      },
+      {
+        "id": "D",
+        "text": "3/4"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total 8 bagian, 3 dimakan, sisa 5 bagian = 5/8.",
+    "prerequisite_skills": [
+      "counting",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menunjukkan bagian yang dimakan (3/8), bukan sisa"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengira setengah pizza (4/8) tersisa, salah menghitung"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-frac_rep-005",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan Sederhana",
+    "skill": "frac_rep",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah kue tart dibagi menjadi 12 potong. Ayah mengambil 4 potong, Ibu mengambil 3 potong. Berapa pecahan kue yang masih tersisa?",
+    "options": [
+      {
+        "id": "A",
+        "text": "5/12"
+      },
+      {
+        "id": "B",
+        "text": "7/12"
+      },
+      {
+        "id": "C",
+        "text": "9/12"
+      },
+      {
+        "id": "D",
+        "text": "3/4"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total diambil = 4 + 3 = 7 potong. Sisa = 12 - 7 = 5 potong = 5/12.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "addition_basic",
+      "subtraction_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menunjukkan bagian yang diambil (7/12), bukan sisa"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mengira 3/4 (9/12) tersisa, salah menghitung"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-frac_rep-006",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Pecahan Sederhana",
+    "skill": "frac_rep",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah pita sepanjang 1 meter dibagi menjadi 8 bagian sama panjang. Jika 5 bagian digunakan untuk menghias kado, berapa meter pita yang tersisa?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3/8 meter"
+      },
+      {
+        "id": "B",
+        "text": "5/8 meter"
+      },
+      {
+        "id": "C",
+        "text": "1/2 meter"
+      },
+      {
+        "id": "D",
+        "text": "2/8 meter"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Total 8 bagian, digunakan 5 bagian, sisa 3 bagian = 3/8 meter.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "subtraction_basic",
+      "measurement_concept"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Menunjukkan bagian yang digunakan (5/8), bukan sisa"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mengira setengah meter (4/8) tersisa, salah menghitung"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  }
+]

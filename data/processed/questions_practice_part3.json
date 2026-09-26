@@ -1,0 +1,2648 @@
+[
+  {
+    "id": "prac-pv-001",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Nilai Tempat",
+    "skill": "place_value",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Pada bilangan 3.472, angka 4 menempati nilai tempat …",
+    "options": [
+      {
+        "id": "A",
+        "text": "Satuan"
+      },
+      {
+        "id": "B",
+        "text": "Puluhan"
+      },
+      {
+        "id": "C",
+        "text": "Ratusan"
+      },
+      {
+        "id": "D",
+        "text": "Ribuan"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "3.472 = 3 ribuan + 4 ratusan + 7 puluhan + 2 satuan. Angka 4 di posisi ratusan.",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa menghitung posisi dari kiri, bukan dari kanan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-pv-002",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Nilai Tempat",
+    "skill": "place_value",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Bilangan 50.306 jika diuraikan menurut nilai tempat adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "5.000 + 300 + 6"
+      },
+      {
+        "id": "B",
+        "text": "50.000 + 300 + 6"
+      },
+      {
+        "id": "C",
+        "text": "50.000 + 30 + 6"
+      },
+      {
+        "id": "D",
+        "text": "5.000 + 3.000 + 6"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "50.306 = 50.000 + 300 + 6. Tidak ada nilai puluhan (digit 0 di posisi puluhan).",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa salah membaca posisi angka 5."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa salah membaca posisi angka 3 (ratusan bukan puluhan)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-pv-005",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Nilai Tempat",
+    "skill": "place_value",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Bilangan apakah yang mempunyai 6 di posisi puluh-ribuan, 3 di posisi ribuan, dan 0 di semua posisi lainnya?",
+    "options": [
+      {
+        "id": "A",
+        "text": "63.000"
+      },
+      {
+        "id": "B",
+        "text": "6.300"
+      },
+      {
+        "id": "C",
+        "text": "630.000"
+      },
+      {
+        "id": "D",
+        "text": "60.300"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Puluh-ribuan = 6 → 60.000; ribuan = 3 → 3.000; total = 63.000.",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa menukar posisi ribuan dan ratusan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-pv-006",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Nilai Tempat",
+    "skill": "place_value",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Harga sebuah sepeda adalah Rp 875.500. Berapa nilai digit 8 pada harga tersebut?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Rp 8.000"
+      },
+      {
+        "id": "B",
+        "text": "Rp 80.000"
+      },
+      {
+        "id": "C",
+        "text": "Rp 800.000"
+      },
+      {
+        "id": "D",
+        "text": "Rp 8.000.000"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "875.500: digit 8 berada di posisi ratus-ribuan → nilainya 800.000.",
+    "prerequisite_skills": [],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa salah menghitung posisi, menyangka 8 di posisi puluh-ribuan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-nc-001",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Tanda yang tepat untuk 4.512 ... 4.521 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "<"
+      },
+      {
+        "id": "B",
+        "text": ">"
+      },
+      {
+        "id": "C",
+        "text": "="
+      },
+      {
+        "id": "D",
+        "text": "≥"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Ribuan sama (4), puluhan sama (5), satuan: 1 < 2, jadi 4.512 < 4.521.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa membandingkan digit pertama yang berbeda dari kanan bukan kiri."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-nc-002",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Urutkan dari terkecil: 12.450, 12.405, 12.540",
+    "options": [
+      {
+        "id": "A",
+        "text": "12.405, 12.450, 12.540"
+      },
+      {
+        "id": "B",
+        "text": "12.540, 12.450, 12.405"
+      },
+      {
+        "id": "C",
+        "text": "12.450, 12.405, 12.540"
+      },
+      {
+        "id": "D",
+        "text": "12.405, 12.540, 12.450"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Ribuan dan puluhan ribuan sama. Bandingkan ratusan: 4=4, lalu puluhan: 0 < 5 < 5, lalu satuan. 12.405 < 12.450 < 12.540.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa mengurutkan dari terbesar."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-nc-003",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Bilangan terbesar di antara 98.760, 98.706, 98.670 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "98.670"
+      },
+      {
+        "id": "B",
+        "text": "98.706"
+      },
+      {
+        "id": "C",
+        "text": "98.760"
+      },
+      {
+        "id": "D",
+        "text": "Semua sama"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "Puluh-ribuan dan ribuan sama. Ratusan: 7=7=6 → bandingkan 98.760 dan 98.706: puluhan 6 > 0, jadi 98.760 terbesar.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa berhenti di digit ratusan dan tidak meneruskan ke puluhan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-nc-004",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Toko A menjual 23.450 produk, Toko B menjual 23.540 produk, Toko C menjual 23.045 produk. Toko mana yang menjual paling sedikit?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Toko A"
+      },
+      {
+        "id": "B",
+        "text": "Toko B"
+      },
+      {
+        "id": "C",
+        "text": "Toko C"
+      },
+      {
+        "id": "D",
+        "text": "Semua sama"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "23.045 < 23.450 < 23.540. Ratusan 0 < 4 = 4, jadi Toko C paling sedikit.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa membandingkan digit terakhir saja."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-nc-005",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Penduduk kota P = 145.320, kota Q = 145.230, kota R = 154.230. Urutkan dari terkecil ke terbesar.",
+    "options": [
+      {
+        "id": "A",
+        "text": "Q, P, R"
+      },
+      {
+        "id": "B",
+        "text": "P, Q, R"
+      },
+      {
+        "id": "C",
+        "text": "R, P, Q"
+      },
+      {
+        "id": "D",
+        "text": "Q, R, P"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Ratus-ribuan: 1=1=1. Puluh-ribuan: 4=4, 5 → R terbesar. Antara P dan Q: ribuan 5=5, ratusan 3=2 → P > Q. Urutan: Q < P < R.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa tidak membandingkan P dan Q dengan benar."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-nc-006",
+    "purpose": "practice",
+    "grade": 4,
+    "phase": "B",
+    "domain": "Bilangan",
+    "topic": "Perbandingan Bilangan",
+    "skill": "number_comparison",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Nilai ujian empat siswa: Ani=8.750, Budi=8.570, Cici=8.705, Dodi=8.075. Siapa yang mendapat nilai tertinggi?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ani"
+      },
+      {
+        "id": "B",
+        "text": "Budi"
+      },
+      {
+        "id": "C",
+        "text": "Cici"
+      },
+      {
+        "id": "D",
+        "text": "Dodi"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Ribuan sama (8). Ratusan: 7 > 5 (Budi dan Dodi lebih kecil); bandingkan Ani (750) dan Cici (705): 750 > 705. Ani tertinggi.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa bingung antara 8.750 dan 8.705 karena digit ratusan sama (7)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase B",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase B - Bilangan"
+  },
+  {
+    "id": "prac-fm-001",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Faktor dari 12 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "1, 2, 3, 4, 6, 12"
+      },
+      {
+        "id": "B",
+        "text": "1, 2, 3, 4, 5, 12"
+      },
+      {
+        "id": "C",
+        "text": "2, 3, 4, 6, 12"
+      },
+      {
+        "id": "D",
+        "text": "1, 2, 4, 6, 12"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Faktor 12: semua bilangan yang membagi 12 habis. 12÷1=12, 12÷2=6, 12÷3=4, 12÷4=3, 12÷6=2, 12÷12=1. Faktor: 1,2,3,4,6,12.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa tidak menyertakan 1 sebagai faktor."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa tidak menyertakan 3 karena lupa 12÷3=4."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fm-002",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Kelipatan 4 yang kurang dari 25 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "4, 8, 12, 16, 20, 24"
+      },
+      {
+        "id": "B",
+        "text": "4, 8, 12, 16, 20"
+      },
+      {
+        "id": "C",
+        "text": "4, 8, 16, 20, 24"
+      },
+      {
+        "id": "D",
+        "text": "4, 8, 12, 16, 20, 24, 28"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Kelipatan 4: 4, 8, 12, 16, 20, 24 (4×6=24 < 25; 4×7=28 ≥ 25).",
+    "prerequisite_skills": [
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa berhenti di 20 karena salah menghitung batas."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa menyertakan 28 yang lebih dari 25."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fm-003",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Apakah 7 merupakan faktor dari 56?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Ya, karena 56 ÷ 7 = 8"
+      },
+      {
+        "id": "B",
+        "text": "Tidak, karena 56 bukan kelipatan 7"
+      },
+      {
+        "id": "C",
+        "text": "Ya, karena 7 + 56 = 63"
+      },
+      {
+        "id": "D",
+        "text": "Tidak, karena 7 × 7 = 49 ≠ 56"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "7 adalah faktor 56 karena 56 ÷ 7 = 8 (habis dibagi).",
+    "prerequisite_skills": [
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mencoba 7×7 bukan 7×8."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fm-004",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Ibu membuat 18 kue untuk dibagi rata ke beberapa piring. Berapa kemungkinan jumlah piring yang dapat digunakan?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1, 2, 3, 6, 9, 18"
+      },
+      {
+        "id": "B",
+        "text": "2, 3, 6, 9, 18"
+      },
+      {
+        "id": "C",
+        "text": "1, 2, 3, 6, 18"
+      },
+      {
+        "id": "D",
+        "text": "1, 3, 6, 9, 18"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Jumlah piring harus merupakan faktor dari 18. Faktor 18: 1, 2, 3, 6, 9, 18.",
+    "prerequisite_skills": [
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa tidak menyertakan 1 piring."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa lupa 9 adalah faktor dari 18."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fm-005",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Lampu merah menyala setiap 6 detik, lampu kuning setiap 9 detik. Berapa detik ke depan keduanya menyala bersamaan untuk pertama kalinya?",
+    "options": [
+      {
+        "id": "A",
+        "text": "15 detik"
+      },
+      {
+        "id": "B",
+        "text": "18 detik"
+      },
+      {
+        "id": "C",
+        "text": "24 detik"
+      },
+      {
+        "id": "D",
+        "text": "54 detik"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Cari kelipatan persekutuan terkecil dari 6 dan 9. Kelipatan 6: 6,12,18... Kelipatan 9: 9,18... Pertama bertemu di 18.",
+    "prerequisite_skills": [
+      "mul_basic",
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menjumlahkan 6+9=15."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengalikan 6×9=54."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fm-006",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Faktor dan Kelipatan",
+    "skill": "factors_multiples",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Bilangan manakah yang merupakan faktor persekutuan dari 16 dan 24?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1, 2, 4, 8"
+      },
+      {
+        "id": "B",
+        "text": "1, 2, 4, 6, 8"
+      },
+      {
+        "id": "C",
+        "text": "2, 4, 8, 16"
+      },
+      {
+        "id": "D",
+        "text": "1, 2, 4"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Faktor 16: 1,2,4,8,16. Faktor 24: 1,2,3,4,6,8,12,24. Persekutuan: 1,2,4,8.",
+    "prerequisite_skills": [
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa menyertakan 6 yang merupakan faktor 24 tapi bukan faktor 16."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa lupa menyertakan 8."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-gl-001",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "FPB dan KPK",
+    "skill": "gcd_lcm",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "FPB dari 12 dan 18 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "3"
+      },
+      {
+        "id": "B",
+        "text": "6"
+      },
+      {
+        "id": "C",
+        "text": "9"
+      },
+      {
+        "id": "D",
+        "text": "12"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Faktor 12: 1,2,3,4,6,12. Faktor 18: 1,2,3,6,9,18. Faktor persekutuan terbesar: 6.",
+    "prerequisite_skills": [
+      "factors_multiples"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengambil faktor persekutuan yang lebih kecil (3)."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengambil bilangan pertama sebagai FPB."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-gl-002",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "FPB dan KPK",
+    "skill": "gcd_lcm",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "KPK dari 4 dan 6 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "2"
+      },
+      {
+        "id": "B",
+        "text": "12"
+      },
+      {
+        "id": "C",
+        "text": "24"
+      },
+      {
+        "id": "D",
+        "text": "6"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Kelipatan 4: 4,8,12,16... Kelipatan 6: 6,12,18... KPK (terkecil yang sama): 12.",
+    "prerequisite_skills": [
+      "factors_multiples"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa mengalikan 4×6=24 langsung."
+      },
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mencari FPB bukan KPK."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-gl-003",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "FPB dan KPK",
+    "skill": "gcd_lcm",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "FPB dari 20 dan 30 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "5"
+      },
+      {
+        "id": "B",
+        "text": "10"
+      },
+      {
+        "id": "C",
+        "text": "15"
+      },
+      {
+        "id": "D",
+        "text": "60"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Faktor 20: 1,2,4,5,10,20. Faktor 30: 1,2,3,5,6,10,15,30. FPB = 10.",
+    "prerequisite_skills": [
+      "factors_multiples"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengambil faktor 5 yang lebih kecil."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengalikan 20×30/10 = 60 (rumus KPK)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-gl-004",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "FPB dan KPK",
+    "skill": "gcd_lcm",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Ada 24 buku dan 36 pensil yang akan dibagikan ke siswa secara merata sebanyak mungkin. Berapa siswa maksimal yang bisa mendapat bagian?",
+    "options": [
+      {
+        "id": "A",
+        "text": "6"
+      },
+      {
+        "id": "B",
+        "text": "12"
+      },
+      {
+        "id": "C",
+        "text": "18"
+      },
+      {
+        "id": "D",
+        "text": "24"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Cari FPB(24,36). Faktor 24: 1,2,3,4,6,8,12,24. Faktor 36: 1,2,3,4,6,9,12,18,36. FPB = 12. Maksimal 12 siswa.",
+    "prerequisite_skills": [
+      "factors_multiples"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengambil faktor persekutuan yang lebih kecil."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa mengambil faktor 36 saja."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-gl-005",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "FPB dan KPK",
+    "skill": "gcd_lcm",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Bus A lewat setiap 15 menit, Bus B setiap 20 menit. Jika pukul 06.00 keduanya berangkat bersama, pukul berapa mereka berangkat bersama lagi untuk pertama kali?",
+    "options": [
+      {
+        "id": "A",
+        "text": "06.30"
+      },
+      {
+        "id": "B",
+        "text": "06.45"
+      },
+      {
+        "id": "C",
+        "text": "07.00"
+      },
+      {
+        "id": "D",
+        "text": "07.30"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "KPK(15,20): kelipatan 15 = 15,30,45,60; kelipatan 20 = 20,40,60. KPK = 60 menit. 06.00 + 60 menit = 07.00.",
+    "prerequisite_skills": [
+      "factors_multiples"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menjumlahkan 15+15=30 menit."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa menjumlahkan 15+20=35 lalu membulatkan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-gl-006",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "FPB dan KPK",
+    "skill": "gcd_lcm",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Dua tali panjangnya 48 cm dan 64 cm akan dipotong menjadi bagian-bagian yang sama panjang tanpa sisa. Panjang terbesar setiap potongan adalah … cm",
+    "options": [
+      {
+        "id": "A",
+        "text": "8"
+      },
+      {
+        "id": "B",
+        "text": "12"
+      },
+      {
+        "id": "C",
+        "text": "16"
+      },
+      {
+        "id": "D",
+        "text": "32"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "Cari FPB(48,64). 48=16×3, 64=16×4. FPB=16. Potongan terpanjang = 16 cm.",
+    "prerequisite_skills": [
+      "factors_multiples"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengambil faktor persekutuan yang bukan terbesar."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengambil setengah dari bilangan terkecil."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-dr-001",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "0,7 dalam bentuk pecahan adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "7/100"
+      },
+      {
+        "id": "B",
+        "text": "7/10"
+      },
+      {
+        "id": "C",
+        "text": "70/10"
+      },
+      {
+        "id": "D",
+        "text": "7/1000"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "0,7 berarti 7 per-sepuluhan = 7/10.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengira satu desimal = per-ratusan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-dr-002",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "3/100 dalam bentuk desimal adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "3,0"
+      },
+      {
+        "id": "B",
+        "text": "0,3"
+      },
+      {
+        "id": "C",
+        "text": "0,03"
+      },
+      {
+        "id": "D",
+        "text": "0,003"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "3/100 = 0,03. Dua angka di belakang koma untuk per-ratusan.",
+    "prerequisite_skills": [
+      "frac_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa menulis 0,3 karena hanya melihat angka 3."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-dr-003",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Bilangan desimal 2,45 jika dibaca adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "Dua koma empat puluh lima"
+      },
+      {
+        "id": "B",
+        "text": "Dua dan empat lima"
+      },
+      {
+        "id": "C",
+        "text": "Dua puluh empat koma lima"
+      },
+      {
+        "id": "D",
+        "text": "Dua koma empat lima"
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "2,45 dibaca: dua koma empat lima. Bagian desimal dibaca per digit.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa membaca angka belakang koma sebagai bilangan utuh (45)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-dr-004",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Tinggi badan Riko 1 m 35 cm. Dinyatakan dalam meter dengan desimal, tinggi Riko adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "1,35 m"
+      },
+      {
+        "id": "B",
+        "text": "13,5 m"
+      },
+      {
+        "id": "C",
+        "text": "0,135 m"
+      },
+      {
+        "id": "D",
+        "text": "135 m"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "35 cm = 35/100 m = 0,35 m. Total = 1 + 0,35 = 1,35 m.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa menulis 1 m 35 cm sebagai 13,5 tanpa mempertimbangkan satuan."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-dr-005",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Urutkan dari terkecil: 0,5 ; 0,15 ; 0,05",
+    "options": [
+      {
+        "id": "A",
+        "text": "0,05; 0,15; 0,5"
+      },
+      {
+        "id": "B",
+        "text": "0,5; 0,15; 0,05"
+      },
+      {
+        "id": "C",
+        "text": "0,15; 0,05; 0,5"
+      },
+      {
+        "id": "D",
+        "text": "0,5; 0,05; 0,15"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "0,05 < 0,15 < 0,5. Bandingkan per-sepuluhan dulu: 0 = 0 < 5, lalu per-ratusan: 5 < 15.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa mengurutkan dari terbesar."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa membandingkan digit tanpa mempertimbangkan posisi."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-dr-006",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Berat badan kucing A = 3,7 kg, kucing B = 3,07 kg, kucing C = 3,70 kg. Kucing mana yang paling berat?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Kucing A"
+      },
+      {
+        "id": "B",
+        "text": "Kucing B"
+      },
+      {
+        "id": "C",
+        "text": "Kucing C"
+      },
+      {
+        "id": "D",
+        "text": "Kucing A dan C sama-sama paling berat"
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "3,7 = 3,70 karena angka nol di belakang desimal tidak mengubah nilai. Keduanya lebih besar dari 3,07.",
+    "prerequisite_skills": [
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengira 3,7 dan 3,70 berbeda nilainya."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa memilih C karena angkanya tampak lebih panjang."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-pct-001",
+    "purpose": "practice",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "25% dari 200 adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "25"
+      },
+      {
+        "id": "B",
+        "text": "50"
+      },
+      {
+        "id": "C",
+        "text": "75"
+      },
+      {
+        "id": "D",
+        "text": "100"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "25% = 25/100 = 1/4. 1/4 × 200 = 50.",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengambil angka 25 langsung tanpa menghitung."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa menghitung 50% dari 200."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-pct-002",
+    "purpose": "practice",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Nyatakan 3/5 sebagai persentase.",
+    "options": [
+      {
+        "id": "A",
+        "text": "35%"
+      },
+      {
+        "id": "B",
+        "text": "53%"
+      },
+      {
+        "id": "C",
+        "text": "60%"
+      },
+      {
+        "id": "D",
+        "text": "30%"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "3/5 = 6/10 = 60/100 = 60%.",
+    "prerequisite_skills": [
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menulis angka pembilang dan penyebut bersebelahan (35)."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengalikan 3×10=30 saja."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-pct-003",
+    "purpose": "practice",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "0,45 = … %",
+    "options": [
+      {
+        "id": "A",
+        "text": "4,5%"
+      },
+      {
+        "id": "B",
+        "text": "45%"
+      },
+      {
+        "id": "C",
+        "text": "0,45%"
+      },
+      {
+        "id": "D",
+        "text": "450%"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "0,45 = 45/100 = 45%.",
+    "prerequisite_skills": [
+      "decimal_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menggeser koma satu tempat saja."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengalikan dengan 1000 bukan 100."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-pct-004",
+    "purpose": "practice",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Dari 40 siswa di kelas, 30% tidak hadir. Berapa siswa yang tidak hadir?",
+    "options": [
+      {
+        "id": "A",
+        "text": "10"
+      },
+      {
+        "id": "B",
+        "text": "12"
+      },
+      {
+        "id": "C",
+        "text": "15"
+      },
+      {
+        "id": "D",
+        "text": "30"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "30% × 40 = 30/100 × 40 = 12 siswa.",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menghitung 25% × 40 = 10."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengambil angka 30 langsung."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-pct-005",
+    "purpose": "practice",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Harga baju Rp 120.000 didiskon 20%. Berapa harga setelah diskon?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Rp 20.000"
+      },
+      {
+        "id": "B",
+        "text": "Rp 96.000"
+      },
+      {
+        "id": "C",
+        "text": "Rp 100.000"
+      },
+      {
+        "id": "D",
+        "text": "Rp 24.000"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Diskon = 20% × 120.000 = 24.000. Harga setelah diskon = 120.000 - 24.000 = 96.000.",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa menghitung diskon (24.000) bukan harga akhir."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa mengurangi 20.000 (angka bulat) bukan 20%."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-pct-006",
+    "purpose": "practice",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Dari 50 soal, Budi menjawab benar 35 soal. Berapa persen nilai Budi?",
+    "options": [
+      {
+        "id": "A",
+        "text": "35%"
+      },
+      {
+        "id": "B",
+        "text": "60%"
+      },
+      {
+        "id": "C",
+        "text": "65%"
+      },
+      {
+        "id": "D",
+        "text": "70%"
+      }
+    ],
+    "correct_answer": "D",
+    "explanation": "35/50 = 70/100 = 70%.",
+    "prerequisite_skills": [
+      "frac_equiv",
+      "decimal_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengambil angka 35 langsung sebagai persen."
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa menghitung 50-35=15, lalu 15/50×100=30, lalu mengambil 100-30=70 dengan langkah salah."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-foa-001",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_add",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "1/4 + 2/4 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "3/8"
+      },
+      {
+        "id": "B",
+        "text": "3/4"
+      },
+      {
+        "id": "C",
+        "text": "2/8"
+      },
+      {
+        "id": "D",
+        "text": "3/16"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Penyebut sama, jumlahkan pembilang: 1+2=3. Hasilnya 3/4.",
+    "prerequisite_skills": [
+      "frac_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menjumlahkan pembilang (1+2=3) dan penyebut (4+4=8) secara terpisah."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-foa-002",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_add",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "5/6 - 1/6 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "4/6"
+      },
+      {
+        "id": "B",
+        "text": "4/12"
+      },
+      {
+        "id": "C",
+        "text": "4/0"
+      },
+      {
+        "id": "D",
+        "text": "6/6"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Penyebut sama, kurangkan pembilang: 5-1=4. Hasilnya 4/6 (atau 2/3 dalam bentuk sederhana).",
+    "prerequisite_skills": [
+      "frac_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa mengurangkan penyebut juga: 6-6=0 tidak valid, lalu salah menjadi 4/12."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-foa-003",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_add",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "1/3 + 1/2 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "2/5"
+      },
+      {
+        "id": "B",
+        "text": "2/6"
+      },
+      {
+        "id": "C",
+        "text": "5/6"
+      },
+      {
+        "id": "D",
+        "text": "3/5"
+      }
+    ],
+    "correct_answer": "C",
+    "explanation": "Samakan penyebut: KPK(3,2)=6. 1/3=2/6, 1/2=3/6. Jumlah: 2/6+3/6=5/6.",
+    "prerequisite_skills": [
+      "frac_equiv",
+      "frac_cmp_diff_den"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menjumlahkan pembilang (1+1=2) dan penyebut (3+2=5) langsung."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-foa-004",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_add",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Ina meminum 2/5 liter jus pagi hari dan 1/3 liter sore hari. Berapa liter total yang diminum Ina?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3/8"
+      },
+      {
+        "id": "B",
+        "text": "11/15"
+      },
+      {
+        "id": "C",
+        "text": "3/15"
+      },
+      {
+        "id": "D",
+        "text": "7/15"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "KPK(5,3)=15. 2/5=6/15, 1/3=5/15. Total = 6/15+5/15=11/15.",
+    "prerequisite_skills": [
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menjumlahkan pembilang dan penyebut langsung: 3/8."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa salah mengubah ke penyebut sama: 2/15+5/15=7/15."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-foa-005",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_add",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Dari 3/4 kg tepung, ibu memakai 1/3 kg. Sisa tepung ibu adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "2/12"
+      },
+      {
+        "id": "B",
+        "text": "5/12"
+      },
+      {
+        "id": "C",
+        "text": "4/12"
+      },
+      {
+        "id": "D",
+        "text": "1/2"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "KPK(4,3)=12. 3/4=9/12, 1/3=4/12. Sisa = 9/12-4/12=5/12.",
+    "prerequisite_skills": [
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengurangkan pembilang (3-1=2) dan penyebut (4-3=1) → 2/1, tidak masuk akal, lalu menebak 2/12."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-foa-006",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_add",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "1/2 + 1/4 + 1/8 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "3/14"
+      },
+      {
+        "id": "B",
+        "text": "7/8"
+      },
+      {
+        "id": "C",
+        "text": "3/8"
+      },
+      {
+        "id": "D",
+        "text": "6/8"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "Penyebut sama 8: 4/8+2/8+1/8=7/8.",
+    "prerequisite_skills": [
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menjumlahkan semua pembilang (3) dan penyebut (2+4+8=14)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fom-001",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_mul",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "1/3 × 1/4 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/12"
+      },
+      {
+        "id": "B",
+        "text": "2/7"
+      },
+      {
+        "id": "C",
+        "text": "1/7"
+      },
+      {
+        "id": "D",
+        "text": "2/12"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Kalikan pembilang: 1×1=1. Kalikan penyebut: 3×4=12. Hasil: 1/12.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa menjumlahkan pembilang dan penyebut: 2/7."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fom-002",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_mul",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "3/4 × 2/5 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "6/20"
+      },
+      {
+        "id": "B",
+        "text": "5/9"
+      },
+      {
+        "id": "C",
+        "text": "6/9"
+      },
+      {
+        "id": "D",
+        "text": "5/20"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "3×2=6, 4×5=20. Hasil: 6/20 = 3/10.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Siswa menjumlahkan: (3+2)/(4+5)=5/9."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fom-003",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_mul",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "(1/2) ÷ (1/4) = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/8"
+      },
+      {
+        "id": "B",
+        "text": "2"
+      },
+      {
+        "id": "C",
+        "text": "1/2"
+      },
+      {
+        "id": "D",
+        "text": "4"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "a ÷ b = a × (1/b) (balik pembagi). 1/2 × 4/1 = 4/2 = 2.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa mengalikan langsung 1/2 × 1/4 = 1/8."
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa membalik kedua pecahan: 2/1 × 4/1 = 8, tapi ada yang menjawab 4."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fom-004",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_mul",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Ibu memiliki 3/4 kg gula. Ia memakai 2/3 dari gula tersebut. Berapa kg gula yang dipakai?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/2"
+      },
+      {
+        "id": "B",
+        "text": "5/7"
+      },
+      {
+        "id": "C",
+        "text": "1/4"
+      },
+      {
+        "id": "D",
+        "text": "2/3"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "2/3 × 3/4 = 6/12 = 1/2. Ibu memakai 1/2 kg.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa mengambil salah satu pecahan sebagai jawaban."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fom-005",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_mul",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah tali panjang 5/6 m dipotong menjadi 5 bagian sama panjang. Berapa panjang setiap potongan?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/6 m"
+      },
+      {
+        "id": "B",
+        "text": "25/6 m"
+      },
+      {
+        "id": "C",
+        "text": "5/30 m"
+      },
+      {
+        "id": "D",
+        "text": "1/5 m"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "5/6 ÷ 5 = 5/6 × 1/5 = 5/30 = 1/6 m.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "div_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa membagi pembilang saja: 5÷5=1 lalu menulis 1/5."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-fom-006",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Pecahan",
+    "skill": "fraction_ops_mul",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Sebuah resep menggunakan 2/3 cangkir tepung untuk 1 loyang. Berapa cangkir tepung untuk 3/4 loyang?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/2"
+      },
+      {
+        "id": "B",
+        "text": "5/7"
+      },
+      {
+        "id": "C",
+        "text": "8/12"
+      },
+      {
+        "id": "D",
+        "text": "3/4"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "2/3 × 3/4 = 6/12 = 1/2 cangkir.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa menghitung 2/3 × 3/4 = 6/12 tapi tidak menyederhanakan, maka menganggap jawabannya 8/12 (salah)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-do-001",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Desimal",
+    "skill": "decimal_ops",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "1,5 + 2,3 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "3,8"
+      },
+      {
+        "id": "B",
+        "text": "3,53"
+      },
+      {
+        "id": "C",
+        "text": "23,5"
+      },
+      {
+        "id": "D",
+        "text": "4,8"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Jumlahkan per kolom: satuan 1+2=3, persepuluhan 5+3=8. Total = 3,8.",
+    "prerequisite_skills": [
+      "decimal_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa menjumlahkan 1,5+2,3 sebagai 1+2+5+3=11 lalu menulis 4,8 (salah hitung)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-do-002",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Desimal",
+    "skill": "decimal_ops",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "3,7 - 1,4 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "2,3"
+      },
+      {
+        "id": "B",
+        "text": "2,4"
+      },
+      {
+        "id": "C",
+        "text": "3,3"
+      },
+      {
+        "id": "D",
+        "text": "5,1"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Kurangkan per kolom: satuan 3-1=2, persepuluhan 7-4=3. Hasil = 2,3.",
+    "prerequisite_skills": [
+      "decimal_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa mengurangkan 3,7 - 0,4 = 3,3 (lupa kurangkan satuan)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-do-003",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Desimal",
+    "skill": "decimal_ops",
+    "difficulty": 1,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "0,4 × 3 = …",
+    "options": [
+      {
+        "id": "A",
+        "text": "1,2"
+      },
+      {
+        "id": "B",
+        "text": "0,12"
+      },
+      {
+        "id": "C",
+        "text": "12"
+      },
+      {
+        "id": "D",
+        "text": "0,43"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "0,4 × 3 = 1,2. Atau: 4/10 × 3 = 12/10 = 1,2.",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Siswa menghitung 4×3=12 lalu lupa tanda koma."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-do-004",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Desimal",
+    "skill": "decimal_ops",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Beli 3 pensil masing-masing Rp 2.500 (= Rp 2,5 ribu). Total harga dalam ribuan rupiah adalah …",
+    "options": [
+      {
+        "id": "A",
+        "text": "Rp 6,5 ribu"
+      },
+      {
+        "id": "B",
+        "text": "Rp 7,5 ribu"
+      },
+      {
+        "id": "C",
+        "text": "Rp 7,0 ribu"
+      },
+      {
+        "id": "D",
+        "text": "Rp 8,5 ribu"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "2,5 × 3 = 7,5 ribu = Rp 7.500.",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menghitung 2,5+4=6,5 (salah strategi)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-do-005",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Desimal",
+    "skill": "decimal_ops",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Tali A = 4,35 m, Tali B = 1,8 m. Berapa meter lebih panjang Tali A dari Tali B?",
+    "options": [
+      {
+        "id": "A",
+        "text": "2,55 m"
+      },
+      {
+        "id": "B",
+        "text": "2,15 m"
+      },
+      {
+        "id": "C",
+        "text": "3,55 m"
+      },
+      {
+        "id": "D",
+        "text": "2,45 m"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "4,35 - 1,80 = 2,55 m. Samakan digit desimal: 4,35 - 1,80.",
+    "prerequisite_skills": [
+      "decimal_rep"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Siswa menghitung 4,35-1,8 sebagai 4,35-1,9=2,45 (salah mengonversi 1,8)."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "prac-do-006",
+    "purpose": "practice",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Operasi Desimal",
+    "skill": "decimal_ops",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "societal",
+    "question": "Seorang pedagang membeli 2,5 kg mangga seharga Rp 8.000 per kg. Berapa total uang yang harus dibayar?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Rp 16.000"
+      },
+      {
+        "id": "B",
+        "text": "Rp 20.000"
+      },
+      {
+        "id": "C",
+        "text": "Rp 18.000"
+      },
+      {
+        "id": "D",
+        "text": "Rp 24.000"
+      }
+    ],
+    "correct_answer": "B",
+    "explanation": "2,5 × 8.000 = 20.000.",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "mul_basic"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "A",
+        "reason": "Siswa menghitung 2 × 8.000 = 16.000, mengabaikan 0,5 kg."
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  }
+]

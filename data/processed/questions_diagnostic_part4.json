@@ -1,0 +1,349 @@
+[
+  {
+    "id": "diag-gcd-001",
+    "purpose": "diagnostic",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "FPB dan KPK",
+    "skill": "gcd_lcm",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Berapakah FPB (Faktor Persekutuan Terbesar) dari 12 dan 18?",
+    "options": [
+      {
+        "id": "A",
+        "text": "6"
+      },
+      {
+        "id": "B",
+        "text": "12"
+      },
+      {
+        "id": "C",
+        "text": "18"
+      },
+      {
+        "id": "D",
+        "text": "36"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Faktor dari 12 adalah 1, 2, 3, 4, 6, 12. Faktor dari 18 adalah 1, 2, 3, 6, 9, 18. Faktor persekutuan terbesar adalah 6.",
+    "prerequisite_skills": [
+      "factors_multiples"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin menganggap faktor terbesar dari bilangan pertama saja"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin menganggap faktor terbesar dari bilangan kedua saja"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin menghitung KPK (Kelipatan Persekutuan Terkecil) bukan FPB"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "diag-dec-001",
+    "purpose": "diagnostic",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Bilangan 0,7 jika ditulis dalam bentuk pecahan adalah...",
+    "options": [
+      {
+        "id": "A",
+        "text": "7/10"
+      },
+      {
+        "id": "B",
+        "text": "7/100"
+      },
+      {
+        "id": "C",
+        "text": "1/7"
+      },
+      {
+        "id": "D",
+        "text": "10/7"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "0,7 memiliki 1 angka di belakang koma, berarti persepuluhan. Jadi 0,7 = 7/10.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin mengira angka di belakang koma selalu perseratusan"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin membalik pembilang dan penyebut"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin membalik dan salah menempatkan koma"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "diag-dec-002",
+    "purpose": "diagnostic",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Sebuah pita panjangnya 2,5 meter. Jika pita dipotong menjadi 5 bagian sama panjang, berapa meter panjang setiap potongan?",
+    "options": [
+      {
+        "id": "A",
+        "text": "0,5 m"
+      },
+      {
+        "id": "B",
+        "text": "0,25 m"
+      },
+      {
+        "id": "C",
+        "text": "0,05 m"
+      },
+      {
+        "id": "D",
+        "text": "0,025 m"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "2,5 meter dibagi 5 = 2,5 ÷ 5 = 0,5 meter. Atau 2,5 = 5/2, dibagi 5 = (5/2) × (1/5) = 5/10 = 1/2 = 0,5.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin membagi 2,5 dengan 10 bukan 5"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin salah menempatkan koma desimal"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin membagi dengan 100 bukan 5"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "diag-dec-003",
+    "purpose": "diagnostic",
+    "grade": 5,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Desimal",
+    "skill": "decimal_rep",
+    "difficulty": 3,
+    "cognitive_level": "reasoning",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Di toko bahan bangunan, harga semen per sak adalah Rp 75.000,00. Jika mendapatkan diskon 15%, dan harus membayar PPN 10% dari harga setelah diskon, berapa total yang harus dibayar untuk 2 sak semen?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Rp 140.250,00"
+      },
+      {
+        "id": "B",
+        "text": "Rp 140.500,00"
+      },
+      {
+        "id": "C",
+        "text": "Rp 142.500,00"
+      },
+      {
+        "id": "D",
+        "text": "Rp 145.000,00"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Harga 2 sak = 2 × 75.000 = 150.000. Diskon 15% = 150.000 × 0,15 = 22.500. Harga setelah diskon = 150.000 - 22.500 = 127.500. PPN 10% = 127.500 × 0,10 = 12.750. Total = 127.500 + 12.750 = 140.250.",
+    "prerequisite_skills": [
+      "frac_rep",
+      "place_value"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin menghitung tanpa diskon dan PPN"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin menghitung diskon tapi lupa PPN, atau sebaliknya"
+      },
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin salah dalam perhitungan desimal atau pembulatan"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "diag-per-001",
+    "purpose": "diagnostic",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 1,
+    "cognitive_level": "knowing",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "25% jika diubah ke bentuk pecahan biasa paling sederhana adalah...",
+    "options": [
+      {
+        "id": "A",
+        "text": "1/4"
+      },
+      {
+        "id": "B",
+        "text": "1/2"
+      },
+      {
+        "id": "C",
+        "text": "1/5"
+      },
+      {
+        "id": "D",
+        "text": "2/5"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "25% = 25/100 = 1/4 (disederhanakan dengan membagi pembilang dan penyebut dengan 25).",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin mengira 25% sama dengan 50% (1/2)"
+      },
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin membaca 25% sebagai 20% (1/5)"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin mengira 25% = 40% (2/5)"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  },
+  {
+    "id": "diag-per-002",
+    "purpose": "diagnostic",
+    "grade": 6,
+    "phase": "C",
+    "domain": "Bilangan",
+    "topic": "Persentase",
+    "skill": "percentage",
+    "difficulty": 2,
+    "cognitive_level": "applying",
+    "question_type": "multiple_choice",
+    "context": "personal",
+    "question": "Harga sebuah buku adalah Rp 40.000,00. Jika toko memberikan diskon 20%, berapa harga buku setelah diskon?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Rp 32.000,00"
+      },
+      {
+        "id": "B",
+        "text": "Rp 34.000,00"
+      },
+      {
+        "id": "C",
+        "text": "Rp 36.000,00"
+      },
+      {
+        "id": "D",
+        "text": "Rp 38.000,00"
+      }
+    ],
+    "correct_answer": "A",
+    "explanation": "Diskon 20% dari 40.000 = 40.000 × 0,20 = 8.000. Harga setelah diskon = 40.000 - 8.000 = 32.000.",
+    "prerequisite_skills": [
+      "decimal_rep",
+      "frac_equiv"
+    ],
+    "possible_misconceptions": [
+      {
+        "wrong_answer": "C",
+        "reason": "Mungkin menghitung diskon 10% bukan 20%"
+      },
+      {
+        "wrong_answer": "D",
+        "reason": "Mungkin menghitung diskon 5% bukan 20%"
+      },
+      {
+        "wrong_answer": "B",
+        "reason": "Mungkin salah dalam perhitungan desimal"
+      }
+    ],
+    "metadata_inferred": true,
+    "source_url": "https://kurikulum.kemdikbud.go.id",
+    "source_title": "Capaian Pembelajaran Matematika SD Fase C",
+    "source_type": "curriculum_aligned",
+    "license_note": "Soal dibuat mengacu CP Kemendikbud; bukan kutipan verbatim.",
+    "raw_source_reference": "CP Matematika Fase C - Bilangan"
+  }
+]

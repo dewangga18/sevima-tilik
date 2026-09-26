@@ -1,0 +1,77 @@
+[
+  {
+    "skill_id": "place_value",
+    "skill": "Nilai tempat bilangan cacah",
+    "prerequisites": []
+  },
+  {
+    "skill_id": "number_comparison",
+    "skill": "Membandingkan dan mengurutkan bilangan cacah",
+    "prerequisites": ["place_value"]
+  },
+  {
+    "skill_id": "mul_basic",
+    "skill": "Perkalian bilangan cacah",
+    "prerequisites": ["penjumlahan_berulang"]
+  },
+  {
+    "skill_id": "div_basic",
+    "skill": "Pembagian bilangan cacah",
+    "prerequisites": ["mul_basic"]
+  },
+  {
+    "skill_id": "frac_rep",
+    "skill": "Representasi pecahan",
+    "prerequisites": []
+  },
+  {
+    "skill_id": "frac_equiv",
+    "skill": "Pecahan senilai",
+    "prerequisites": ["frac_rep"]
+  },
+  {
+    "skill_id": "frac_cmp_same_den",
+    "skill": "Membandingkan pecahan berpenyebut sama",
+    "prerequisites": ["frac_rep"]
+  },
+  {
+    "skill_id": "frac_cmp_diff_den",
+    "skill": "Membandingkan pecahan berpenyebut berbeda",
+    "prerequisites": ["frac_equiv", "frac_cmp_same_den"]
+  },
+  {
+    "skill_id": "factors_multiples",
+    "skill": "Faktor dan kelipatan bilangan",
+    "prerequisites": ["mul_basic", "div_basic"]
+  },
+  {
+    "skill_id": "gcd_lcm",
+    "skill": "FPB dan KPK",
+    "prerequisites": ["factors_multiples"]
+  },
+  {
+    "skill_id": "decimal_rep",
+    "skill": "Representasi desimal",
+    "prerequisites": ["frac_rep", "place_value"]
+  },
+  {
+    "skill_id": "decimal_ops",
+    "skill": "Operasi hitung desimal",
+    "prerequisites": ["decimal_rep", "mul_basic"]
+  },
+  {
+    "skill_id": "fraction_ops_add",
+    "skill": "Penjumlahan dan pengurangan pecahan",
+    "prerequisites": ["frac_equiv", "frac_cmp_diff_den"]
+  },
+  {
+    "skill_id": "fraction_ops_mul",
+    "skill": "Perkalian dan pembagian pecahan",
+    "prerequisites": ["frac_rep", "mul_basic", "div_basic"]
+  },
+  {
+    "skill_id": "percentage",
+    "skill": "Persentase",
+    "prerequisites": ["decimal_rep", "frac_equiv"]
+  }
+]

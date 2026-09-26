@@ -1,0 +1,26 @@
+[
+  {
+    "source_id": "cp-matematika-fase-b",
+    "title": "Capaian Pembelajaran Matematika SD Fase B (Kelas 3-4)",
+    "url": "https://kurikulum.kemdikbud.go.id",
+    "type": "official_curriculum",
+    "publisher": "Kemendikbudristek",
+    "year": 2022,
+    "scope": "Kurikulum Merdeka - Capaian Pembelajaran Matematika Phase B (Grade 3-4)",
+    "usage": "Dasar pemetaan skill, domain, dan topik untuk kelas 4. Soal-soal dibuat mengacu pada kompetensi yang tercantum, bukan kutipan verbatim.",
+    "license_note": "Dokumen kurikulum resmi pemerintah. Soal tidak dikutip langsung; dibuat berdasarkan kompetensi dasar yang tercantum.",
+    "retrieved_at": "2026-09-26"
+  },
+  {
+    "source_id": "cp-matematika-fase-c",
+    "title": "Capaian Pembelajaran Matematika SD Fase C (Kelas 5-6)",
+    "url": "https://kurikulum.kemdikbud.go.id",
+    "type": "official_curriculum",
+    "publisher": "Kemendikbudristek",
+    "year": 2022,
+    "scope": "Kurikulum Merdeka - Capaian Pembelajaran Matematika Phase C (Grade 5-6)",
+    "usage": "Dasar pemetaan skill untuk kelas 5-6: FPB/KPK, desimal, persentase, operasi pecahan.",
+    "license_note": "Dokumen kurikulum resmi pemerintah. Soal tidak dikutip langsung; dibuat berdasarkan kompetensi dasar yang tercantum.",
+    "retrieved_at": "2026-09-26"
+  }
+]

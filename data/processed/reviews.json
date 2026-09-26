@@ -1,0 +1,398 @@
+{
+  "diag-mul_basic-001": {
+    "hash": "83f5e1ccd75e39104932388adecb58e8deaf853c4fc1085190fa80392ecfd9e8",
+    "status": "approved",
+    "expected_answer": "12",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-mul_basic-002": {
+    "hash": "e45faeaea503b977fb8d5d31bff5fa6c1d8b2c9433b758c835e75bc321689de2",
+    "status": "approved",
+    "expected_answer": "40",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-div_basic-001": {
+    "hash": "2a3a6225c85cd9185d5bb2b1243af04d10830bd73dcdff4fbf8fea36c872d326",
+    "status": "approved",
+    "expected_answer": "4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-div_basic-002": {
+    "hash": "5b22521c0c6265e5dfdae419bf1f333cda889c879c22e74d454178a02736a3f8",
+    "status": "approved",
+    "expected_answer": "4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-frac_rep-001": {
+    "hash": "f2b27619c2842fcfe0b4dc1b9cf262183f26ef17a0a5a0ccc2c2cdfda72b4617",
+    "status": "approved",
+    "expected_answer": "3 bagian dari 4 bagian sama besar",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-frac_rep-002": {
+    "hash": "f6e973fa6e4b491d0bc790a929b30e3ccaaa983d4d1b36bcdbea8cdde61235c8",
+    "status": "approved",
+    "expected_answer": "3/8",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-equiv-001": {
+    "hash": "ac941c0dad31a9f5121cb128b86e5b22077ef21074f65218ea6777e6ee947929",
+    "status": "approved",
+    "expected_answer": "2/4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-cmpden-001": {
+    "hash": "332dd935c934b8cc72fafba2c17b31d6b307e61fd2f31d3ff96bdfe08a27986f",
+    "status": "approved",
+    "expected_answer": "3/5",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "diag-cmpdiff-001": {
+    "hash": "60d029fb3bd00e1e70ba34860b7197f3e7cce8fe1dfd1542aa31d5c54b6b0f35",
+    "status": "approved",
+    "expected_answer": "1/2",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-mul_basic-001": {
+    "hash": "023a31fb3e92c8a0a84e846edf549db4276d9aa5fe08cbd12ba5d9c1caba5ae9",
+    "status": "approved",
+    "expected_answer": "15",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-mul_basic-002": {
+    "hash": "cf4751458bbd4669467f27c00313d23b4bea962983a281b341e385886b3aa490",
+    "status": "approved",
+    "expected_answer": "28",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-mul_basic-003": {
+    "hash": "6cf6e9df1b042998541257407accbf9e0c7905794c284616a805aaf8df855ba4",
+    "status": "approved",
+    "expected_answer": "30",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-div_basic-001": {
+    "hash": "bdd58568215f27dd503689322dcadc30c1b3b4d5fd5ff2cfb844129072400fe6",
+    "status": "approved",
+    "expected_answer": "4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-div_basic-002": {
+    "hash": "f4aef35c893a476602b3ed2976d0b98171473972e5f4ce5fcdb565996fcc99d7",
+    "status": "approved",
+    "expected_answer": "5",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-div_basic-003": {
+    "hash": "bcfe8384e246793b4e16d81113ee9595153cb78a56be181cb28d1a928fdc5d94",
+    "status": "approved",
+    "expected_answer": "3",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-frac_rep-001": {
+    "hash": "27b0cbe291585878d996891b8009dd64a0aa7b68ebd5a4b536b8d7f1821ba648",
+    "status": "approved",
+    "expected_answer": "1/4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-frac_rep-002": {
+    "hash": "6b9322753143c22fc2e6c28cf1b6f93e6a946055d42f10f5a85243f7ba714c48",
+    "status": "approved",
+    "expected_answer": "5/8",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-frac_rep-005": {
+    "hash": "95fc4e8e298ed2dc92ab5ebfccba48d3bc684f3d9ad6075b87b9625734fe1b4b",
+    "status": "approved",
+    "expected_answer": "5/12",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-frac_rep-006": {
+    "hash": "cedec0d3b921669ed50d090baa87ff6b9c156ba64127057a4e16850e860892b1",
+    "status": "approved",
+    "expected_answer": "3/8 meter",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-feq-001": {
+    "hash": "f14468cc801ec999984750c811271e5c538da62aa4c19c998a68ae3c1a2f8e32",
+    "status": "approved",
+    "expected_answer": "2",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-feq-002": {
+    "hash": "2a6e23d8e398e15d4d6ed8c1dc9eeb43bd24d3147c11d01bd6f0c9b8d778ce1f",
+    "status": "approved",
+    "expected_answer": "4/6",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-feq-003": {
+    "hash": "16f39907643f891d10fdaff9bf7a7a792e829f13537253e91e9f2e60b85732c9",
+    "status": "approved",
+    "expected_answer": "1/3",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-feq-004": {
+    "hash": "883a5192b8b6b77fa53b00f3f54c0974c583d85a2598f0c2800ce5a54f9fb002",
+    "status": "approved",
+    "expected_answer": "Ya, keduanya senilai dengan 1/2",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-feq-005": {
+    "hash": "4115dad1ace7cc1ba70f7f5046d9ed5b1b91abf0bedf7737b2f47bac167b4736",
+    "status": "approved",
+    "expected_answer": "Sama panjang",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-feq-006": {
+    "hash": "3be7391d18aaa8414e0b3eea9008880cd642457dccd5ce8b2ad79f91ee2deaa7",
+    "status": "approved",
+    "expected_answer": "6/12",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcsd-001": {
+    "hash": "fc02692fbd021b7304fb4efc5b78c7ee14104a6c7860afcda95ed79ab29ad0cf",
+    "status": "approved",
+    "expected_answer": "5/7",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcsd-002": {
+    "hash": "8692a00b3c8fa70fa3c59521e85dfe94c38476f5a1f94d125bf817e1098c6b75",
+    "status": "approved",
+    "expected_answer": "2/9, 4/9, 7/9",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcsd-003": {
+    "hash": "fae3e39a5b0285a72dbdba95111f94f15a0d7494219f5aebbe61d931d4a19742",
+    "status": "approved",
+    "expected_answer": "<",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcsd-005": {
+    "hash": "5d0af845189135bde9b4459139cf93ac958963c97570e8421888b04cb13bc858",
+    "status": "approved",
+    "expected_answer": "Pita merah",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcsd-006": {
+    "hash": "89f54aa084a7825dcd963ec0f5046fd9c84d2f26f9b83aff87421f69a7ac43d3",
+    "status": "approved",
+    "expected_answer": "Bima",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcdd-001": {
+    "hash": "030a385ea89c6d9809dab32932ab8964b41c597e8d80b4a55c50daa9a713b28a",
+    "status": "approved",
+    "expected_answer": "1/3",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcdd-002": {
+    "hash": "96a2697d972cdb7cbcabfcf5e78b0dd07128370ed3aab167263cf7017faeb94b",
+    "status": "approved",
+    "expected_answer": "3/4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcdd-003": {
+    "hash": "f1b38559d87cdb20650286654fe5a47482ea1fea1ea0d3180ab97d43bcd0b172",
+    "status": "approved",
+    "expected_answer": "1/6, 1/3, 1/2",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcdd-005": {
+    "hash": "bb36b201f7ce80b4946c33160fd88f411b3f25b573d3403a724d9e75ee6059da",
+    "status": "approved",
+    "expected_answer": "3/5, 2/4, 4/10",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "prac-fcdd-006": {
+    "hash": "8f929eb1145382ced96e9227fed67b2cc897a01f1fad53a301e0ab1fdbd75d27",
+    "status": "approved",
+    "expected_answer": "7/8",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-mul-001": {
+    "hash": "10bebe0d68218970d1e6b9eadc7a726576f82ad2cfbc2bbc2b467caac279a879",
+    "status": "approved",
+    "expected_answer": "45",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-mul-002": {
+    "hash": "c2918bae96d3198f6410c6f43d0fde1bef3b6ab4f25a91784404e32fdfb976fe",
+    "status": "approved",
+    "expected_answer": "56",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-mul-003": {
+    "hash": "4444f9d1858445e20dae0e28b5d18bea80885d7a04b4b6aeb961493879c927b8",
+    "status": "approved",
+    "expected_answer": "66",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-mul-004": {
+    "hash": "44866bfb7fcee1d5376f8d187fafc89af4390998e0b1413e711e02af77cbcd61",
+    "status": "approved",
+    "expected_answer": "120",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-mul-005": {
+    "hash": "bf4aa9e3a72ddf79e8b7171d32c685f8b45e4953fd9973afe73f822ad1b4255d",
+    "status": "approved",
+    "expected_answer": "336",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-mul-006": {
+    "hash": "f80b0cba8a0f1f44f602ee8f76151d42ef34d7b2cdc39f821230487d9be9f732",
+    "status": "approved",
+    "expected_answer": "Rp 63.000",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-div-001": {
+    "hash": "91a48ce83733a7bacc4503e04a3697d9c079781d4d128b3d87b9948f217fa8a1",
+    "status": "approved",
+    "expected_answer": "8",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-div-002": {
+    "hash": "eca9f7e98f9786b193c122b564fe8b012aace359748d11b04f0f50b4f325b7d6",
+    "status": "approved",
+    "expected_answer": "9",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-div-003": {
+    "hash": "13517d47ad92a4b8e980845bd1d897517406e00c515d1574e719a6a16c23687a",
+    "status": "approved",
+    "expected_answer": "12",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-div-004": {
+    "hash": "8db47a768ed6c167c875dff8a7ce37ae7cc8586919b95df8f606439e7764fc43",
+    "status": "approved",
+    "expected_answer": "15",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-div-005": {
+    "hash": "4b34c336b5ec8e3ceba64d82bfca341392bdc7b47674d5b881ddabb640491184",
+    "status": "approved",
+    "expected_answer": "24",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-div-006": {
+    "hash": "4b5bd30ac16f9623d3284b2b8a5ec7de2cde4f242f49db452d3f2782f8e26fa5",
+    "status": "approved",
+    "expected_answer": "24",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-frep-001": {
+    "hash": "bc71e3de4f4cd2b100c30d330d616118a54a15e2a1ccc4f03494e77663137942",
+    "status": "approved",
+    "expected_answer": "7",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-frep-002": {
+    "hash": "3ec2edd31cf63ec1df342df1aacc40c653b4477e8f8a4123153ea7b4eaca6341",
+    "status": "approved",
+    "expected_answer": "2/6",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-frep-003": {
+    "hash": "7f0112f60448d41f5ba48d77e2ab92dab6b63222bc550cee10f760331ff30420",
+    "status": "approved",
+    "expected_answer": "4 bagian dari 7 bagian sama besar",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-frep-004": {
+    "hash": "bdccdc4581ce63a1de15b727f020485c194e65939fce58e233618d9671fb9fa0",
+    "status": "approved",
+    "expected_answer": "4/10",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-feq-001": {
+    "hash": "58d57dcf19f5ce61b9770f228193dfff94e2eb88de8efd0d9afc5e2849ff5cfb",
+    "status": "approved",
+    "expected_answer": "15",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-feq-003": {
+    "hash": "fcb311391996dde00bda4e4a7297c8c02cd4c5e437cddf025f604daae7631b61",
+    "status": "approved",
+    "expected_answer": "2/8",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-feq-005": {
+    "hash": "e4f286b53897df0369d85b03ce343ffbcbd73d3770397d2538f0af07b445d731",
+    "status": "approved",
+    "expected_answer": "1/4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-feq-006": {
+    "hash": "dcf6e793e38dac0d5d8129f2a82e607750edd900e5467dca0f363de50281697a",
+    "status": "approved",
+    "expected_answer": "16",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcsd-001": {
+    "hash": "17eaed16b19ce312dcc054f880757465c0176f8ae9e7096e9a832b863e4027db",
+    "status": "approved",
+    "expected_answer": "8/9",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcsd-002": {
+    "hash": "6b22fc1e1a66a81f14cad636390deb22575f51e2b81c0ace3cd9b31d9884668e",
+    "status": "approved",
+    "expected_answer": ">",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcsd-003": {
+    "hash": "7c95055b0987bab64381d7960252443cf0e0ab9f4616cbd7a5e5263d8eac598b",
+    "status": "approved",
+    "expected_answer": "9/10, 6/10, 4/10",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcsd-004": {
+    "hash": "972fc0bf05750cb63f02a563abbc7a116d11064973d17091bcb3996a70fb4a9c",
+    "status": "approved",
+    "expected_answer": "Yang berlari 7/8 putaran",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcsd-005": {
+    "hash": "07f603658aea9bbefa6ea2b1719e16e486265b600f0baf58a1bdf2040c6138d2",
+    "status": "approved",
+    "expected_answer": "Cika",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcsd-006": {
+    "hash": "0de615e4dc3dc3f74f417dadc24fa241f16ff3f352871166141e5e164409d23a",
+    "status": "approved",
+    "expected_answer": "5/15 dan 6/15 dan 7/15",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcdd-001": {
+    "hash": "585df0b39adb23ac9399aeaa5faba274ea460ef5224ec9c5200bbd7868f018b6",
+    "status": "approved",
+    "expected_answer": "1/3",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcdd-002": {
+    "hash": "06bb80b1be91ffcfe527839a72ace96ff5e34dae04046f06deedbc557c827d92",
+    "status": "approved",
+    "expected_answer": "5/6",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcdd-003": {
+    "hash": "97fddd94f3979feb65c2712760d467815723b988105431a031f4a6b1b1865c7c",
+    "status": "approved",
+    "expected_answer": "1/2, 2/3, 3/4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcdd-005": {
+    "hash": "f0b692b6593557624158811f04a9d532e8241decc4e3f7e6051a30d175b2147b",
+    "status": "approved",
+    "expected_answer": "7/10, 2/3, 3/5",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  },
+  "reas-fcdd-006": {
+    "hash": "3a937b8e06e032e2bee8e19fc07ec062d5f9e2d045b0febe1fe6355def60ac69",
+    "status": "approved",
+    "expected_answer": "Salah, karena 5/8 = 10/16 dan 3/4 = 12/16, sehingga 5/8 < 3/4",
+    "note": "Demo kelas 4: kunci dan opsi diperiksa secara matematis; belum review guru/kurikulum eksternal. Graph aktif tetap memakai enam skill existing."
+  }
+}
