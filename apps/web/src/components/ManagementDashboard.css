@@ -65,3 +65,17 @@
   .navbar .navbar-user { justify-content: flex-end; }
   .student-navbar-navigation { grid-column: 1 / -1; }
 }
+
+/* Teacher classes page */
+.teacher-class-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: var(--space-4); }
+.teacher-class-list .btn { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.teacher-class-list .btn span { font-size: 0.8rem; font-weight: 400; opacity: 0.85; }
+.teacher-insight-panel { margin-top: var(--space-5); padding: var(--space-5); border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-surface); }
+.teacher-insight-panel h3 { margin-bottom: var(--space-3); }
+.teacher-insight-panel h4 { margin: var(--space-4) 0 var(--space-2); font-size: 0.95rem; }
+.teacher-recommendation-list, .teacher-progress-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem; }
+.teacher-recommendation-list li, .teacher-progress-list li { display: flex; flex-direction: column; gap: 2px; padding: 0.6rem 0.8rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.teacher-recommendation-list span, .teacher-progress-list span { font-size: 0.85rem; color: var(--color-muted); }
+.status-completed { color: var(--color-success); background: var(--color-success-light); }
+.status-in_progress { color: #92400e; background: #fef3c7; }
+.status-unassessed { color: var(--color-muted); background: #eef1ec; }

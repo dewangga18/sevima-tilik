@@ -47,6 +47,8 @@ func main() {
 	diagHandler := handler.NewDiagnosticHandler(diagService)
 	learningService := service.NewLearningService(repository.NewLearningRepository(db), curriculumRepo, diagService)
 	learningHandler := handler.NewLearningHandler(learningService)
+	teacherService := service.NewTeacherService(db)
+	teacherHandler := handler.NewTeacherHandler(teacherService)
 
 	mux := http.NewServeMux()
 
@@ -90,6 +92,11 @@ func main() {
 	mux.Handle("POST /api/learning/start", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Start))))
 	mux.Handle("POST /api/learning/lesson-complete", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.CompleteLesson))))
 	mux.Handle("POST /api/learning/answer", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Answer))))
+
+	// Teacher data routes (teacher role + per-class assignment enforced in service)
+	mux.Handle("GET /api/teacher/classes", apiLimiter.Middleware(authHandler.TeacherMiddleware(http.HandlerFunc(teacherHandler.GetClasses))))
+	mux.Handle("GET /api/teacher/classes/{class_id}/students", apiLimiter.Middleware(authHandler.TeacherMiddleware(http.HandlerFunc(teacherHandler.GetClassStudents))))
+	mux.Handle("GET /api/teacher/students/{student_id}/insight", apiLimiter.Middleware(authHandler.TeacherMiddleware(http.HandlerFunc(teacherHandler.GetStudentInsight))))
 
 	// Middleware chain: Logging -> CORS
 	wrappedMux := loggingMiddleware(corsMiddleware(cfg.AllowedOrigin)(mux))

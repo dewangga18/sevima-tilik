@@ -159,6 +159,26 @@ func (h *AuthHandler) StudentMiddleware(next http.Handler) http.Handler {
 	return h.AuthMiddleware(requireStudent(next))
 }
 
+// TeacherMiddleware authenticates first, then restricts teacher data by role.
+func (h *AuthHandler) TeacherMiddleware(next http.Handler) http.Handler {
+	return h.AuthMiddleware(requireTeacher(next))
+}
+
+func requireTeacher(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user, ok := r.Context().Value(UserContextKey).(*domain.User)
+		if !ok || user == nil {
+			WriteError(w, http.StatusUnauthorized, "Sesi tidak ditemukan atau telah kedaluwarsa")
+			return
+		}
+		if user.Role != domain.RoleTeacher {
+			WriteError(w, http.StatusForbidden, "Fitur ini hanya tersedia untuk guru")
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
 func requireStudent(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user, ok := r.Context().Value(UserContextKey).(*domain.User)

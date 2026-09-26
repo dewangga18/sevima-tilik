@@ -1,4 +1,4 @@
-import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession } from '../types'
+import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession, TeacherClass, StudentOverview, StudentInsight } from '../types'
 
 const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
@@ -123,6 +123,12 @@ export const api = {
   },
 
   getLearningProgress: () => request<LearningProgress>('/api/learning/progress'),
+
+  // Teacher
+  getTeacherClasses: () => request<TeacherClass[]>('/api/teacher/classes'),
+  getClassStudents: (classId: string) => request<StudentOverview[]>(`/api/teacher/classes/${encodeURIComponent(classId)}/students`),
+  getStudentInsight: (studentId: string) => request<StudentInsight>(`/api/teacher/students/${encodeURIComponent(studentId)}/insight`),
+
   startLearning: (sourceId: string, skillId: string, requestId: string) => request<LearningSession>('/api/learning/start', { method: 'POST', body: JSON.stringify({ source_assessment_id: sourceId, skill_id: skillId, request_id: requestId }) }),
   getLearningSession: (id: string) => request<LearningSession>(`/api/learning/sessions/${encodeURIComponent(id)}`),
   completeLesson: (id: string) => request<LearningSession>('/api/learning/lesson-complete', { method: 'POST', body: JSON.stringify({ session_id: id }) }),

@@ -265,3 +265,15 @@ Practice 3 jawaban -> reassessment 3 jawaban berbeda dari diagnostic/practice da
 ## GET /api/learning/progress
 
 200 `{source_assessment_id?,skills:[],learning_path:[],active_sessions:[],recent_sessions:[],completed_count}`. Skills: skill_id/name, status, score? (absent untuk unassessed), evidence_count, correct_count, source (diagnostic/reassessment/unassessed), updated_at?. Ambil latest completed progressive diagnostic dan overlay reassessment yang lebih baru; jangan merusak snapshot hasil diagnostic lama. Learning_path topological berisi weak/inconclusive skills dan reason menyebut reassessment jika itulah evidence terbaru, tanpa mengunci skill unassessed seolah gagal. active_sessions memiliki summary id/skill/stage/date; recent_sessions maksimal 5, completed_count seluruh learning completions owner. Loading/error tidak disamakan dengan empty progress. Tidak memuat jawaban/solusi. No data: arrays [], count 0; skill map boleh berisi unassessed untuk slice tersedia.
+
+## GET /api/teacher/classes
+
+Teacher middleware semua environment: 401 session invalid, 403 non-teacher `Fitur ini hanya tersedia untuk siswa/guru` sesuai middleware terpasang (pesan guru: `Fitur ini hanya tersedia untuk guru`). 200 array TeacherClass: `{id,name,grade_level,student_count,assessed_count}`. Hanya kelas yang ditugaskan kepada guru tersebut; assessed_count menghitung siswa dengan minimal satu assessment completed. Read-only, idempotent, tanpa side effect. 500 `Data kelas belum bisa dimuat. Silakan coba lagi.` dengan detail hanya di log server.
+
+## GET /api/teacher/classes/{class_id}/students
+
+Teacher middleware. Kelas tidak ditugaskan kepada guru 403 `Akses ditolak`; class_id kosong 400 `Permintaan kelas tidak valid`. 200 array StudentOverview: `{id,name,latest_status,assessed_skills,visible_gap_count,root_gap_count,updated_at?}`. latest_status `completed|in_progress|unassessed`; gap dihitung dari evidence assessment completed terakhir (status evidence needs_practice/inconclusive = visible gap; is_root_gap = kandidat akar), definisi sama dengan hasil siswa. Belum dinilai disajikan eksplisit, bukan digabung dengan gap. 500 `Data siswa belum bisa dimuat. Silakan coba lagi.`
+
+## GET /api/teacher/students/{student_id}/insight
+
+Teacher middleware. Siswa tidak terdaftar di kelas mana pun yang ditugaskan kepada guru 403 `Akses ditolak`; siswa tidak ditemukan 404 `Siswa tidak ditemukan`; student_id kosong 400 `Permintaan siswa tidak valid`. 200 StudentInsight: `{student_id,student_name,classroom_id,classroom_name,assessment_id?,assessed_at?,target_skill_id?,results[],recommendations[],progress[]}`. results memakai definisi SkillResult yang sama dengan hasil diagnostic siswa (tanpa kunci soal); recommendations adalah learning_path assessment terakhir (lesson/practice yang benar-benar tersedia); progress dari skill_progress terbaru. Siswa tanpa assessment completed: arrays kosong, assessment_id absent. Tanpa perubahan data; assignment otomatis tidak dilakukan. 500 `Insight siswa belum bisa dimuat. Silakan coba lagi.`

@@ -2,7 +2,7 @@
 
 ## Status
 
-Checkpoint siswa Phase 1–3 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal) selesai: 65 soal approved aktif, 136 draft tersimpan tanpa ikut selection, 24 kandidat invalid dihapus dari data dan database. Prioritas aktif berikutnya Phase 4: assignment kelas dan insight guru. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal) dan Phase 4 (kelas, insight guru) selesai. Prioritas aktif berikutnya Phase 5: engagement dan administrasi minimum, lalu Slice AI menunggu keputusan provider/biaya/izin. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
 
 Plan ini menjadi sumber eksekusi tunggal, termasuk generator soal, asisten guru, dan usulan scanner tulisan tangan dari plan AI lama. Semua checklist baru masih pending; rencana endpoint bukan klaim fitur sudah tersedia. Scanner direncanakan sebagai koreksi berbantuan review manusia setelah core P0, bukan penilaian akademis otomatis oleh LLM.
 
@@ -236,16 +236,16 @@ Goal: demo learning loop lengkap sampai keputusan guru.
 
 Dependencies: Phase 3 dan checkpoint import Phase 3B yang sudah lolos; tambahkan classroom, student enrollment, dan teacher assignment sebelum endpoint data siswa guru. Seed assignment untuk demo, bukan daftar siswa hardcoded.
 
-- [ ] Relasi assignment mendukung satu guru di beberapa kelas; query data hanya kelas yang di-assign. Uji dua kelas assigned dan satu kelas nonassigned.
-- [ ] Role teacher membaca kelas yang dia ajar saja; agregasi membedakan belum dinilai dan gap, menampilkan denominator siswa yang dinilai.
-- [ ] Dashboard kelas -> daftar siswa -> detail -> topic/skill mastery, bukti prasyarat, dan perubahan progress.
-- [ ] Dashboard completion memakai jumlah siswa/aktivitas eligible dan status aktual; ranking completion opsional setelah aturan denominator/window disepakati.
-- [ ] Agregasi visible gap dan root-gap candidate memakai definisi sama dengan hasil siswa; jangan menghitung rata-rata mastery seolah tervalidasi jika datanya belum cukup.
-- [ ] Rekomendasi intervensi mengacu pada lesson/skill yang benar-benar tersedia, tanpa assignment otomatis.
-- [ ] Seed beberapa pola siswa dengan label data demo untuk memperlihatkan insight kelas; progress siswa yang sedang didemokan harus data aktual.
-- [ ] Uji akses student->teacher ditolak dan teacher kelas lain ditolak.
+- [x] Relasi assignment mendukung satu guru di beberapa kelas; query data hanya kelas yang di-assign. Uji dua kelas assigned dan satu kelas nonassigned.
+- [x] Role teacher membaca kelas yang dia ajar saja; agregasi membedakan belum dinilai dan gap, menampilkan denominator siswa yang dinilai.
+- [x] Dashboard kelas -> daftar siswa -> detail -> topic/skill mastery, bukti prasyarat, dan perubahan progress.
+- [x] Dashboard completion memakai jumlah siswa/aktivitas eligible dan status aktual; ranking completion opsional setelah aturan denominator/window disepakati.
+- [x] Agregasi visible gap dan root-gap candidate memakai definisi sama dengan hasil siswa; jangan menghitung rata-rata mastery seolah tervalidasi jika datanya belum cukup.
+- [x] Rekomendasi intervensi mengacu pada lesson/skill yang benar-benar tersedia, tanpa assignment otomatis.
+- [x] Seed beberapa pola siswa dengan label data demo untuk memperlihatkan insight kelas; progress siswa yang sedang didemokan harus data aktual.
+- [x] Uji akses student->teacher ditolak dan teacher kelas lain ditolak.
 
-Demo checkpoint: guru membuka kelas 4A -> melihat masalah perbandingan pecahan -> membuka siswa demo yang sama -> melihat kandidat gap pecahan senilai beserta evidence -> mendapat lesson/practice recommendation. Data berubah setelah siswa reassessment.
+Demo checkpoint: **LOLOS**. Sesi guru (demo-login teacher) membuka Kelas & siswa -> kartu kelas menampilkan 1/4 terdata (4A) dan 0 siswa (4B) -> roster membedakan belum dinilai/sedang mengerjakan/terdata dengan jumlah skill terdata, gap terlihat, dan kandidat akar -> insight siswa lemah (u-student-new, jawaban lemah 18 soal nyata melalui API) menampilkan 3 kandidat akar (Pembagian Dasar, Perkalian Dasar, Representasi Pecahan) beserta evidence per skill dan rekomendasi lesson/practice dari learning_path. Siswa kuat (u-student-1) menampilkan 6 skill terdata tanpa rekomendasi palsu. Otorisasi terverifikasi: token siswa ke route teacher 403 `Fitur ini hanya tersedia untuk guru`; guru nonassigned (Rahmat) ke kelas 4A/insight siswanya 403 `Akses ditolak`; kelas assigned kosong 200 array kosong. Ranking completion tidak dibuat (opsional menunggu aturan denominator). Data berubah setelah reassessment karena agregasi membaca assessment completed terbaru. Build `go build`/`go vet`/`npm run build`/`npm run lint` lolos; kontrak endpoint teacher dicatat di `docs/API_CONTRACT.md`.
 
 Fallback: demo utama satu kelas dan satu guru, tetapi model/otorisasi tetap mendukung beberapa kelas; filter lintas sekolah dan assignment ditunda. Jangan mengganti insight guru dengan statistik statis.
 

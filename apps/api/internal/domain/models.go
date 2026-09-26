@@ -129,3 +129,43 @@ type SkillResult struct {
 	Confidence           string      `json:"confidence"` // "low", "medium", "high"
 	IsRootGap            bool        `json:"is_root_gap"`
 }
+
+type TeacherClass struct {
+	ID            string `json:"id"`
+	Name          string `json:"name"`
+	GradeLevel    int    `json:"grade_level"`
+	StudentCount  int    `json:"student_count"`
+	AssessedCount int    `json:"assessed_count"`
+}
+
+type StudentOverview struct {
+	ID              string     `json:"id"`
+	Name            string     `json:"name"`
+	LatestStatus    string     `json:"latest_status"` // "completed", "in_progress", "unassessed"
+	AssessedSkills  int        `json:"assessed_skills"`
+	VisibleGapCount int        `json:"visible_gap_count"`
+	RootGapCount    int        `json:"root_gap_count"`
+	UpdatedAt       *time.Time `json:"updated_at,omitempty"`
+}
+
+type ProgressEntry struct {
+	SkillID        string    `json:"skill_id"`
+	SkillName      string    `json:"skill_name"`
+	Score          int       `json:"score"`
+	Status         string    `json:"status"`
+	EvidenceCount  int       `json:"evidence_count"`
+	UpdatedAt      time.Time `json:"updated_at"`
+}
+
+type StudentInsight struct {
+	StudentID      string             `json:"student_id"`
+	StudentName    string             `json:"student_name"`
+	ClassroomID    string             `json:"classroom_id"`
+	ClassroomName  string             `json:"classroom_name"`
+	AssessmentID   string             `json:"assessment_id,omitempty"`
+	AssessedAt     *time.Time         `json:"assessed_at,omitempty"`
+	TargetSkillID  string             `json:"target_skill_id,omitempty"`
+	Results        []SkillResult      `json:"results"`
+	Recommendations []LearningPathItem `json:"recommendations"`
+	Progress       []ProgressEntry    `json:"progress"`
+}

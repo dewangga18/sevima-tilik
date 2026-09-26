@@ -52,6 +52,9 @@ func Connect(ctx context.Context, databaseURL string, seedDemoUsers bool) (*DB, 
 			return nil, fmt.Errorf("seed demo users: %w", err)
 		}
 	}
+	if err := wrapped.SeedClassrooms(ctx); err != nil {
+		return nil, fmt.Errorf("seed classrooms: %w", err)
+	}
 	if err := wrapped.Seed(ctx); err != nil {
 		return nil, fmt.Errorf("seed: %w", err)
 	}
@@ -168,9 +171,20 @@ func (db *DB) Migrate(ctx context.Context) error {
  CREATE TABLE IF NOT EXISTS learning_items (
   id TEXT PRIMARY KEY,session_id TEXT NOT NULL REFERENCES learning_sessions(id) ON DELETE CASCADE,question_id TEXT NOT NULL REFERENCES questions(id),stage TEXT NOT NULL,order_index INT NOT NULL,student_answer TEXT,is_correct BOOLEAN,answered_at TIMESTAMPTZ,UNIQUE(session_id,question_id),UNIQUE(session_id,order_index)
  );
- CREATE TABLE IF NOT EXISTS skill_progress (
-  student_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,skill_id TEXT NOT NULL REFERENCES skills(id),source_session_id TEXT NOT NULL REFERENCES learning_sessions(id) ON DELETE CASCADE,score INT NOT NULL,status TEXT NOT NULL,evidence_count INT NOT NULL,correct_count INT NOT NULL,updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(student_id,skill_id)
- );
+  CREATE TABLE IF NOT EXISTS skill_progress (
+   student_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,skill_id TEXT NOT NULL REFERENCES skills(id),source_session_id TEXT NOT NULL REFERENCES learning_sessions(id) ON DELETE CASCADE,score INT NOT NULL,status TEXT NOT NULL,evidence_count INT NOT NULL,correct_count INT NOT NULL,updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(student_id,skill_id)
+  );
+  CREATE TABLE IF NOT EXISTS classrooms (
+   id TEXT PRIMARY KEY,name TEXT NOT NULL,grade_level INT NOT NULL
+  );
+  CREATE TABLE IF NOT EXISTS enrollments (
+   classroom_id TEXT NOT NULL REFERENCES classrooms(id) ON DELETE CASCADE,student_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,PRIMARY KEY(classroom_id,student_id)
+  );
+  CREATE TABLE IF NOT EXISTS teacher_assignments (
+   teacher_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,classroom_id TEXT NOT NULL REFERENCES classrooms(id) ON DELETE CASCADE,PRIMARY KEY(teacher_id,classroom_id)
+  );
+	CREATE INDEX IF NOT EXISTS idx_enrollments_student ON enrollments(student_id);
+	CREATE INDEX IF NOT EXISTS idx_teacher_assignments_class ON teacher_assignments(classroom_id);
 
 	`
 	_, err := db.ExecContext(ctx, schema)
@@ -194,7 +208,10 @@ func (db *DB) SeedDemoUsers(ctx context.Context) error {
 	}{
 		{"u-student-1", "budi@tilik.id", "Budi Santoso", "student", 4},
 		{"u-student-new", "budi.baru@tilik.id", "Budi Santoso", "student", 4},
+		{"u-student-2", "ani@tilik.id", "Ani Wijaya", "student", 4},
+		{"u-student-3", "deni@tilik.id", "Deni Pratama", "student", 4},
 		{"u-teacher-1", "siti@tilik.id", "Ibu Siti Rahayu", "teacher", 4},
+		{"u-teacher-2", "rahmat@tilik.id", "Pak Rahmat", "teacher", 4},
 		{"u-admin-1", "admin@tilik.id", "Admin Tilik", "admin", 0},
 	}
 
@@ -209,6 +226,46 @@ func (db *DB) SeedDemoUsers(ctx context.Context) error {
 		}
 	}
 
+	return nil
+}
+
+func (db *DB) SeedClassrooms(ctx context.Context) error {
+	classrooms := []struct {
+		id, name string
+		grade    int
+	}{
+		{"cls-4a", "Kelas 4A", 4},
+		{"cls-4b", "Kelas 4B", 4},
+	}
+	for _, c := range classrooms {
+		if _, err := db.ExecContext(ctx, `INSERT INTO classrooms (id, name, grade_level) VALUES ($1,$2,$3) ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, grade_level=EXCLUDED.grade_level`, c.id, c.name, c.grade); err != nil {
+			return err
+		}
+	}
+
+	enrollments := []struct{ class, student string }{
+		{"cls-4a", "u-student-1"},
+		{"cls-4a", "u-student-new"},
+		{"cls-4a", "u-student-2"},
+		{"cls-4a", "u-student-3"},
+	}
+	for _, e := range enrollments {
+		if _, err := db.ExecContext(ctx, `INSERT INTO enrollments (classroom_id, student_id) VALUES ($1,$2) ON CONFLICT DO NOTHING`, e.class, e.student); err != nil {
+			return err
+		}
+	}
+
+	// Siti mengajar 4A dan 4B; Rahmat hanya 4B untuk memverifikasi batas akses antar kelas.
+	assignments := []struct{ teacher, class string }{
+		{"u-teacher-1", "cls-4a"},
+		{"u-teacher-1", "cls-4b"},
+		{"u-teacher-2", "cls-4b"},
+	}
+	for _, a := range assignments {
+		if _, err := db.ExecContext(ctx, `INSERT INTO teacher_assignments (teacher_id, classroom_id) VALUES ($1,$2) ON CONFLICT DO NOTHING`, a.teacher, a.class); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 

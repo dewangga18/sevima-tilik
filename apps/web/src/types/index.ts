@@ -146,3 +146,42 @@ export interface LearningProgress {
 }
 
 export const learningStageLabels: Record<LearningStage, string> = { lesson: 'Membaca materi', practice: 'Latihan', reassessment: 'Cek pemahaman ulang', completed: 'Selesai', exhausted: 'Menunggu soal baru' }
+
+export interface TeacherClass {
+  id: string
+  name: string
+  grade_level: number
+  student_count: number
+  assessed_count: number
+}
+export interface StudentOverview {
+  id: string
+  name: string
+  latest_status: 'completed' | 'in_progress' | 'unassessed'
+  assessed_skills: number
+  visible_gap_count: number
+  root_gap_count: number
+  updated_at?: string
+}
+export interface SkillEvidence {
+  skill_id: string
+  skill_name: string
+  status: SkillStatus
+  total_answered: number
+  total_correct: number
+  evidence_count: number
+  confidence: string
+  is_root_gap: boolean
+}
+export interface StudentInsight {
+  student_id: string
+  student_name: string
+  classroom_id: string
+  classroom_name: string
+  assessment_id?: string
+  assessed_at?: string
+  target_skill_id?: string
+  results: SkillEvidence[]
+  recommendations: { skill_id: string; skill_name: string; reason: string }[]
+  progress: { skill_id: string; skill_name: string; score: number; status: string; evidence_count: number; updated_at: string }[]
+}
