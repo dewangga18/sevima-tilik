@@ -46,3 +46,9 @@ Keputusan tambahan sebelum implementasi: entry skill kelas 4, urutan tie-break a
 4. Hubungkan quiz React dengan loading/error/retry/stop; jangan menampilkan future questions/kunci sebelum waktunya.
 5. Hasil menyertakan provenance/kandidat gap dan path topologis; aksi menuju lesson baru aktif ketika lesson tersedia.
 6. Uji fixtures di service dengan PostgreSQL serta replay full demo di browser; baru tandai checkpoint Phase 2 selesai.
+
+## Slice struktural yang sudah berjalan
+
+GetSkills memvalidasi graph; diagnostic baru menolak graph invalid dan bank soal kosong sebelum membuat attempt. Resume attempt yang sudah ada dipertahankan. Validasi menghasilkan urutan topologis stabil untuk traversal berikutnya, tetapi belum memilih adaptive next question atau menghasilkan learning path.
+
+Regression tests mencakup DAG bercabang, urutan input berbeda, missing/duplicate/self-cycle/cycle, dan PostgreSQL invalid curriculum/empty bank tanpa assessment baru. Penanganan rows/scan errors di repository meneruskan error agar handler mengirim pesan aman.

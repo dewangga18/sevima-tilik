@@ -42,10 +42,18 @@ func (s *DiagnosticService) StartDiagnostic(ctx context.Context, studentID strin
 		return latest, nil
 	}
 
+	if _, err := s.GetSkills(ctx, gradeLevel); err != nil {
+		return nil, fmt.Errorf("validate diagnostic curriculum: %w", err)
+	}
+
 	// Fetch diagnostic questions
 	questions, err := s.curriculumRepo.GetInitialDiagnosticQuestions(ctx, gradeLevel)
 	if err != nil {
 		return nil, fmt.Errorf("get diagnostic questions: %w", err)
+	}
+
+	if len(questions) == 0 {
+		return nil, errors.New("diagnostic question bank is empty")
 	}
 
 	randBytes := make([]byte, 8)
@@ -253,7 +261,14 @@ func prepareAssessmentForClient(assessment *domain.Assessment) {
 }
 
 func (s *DiagnosticService) GetSkills(ctx context.Context, gradeLevel int) ([]domain.Skill, error) {
-	return s.curriculumRepo.GetSkills(ctx, gradeLevel)
+	skills, err := s.curriculumRepo.GetSkills(ctx, gradeLevel)
+	if err != nil {
+		return nil, err
+	}
+	if _, err := prerequisiteOrder(skills); err != nil {
+		return nil, fmt.Errorf("validate prerequisite graph: %w", err)
+	}
+	return skills, nil
 }
 
 func (s *DiagnosticService) GetHistory(ctx context.Context, studentID string) (*domain.AssessmentHistory, error) {

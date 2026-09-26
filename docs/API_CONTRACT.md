@@ -122,7 +122,7 @@ Logout berulang diperbolehkan. Saat ini handler tidak meneruskan kegagalan repos
 {"id":"frac_equiv","name":"Pecahan Senilai","domain":"Pecahan","grade_level":4,"description":"Deskripsi konsep","prereqs":["mul_basic","div_basic","frac_rep"]}
 ```
 
-`prereqs` dapat dihilangkan jika kosong. Saat ini endpoint tidak menyediakan filter grade atau seluruh kurikulum kelas 4–9. `500`: `Gagal memuat daftar skill`.
+`prereqs` dapat dihilangkan jika kosong. Saat ini endpoint tidak menyediakan filter grade atau seluruh kurikulum kelas 4–9. `500`: `Gagal memuat daftar skill`, termasuk graph dengan cycle atau referensi prasyarat invalid. Detail graph/repository hanya dicatat server. Urutan skill/prasyarat stabil; request GET aman diulang.
 
 ## POST /api/diagnostic/start
 
@@ -135,7 +135,8 @@ Request opsional:
 - Grade default dari user, lalu 4 jika nol. Nilai positif pada body mengoverride default. Handler saat ini memakai default bila body invalid; ini belum validasi grade penuh.
 - Konten saat ini tetap seeded slice kelas 4/fondasi; memilih grade lain tidak berarti konten grade itu tersedia.
 - `200`: Assessment `in_progress` milik user; latest attempt yang masih berlangsung dilanjutkan. Jika latest sudah selesai, dibuat attempt baru.
-- `500`: `Gagal memulai tes diagnostik. Silakan coba lagi.`
+- Pembuatan attempt baru memvalidasi graph prasyarat dan ketersediaan soal terlebih dahulu; graph invalid atau bank kosong tidak membuat attempt kosong. Resume attempt lama tetap tersedia tanpa membuat attempt baru.
+- `500`: `Gagal memulai tes diagnostik. Silakan coba lagi.`, termasuk graph invalid/bank kosong; error internal tidak dikirim ke client.
 - Resume berulang tidak mengubah jawaban. Pembuatan attempt baru belum dijamin idempotent untuk dua start yang bersamaan; client harus mencegah duplicate start.
 
 Assessment:

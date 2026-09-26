@@ -6,6 +6,19 @@ Plan bertahap dengan implementasi awal Phase 1 sudah tersedia. Arah produk mengi
 
 Target produk kelas 4–9, tetapi seluruh checkpoint wajib pertama memakai kelas 4. Setiap fase menambah perilaku end-to-end yang bisa didemokan. Checklist belum dicentang sampai bukti checkpoint dicatat di dokumen ini.
 
+## Eksekusi gabungan dalam satu scope
+
+Pengguna mengizinkan fase/slice terkait dikerjakan langsung sebagai satu paket. Fase adalah checkpoint, bukan alasan berhenti: lanjutkan pekerjaan terkait selama requirement, authorization, dan dependency sudah jelas. Selesaikan perubahan engine -> API -> UI -> verifikasi sebagai satu vertical slice.
+
+| Paket | Cakupan yang boleh digabung | Batas |
+|---|---|---|
+| Diagnostic dan recovery | Phase 2 + loading/error/retry/ownership/reliability yang langsung terkait | Threshold/rubric harus disetujui; jangan menunggu Phase 6 untuk quality dasar |
+| Perbaikan gap sampai reassessment | Phase 2–3 ketika rubric, lesson, dan bank variasi sudah siap | Catat checkpoint diagnostic dan learning loop masing-masing; jangan klaim salah satunya selesai tanpa bukti |
+| Kelas dan pengelolaan | Model kelas/assignment Phase 4 + administrasi penempatan Phase 5 | Otorisasi kelas dan insight guru P0 didahulukan; engagement tetap setelah core P0 |
+| Draft soal dan asisten | Slice AI guru/admin memakai authorization dan evidence yang sama | Provider/biaya/dependency belum disetujui; jangan mengirim data atau memasang dependency baru secara implisit |
+
+Gabungan tidak menghapus prioritas P0 -> P1 -> P2 -> P3 atau keputusan yang masih pending. Commit tetap dipisahkan per perubahan logis.
+
 ## Keputusan sebelum implementasi
 
 | Keputusan | Usulan / status | Menghalangi |
@@ -157,6 +170,8 @@ Dependencies: Phase 1, rubric engine disetujui, graph dan bank soal lengkap untu
 
 Persiapan Phase 2 sudah dimulai di `docs/DIAGNOSTIC_RULES.md`: inventory aktual dan acceptance fixtures draft tersedia. Konfirmasi minimum evidence/threshold/max questions masih menunggu jawaban pengguna; engine belum diganti. Bank saat ini 3 soal total per skill, belum 3 per skill per level sesuai target konten.
 
+- [x] Validasi graph prasyarat sebelum diagnostic baru: missing references, duplicate skill/edge, self-cycle/cycle ditolak; topological tie-break stabil. Query errors diteruskan, bukan disembunyikan; bank soal kosong tidak membuat attempt kosong.
+- [x] Uji structural fixtures DAG bercabang, urutan input berbeda, cycle/missing/duplicate, serta PostgreSQL failed-start tanpa assessment tersimpan.
 - [ ] Implementasikan service deterministic: pilih soal berdasarkan bukti, grade entry point, difficulty, backtracking, batas assessment, dan confidence.
 - [ ] Simpan target skill dan provenance jawaban prasyarat; bedakan visible gap, kandidat root gap, misconception candidate, dan belum cukup bukti.
 - [ ] Bentuk learning path dari prerequisite yang belum dikuasai dengan urutan topologis; jangan mengunci path karena skill belum pernah diukur seolah gagal.

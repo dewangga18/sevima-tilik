@@ -27,7 +27,7 @@ func (r *CurriculumRepository) GetSkills(ctx context.Context, gradeLevel int) ([
 	}
 	defer rows.Close()
 
-	var skills []domain.Skill
+	skills := make([]domain.Skill, 0)
 	for rows.Next() {
 		var s domain.Skill
 		if err := rows.Scan(&s.ID, &s.Name, &s.Domain, &s.GradeLevel, &s.Description); err != nil {
@@ -36,19 +36,29 @@ func (r *CurriculumRepository) GetSkills(ctx context.Context, gradeLevel int) ([
 		skills = append(skills, s)
 	}
 
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("read skills: %w", err)
+	}
+
 	// Fetch prerequisites
 	for i := range skills {
 		pRows, err := r.db.QueryContext(ctx, `
-			SELECT prereq_id FROM skill_prerequisites WHERE skill_id = $1
+			SELECT prereq_id FROM skill_prerequisites WHERE skill_id = $1 ORDER BY prereq_id ASC
 		`, skills[i].ID)
 		if err != nil {
 			return nil, err
 		}
 		for pRows.Next() {
 			var pid string
-			if err := pRows.Scan(&pid); err == nil {
-				skills[i].Prereqs = append(skills[i].Prereqs, pid)
+			if err := pRows.Scan(&pid); err != nil {
+				pRows.Close()
+				return nil, fmt.Errorf("read skill prerequisite: %w", err)
 			}
+			skills[i].Prereqs = append(skills[i].Prereqs, pid)
+		}
+		if err := pRows.Err(); err != nil {
+			pRows.Close()
+			return nil, fmt.Errorf("read prerequisites: %w", err)
 		}
 		pRows.Close()
 	}
@@ -80,6 +90,9 @@ func (r *CurriculumRepository) GetInitialDiagnosticQuestions(ctx context.Context
 			return nil, fmt.Errorf("unmarshal question options: %w", err)
 		}
 		questions = append(questions, q)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("read diagnostic questions: %w", err)
 	}
 	return questions, nil
 }
