@@ -101,7 +101,7 @@ body {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-md);
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .brand-text {
@@ -252,8 +252,14 @@ body {
 /* Login View */
 .auth-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding-top: 1.5rem;
+}
+
+.auth-wrapper .auth-notice {
+  width: 100%;
+  max-width: 440px;
 }
 
 .login-card {
