@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Skill, User, TeacherClass, StudentOverview, StudentInsight } from '../types'
 import { api } from '../services/api'
 import { AdminManagement } from './AdminManagement'
+import { QuestionBankReview } from './QuestionBankReview'
 import './ManagementDashboard.css'
 
 const teacherPages = [
@@ -20,7 +21,6 @@ const adminPages = [
 ]
 
 const pendingContent: Record<string, { title: string; description: string }> = {
-  questions: { title: 'Pengelolaan soal belum tersedia', description: 'Pembuatan dan review draft soal belum tersedia. Soal diagnostic saat ini memakai bank awal yang sudah tersimpan.' },
   assistant: { title: 'Asisten analisis belum tersedia', description: 'Analisis AI belum aktif. Fitur ini memerlukan data siswa dari kelas yang ditugaskan kepadamu.' },
 }
 
@@ -174,6 +174,7 @@ export function ManagementDashboard({ user, onLogout, loggingOut }: { user: User
           </>}
         </section>}
         {isAdmin && (page === 'accounts' || page === 'classes') && <AdminManagement view={page} currentUserId={user.id} />}
+        {isAdmin && page === 'questions' && <QuestionBankReview />}
         {pending && !(page === 'classes' && !isAdmin) && <section className="management-empty"><h2>{pending.title}</h2><p>{pending.description}</p><button type="button" className="btn btn-secondary" onClick={() => navigate('overview')}>Kembali ke ringkasan</button></section>}
       </main>
     </div>

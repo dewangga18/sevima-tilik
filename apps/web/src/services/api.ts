@@ -1,4 +1,4 @@
-import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession, TeacherClass, StudentOverview, StudentInsight, AdminClass, ClassRoster, Role } from '../types'
+import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession, TeacherClass, StudentOverview, StudentInsight, AdminClass, ClassRoster, Role, QuestionBankSummary, CandidateReview, CandidateStatus, BankReviewReport } from '../types'
 
 const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
@@ -169,6 +169,15 @@ export const api = {
     request<{ message: string }>(`/api/admin/classes/${encodeURIComponent(classId)}/assignments`, { method: 'POST', body: JSON.stringify({ user_id: userId }) }),
   removeAssignment: (classId: string, userId: string) =>
     request<{ message: string }>(`/api/admin/classes/${encodeURIComponent(classId)}/assignments`, { method: 'DELETE', body: JSON.stringify({ user_id: userId }) }),
+
+  // Question bank review (admin only; responses include answer keys)
+  getQuestionBankSummary: () => request<QuestionBankSummary>('/api/admin/question-bank'),
+  listQuestionCandidates: (status: CandidateStatus, limit = 25) =>
+    request<CandidateReview[]>(`/api/admin/question-bank/candidates?status=${status}&limit=${limit}`),
+  approveQuestionCandidate: (id: string, note: string) =>
+    request<BankReviewReport>(`/api/admin/question-bank/candidates/${encodeURIComponent(id)}/approve`, { method: 'POST', body: JSON.stringify({ note }) }),
+  rejectQuestionCandidate: (id: string, note: string) =>
+    request<CandidateReview>(`/api/admin/question-bank/candidates/${encodeURIComponent(id)}/reject`, { method: 'POST', body: JSON.stringify({ note }) }),
 
   startLearning: (sourceId: string, skillId: string, requestId: string) => request<LearningSession>('/api/learning/start', { method: 'POST', body: JSON.stringify({ source_assessment_id: sourceId, skill_id: skillId, request_id: requestId }) }),
   getLearningSession: (id: string) => request<LearningSession>(`/api/learning/sessions/${encodeURIComponent(id)}`),

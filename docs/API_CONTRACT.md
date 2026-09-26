@@ -66,6 +66,10 @@ Semua endpoint terlindungi dapat mengembalikan `401` jika session tidak ditemuka
 | DELETE | `/api/admin/classes/{class_id}/enrollments` | Session admin | 200 |
 | POST | `/api/admin/classes/{class_id}/assignments` | Session admin | 200 |
 | DELETE | `/api/admin/classes/{class_id}/assignments` | Session admin | 200 |
+| GET | `/api/admin/question-bank` | Session admin | 200 |
+| GET | `/api/admin/question-bank/candidates` | Session admin | 200 |
+| POST | `/api/admin/question-bank/candidates/{id}/approve` | Session admin | 200 |
+| POST | `/api/admin/question-bank/candidates/{id}/reject` | Session admin | 200 |
 
 Semua route `/api/diagnostic/*` memerlukan session dengan role `student`. Session tidak valid menghasilkan `401`; role teacher/admin menghasilkan `403` dengan pesan `Fitur ini hanya tersedia untuk siswa`, sebelum request body atau resource diproses. Ownership tetap wajib: siswa tidak dapat membaca/submit attempt siswa lain (`403 Akses ditolak`). Pembatasan berlaku di seluruh environment. Retry setelah `401/403` tidak melakukan perubahan; login dengan akun yang berhak sebelum mencoba lagi. Tidak ada endpoint untuk membaca assessment milik siswa lain atau teacher analytics pada fase ini.
 
@@ -405,3 +409,62 @@ Purpose: membaca jawaban kertas satu lembar dan mengubahnya menjadi draft koreks
 ### Endpoint AI batch (usulan, setelah slice satu lembar lolos)
 
 Upload multi-file, antrean job, dan rekap ekspor CSV hanya dibahas setelah alur satu lembar terbukti bekerja di browser. Aturan minimum yang sudah disepakati: ekspor dan rekap hanya untuk kelas yang diizinkan, status review terlihat di hasil, dan job yang gagal dapat diulang tanpa menggandakan finalisasi maupun biaya.
+
+## Admin question bank review
+
+Empat endpoint review bank soal. Semuanya memakai `AdminMiddleware` yang sama dengan administrasi akun, dan **hanya tersedia untuk role `admin` di semua environment**: `401` session tidak valid, `403` role lain dengan `Fitur ini hanya tersedia untuk admin`.
+
+Respons endpoint kandidat **sengaja memuat `correct_answer`** supaya admin dapat memverifikasi kunci sebelum menyetujui. Ini tidak melonggarkan aturan "kunci hanya di backend": endpoint diagnostic, learning, dan progress siswa tetap tidak pernah mengirim kunci. Bank soal hanya dibaca admin; siswa tidak pernah mengakses endpoint ini. `QuestionCandidateRecord` juga menyimpan payload asli di field non-serialisasi (`json:"-"`) supaya aktivasi memakai byte yang tersimpan, bukan hasil marshal ulang.
+
+Persetujuan **bukan logika aktivasi baru**: service memanggil `RegisterQuestionBank` yang sudah dipakai command import lokal, sehingga jaminan yang sama berlaku — transaksi tunggal, advisory lock, content-hash immutable, refusal menimpa ID soal runtime, refusal mencabut status approved, dan downgrade otomatis bila prompt duplikat bank aktif.
+
+### GET /api/admin/question-bank
+
+200 QuestionBankSummary `{active:[{skill_id,skill_name,question_count}],candidate:[{status,count}]}`. `active` menghitung soal pada tabel `questions` per skill; `candidate` menghitung `question_candidates` per status (`draft`/`approved`/`rejected`). Read-only dan idempoten. 500 `Ringkasan bank soal belum bisa dimuat. Silakan coba lagi.`
+
+### GET /api/admin/question-bank/candidates
+
+Query `status` wajib; `limit` opsional. 200 array CandidateReview:
+
+```json
+{
+  "id":"diag-cmpdiff-002",
+  "status":"draft",
+  "review_note":"Belum direview untuk aktivasi.",
+  "source_file":"questions_*.json",
+  "content_hash":"ec46ef52...",
+  "registered_at":"2026-09-26T00:00:00Z",
+  "eligible":true,
+  "blocked_reason":"",
+  "candidate":{"id":"...","skill":"frac_cmp_diff_den","difficulty":2,"grade":4,"purpose":"diagnostic","prompt":"...","options":[{"id":"A","text":"..."}],"correct_answer":"A","explanation":"..."}
+}
+```
+
+- `status` harus `draft`, `approved`, atau `rejected`; default `draft`. Nilai lain `400` `Status kandidat harus draft, approved, atau rejected`.
+- `limit` non-numerik `400`; nilai di luar 1–100 dipaksa ke batas atas 100.
+- `eligible` dan `blocked_reason` mencerminkan aturan aktivasi yang sama dengan import path: `grade` harus 4, `difficulty` maksimal 2, dan skill harus sudah punya micro lesson. Ini memungkinkan admin melihat alasan sebelum menekan tombol, bukan setelah request ditolak.
+- Kandidat yang sudah `approved` atau `rejected` tetap dapat dibaca untuk audit, tetapi tidak dapat diputuskan ulang dari endpoint ini.
+- `500` `Daftar kandidat belum bisa dimuat. Silakan coba lagi.`
+
+### POST /api/admin/question-bank/candidates/{id}/approve
+
+Request `{"note":"kunci sudah diverifikasi"}`; `note` opsional. 200 `{"activated":true,"report":{...}}` ketika kandidat benar-benar masuk bank aktif.
+
+- `409` dengan `activated:false` bila import path menurunkan status menjadi draft, misalnya karena prompt-nya duplikat bank aktif. Ini bukan kegagalan aktivasi dan tidak boleh ditampilkan sebagai sukses.
+- `409` dengan alasan Indonesia bila kandidat tidak eligible, misalnya `Level 3 di luar jangkauan aktivasi saat ini (1–2)`.
+- `409` `Kandidat sudah disetujui sebelumnya` bila statusnya sudah approved. Approve bersifat idempoten terhadap data:approved kedua kali tidak mengubah apa pun.
+- `404` `Kandidat tidak ditemukan`.
+- `500` `Keputusan review belum bisa disimpan. Silakan coba lagi.`; detail repository hanya dicatat di server.
+
+Aktivasi tetap tunduk pada batas Phase 3B: grade 4 dan level 1–2 saja, soal yang sudah dipakai pada assessment tidak ditimpa, dan status approved tidak dapat dicabut lewat dashboard ini.
+
+### POST /api/admin/question-bank/candidates/{id}/reject
+
+Request `{"note":"alasan"}`; `note` wajib nonempty karena alasan penolakan dipakai reviewer berikutnya. 200 CandidateReview terbaru.
+
+- `400` `Permintaan review tidak valid. Isi alasan saat menolak kandidat.` bila `note` kosong.
+- `404` `Kandidat tidak ditemukan`.
+- `409` `Kandidat sudah disetujui dan tidak bisa ditolak dari sini` bila kandidat sudah aktif. Penolakan setelah aktivasi tidak tersedia di dashboard karena akan mencabut histori soal yang mungkin sudah dipakai siswa.
+- `500` `Keputusan review belum bisa disimpan. Silakan coba lagi.`
+
+Menolak kandidat tidak menghapus barisnya, hanya mengganti `status` dan `review_note` sehingga keputusan dapat diaudit.

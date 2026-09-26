@@ -257,6 +257,7 @@ Dependencies: Phase 4; aturan reward, daily goal, zona waktu, dan role admin dis
 
 Keputusan aturan engagement (disetujui pengguna, belum diimplementasikan): XP per jenis aktivitas — diagnostic selesai 20, lesson 10, practice benar 10/salah 3, reassessment selesai 25; level naik setiap 100 XP; zona waktu Asia/Jakarta; daily goal 1 aktivitas selesai. XP dipisahkan dari academic mastery dan tidak menentukan label Mastered. Aturan ini menunggu implementasi server beserta tabel reward; belum ada endpoint engagement.
 
+- [x] Review bank soal oleh admin: ringkasan soal aktif per skill, daftar kandidat per status dengan kunci jawaban untuk verifikasi, approve (reuse `RegisterQuestionBank`) dan reject dengan alasan. Admin saja; aturan "tidak bisa mencabut approved" dipertahankan. Lihat `docs/API_CONTRACT.md`.
 - [ ] Reward server untuk diagnostic/lesson/practice/reassessment; pisahkan XP/level dari academic mastery dan cegah duplikasi reward saat retry. Belum ada tabel reward, endpoint engagement, atau kode XP sama sekali; aturan XP sudah diputuskan tetapi belum diimplementasikan.
 - [ ] Streak berdasarkan hari belajar dalam zona waktu yang ditetapkan, daily goal sederhana, dan achievement awal untuk diagnostic pertama serta peningkatan mastery.
 - [ ] Tampilkan XP, level, streak, daily goal, achievement di home/progress dengan data aktual.

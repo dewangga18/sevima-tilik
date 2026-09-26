@@ -80,6 +80,8 @@ func main() {
 	teacherHandler := handler.NewTeacherHandler(teacherService)
 	adminService := service.NewAdminService(db, userRepo)
 	adminHandler := handler.NewAdminHandler(adminService)
+	bankService := service.NewQuestionBankService(db)
+	bankHandler := handler.NewQuestionBankHandler(bankService)
 
 	mux := http.NewServeMux()
 
@@ -143,6 +145,13 @@ func main() {
 	mux.Handle("DELETE /api/admin/classes/{class_id}/enrollments", adminMux(adminHandler.RemoveEnrollment))
 	mux.Handle("POST /api/admin/classes/{class_id}/assignments", adminMux(adminHandler.SetAssignment))
 	mux.Handle("DELETE /api/admin/classes/{class_id}/assignments", adminMux(adminHandler.RemoveAssignment))
+
+	// Admin question bank review (admin role enforced in middleware; these
+	// responses include answer keys because admin verifies them before activation)
+	mux.Handle("GET /api/admin/question-bank", adminMux(bankHandler.Summary))
+	mux.Handle("GET /api/admin/question-bank/candidates", adminMux(bankHandler.ListCandidates))
+	mux.Handle("POST /api/admin/question-bank/candidates/{id}/approve", adminMux(bankHandler.Approve))
+	mux.Handle("POST /api/admin/question-bank/candidates/{id}/reject", adminMux(bankHandler.Reject))
 
 	// Middleware chain: Logging -> CORS
 	wrappedMux := loggingMiddleware(corsMiddleware(cfg.AllowedOrigin)(mux))

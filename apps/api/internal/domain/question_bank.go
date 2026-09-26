@@ -1,6 +1,9 @@
 package domain
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"time"
+)
 
 type QuestionCandidate struct {
 	ID                 string                   `json:"id"`
@@ -60,4 +63,29 @@ type BankImportItem struct {
 type BankImportReport struct {
 	Applied bool             `json:"applied"`
 	Items   []BankImportItem `json:"items"`
+}
+
+// QuestionCandidateRecord is a stored candidate plus its review state. The
+// embedded candidate carries correct_answer, so this shape must only ever be
+// served to admins who are deciding whether to activate it.
+type QuestionCandidateRecord struct {
+	ID           string            `json:"id"`
+	Status       string            `json:"status"`
+	ReviewNote   string            `json:"review_note"`
+	SourceFile   string            `json:"source_file"`
+	ContentHash  string            `json:"content_hash"`
+	RegisteredAt time.Time         `json:"registered_at"`
+	Candidate    QuestionCandidate `json:"candidate"`
+	// Payload keeps the exact stored bytes so re-registration can never
+	// rewrite historical content with a re-serialized equivalent.
+	Payload json.RawMessage `json:"-"`
+}
+
+// CandidateReviewView adds why a candidate can or cannot be activated, so the
+// review UI can explain the rule before an admin clicks rather than after a
+// rejected request.
+type CandidateReviewView struct {
+	QuestionCandidateRecord
+	Eligible      bool   `json:"eligible"`
+	BlockedReason string `json:"blocked_reason,omitempty"`
 }

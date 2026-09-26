@@ -202,3 +202,51 @@ export interface ClassRoster {
   student_ids: string[]
   teacher_ids: string[]
 }
+
+export type CandidateStatus = 'draft' | 'approved' | 'rejected'
+
+export interface QuestionCandidateOption {
+  id: string
+  text: string
+}
+
+export interface QuestionCandidate {
+  id: string
+  purpose: string
+  grade: number
+  domain: string
+  topic: string
+  skill: string
+  difficulty: number
+  question_type: string
+  prompt: string
+  options: QuestionCandidateOption[]
+  // Answer key is only ever returned to the admin review endpoint.
+  correct_answer: string
+  explanation: string
+  misconceptions: { wrong_answer: string; reason: string }[]
+  source_title: string
+  license_note: string
+}
+
+export interface CandidateReview {
+  id: string
+  status: CandidateStatus
+  review_note: string
+  source_file: string
+  content_hash: string
+  registered_at: string
+  candidate: QuestionCandidate
+  eligible: boolean
+  blocked_reason?: string
+}
+
+export interface QuestionBankSummary {
+  active: { skill_id: string; skill_name: string; question_count: number }[]
+  candidate: { status: CandidateStatus; count: number }[]
+}
+
+export interface BankReviewReport {
+  activated: boolean
+  report: { applied: boolean; items: { id: string; status: string; reason: string; action: string }[] }
+}
