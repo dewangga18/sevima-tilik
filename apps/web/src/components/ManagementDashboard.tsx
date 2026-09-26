@@ -9,7 +9,6 @@ const teacherPages = [
   { id: 'overview', label: 'Ringkasan' },
   { id: 'classes', label: 'Kelas & siswa' },
   { id: 'curriculum', label: 'Kurikulum' },
-  { id: 'questions', label: 'Bank soal' },
   { id: 'assistant', label: 'Asisten analisis' },
 ]
 const adminPages = [
@@ -21,7 +20,7 @@ const adminPages = [
 ]
 
 const pendingContent: Record<string, { title: string; description: string }> = {
-  assistant: { title: 'Asisten analisis belum tersedia', description: 'Analisis AI belum aktif. Fitur ini memerlukan data siswa dari kelas yang ditugaskan kepadamu.' },
+  assistant: { title: 'Asisten analisis belum tersedia', description: 'Asisten bahasa alami belum dikerjakan pada versi ini. Analisis siswa yang sudah tersedia tetap bisa dibaca di menu Kelas & siswa: evidence per skill, kandidat akar gap, dan rekomendasi pembelajaran.' },
 }
 
 const studentStatusLabels: Record<StudentOverview['latest_status'], string> = {
@@ -148,7 +147,7 @@ export function ManagementDashboard({ user, onLogout, loggingOut }: { user: User
         <div className="management-page-heading"><h1 ref={heading} tabIndex={-1}>{pageTitle}</h1><p>{isAdmin ? 'Kelola akses dan kegiatan belajar di Tilik.' : 'Pantau pembelajaran dan siapkan materi untuk siswamu.'}</p></div>
         {page === 'overview' && <>
           <section className="management-overview" aria-labelledby="workspace-status"><h2 id="workspace-status">Selamat datang, {user.name}.</h2><p>{isAdmin ? 'Area administrasi sudah dipisahkan dari dashboard guru. Kelola akun, role, kelas, dan penempatan siswa serta guru dari menu Akun & role dan Kelas & penempatan.' : 'Kurikulum awal dan data kelas yang ditugaskan sudah tersedia. Buka menu Kelas & siswa untuk melihat evidence dan rekomendasi.'}</p><button type="button" className="btn btn-primary" onClick={() => navigate(isAdmin ? 'accounts' : 'classes')}>{isAdmin ? 'Kelola akun & role' : 'Lihat kelas & siswa'}</button></section>
-          <section className="management-status-section" aria-busy={loading}><h2>Ketersediaan fitur</h2><dl className="management-status-list"><div><dt>Kurikulum kelas 4</dt><dd role="status">{loading ? 'Memuat...' : error ? 'Belum bisa dimuat' : `${skills.length} keterampilan tersedia`}</dd></div><div><dt>{isAdmin ? 'Akun & kelas' : 'Data siswa & completion'}</dt><dd>{isAdmin ? 'Tersedia: buat akun, ubah role, kelas, enrollment, assignment' : 'Tersedia untuk kelas yang ditugaskan'}</dd></div><div><dt>{isAdmin ? 'Pembuatan soal' : 'Asisten analisis'}</dt><dd>Belum tersedia</dd></div></dl></section>
+          <section className="management-status-section" aria-busy={loading}><h2>Ketersediaan fitur</h2><dl className="management-status-list"><div><dt>Kurikulum kelas 4</dt><dd role="status">{loading ? 'Memuat...' : error ? 'Belum bisa dimuat' : `${skills.length} keterampilan tersedia`}</dd></div><div><dt>{isAdmin ? 'Akun & kelas' : 'Data siswa & completion'}</dt><dd>{isAdmin ? 'Tersedia: buat akun, ubah role, kelas, enrollment, assignment' : 'Tersedia untuk kelas yang ditugaskan'}</dd></div><div><dt>{isAdmin ? 'Pembuatan soal' : 'Asisten analisis'}</dt><dd>Belum dikerjakan pada versi ini</dd></div></dl></section>
         </>}
         {(page === 'overview' || page === 'curriculum') && error && <div className="home-data-error" role="alert"><p>{error}</p><button type="button" className="btn btn-secondary" onClick={loadCurriculum}>Coba lagi</button></div>}
         {page === 'curriculum' && <section className="management-curriculum" aria-label="Kurikulum kelas 4" aria-busy={loading}>

@@ -26,7 +26,7 @@ Arahan pengguna: siswa hanya mengakses data dirinya; guru hanya mengakses siswa 
 
 - Siswa: profil, statistik, recent test, jawaban, hasil, dan progress milik sendiri. Identitas pemilik ditentukan session backend, bukan ID dari client.
 - Guru: daftar kelas yang di-assign, daftar/detail siswa pada kelas tersebut, dashboard completion dan insight. Semua detail, agregasi, export, dan tool AI harus memeriksa assignment di backend. Tidak ada akses semua siswa hanya karena role teacher.
-- Guru dan admin: generate draft soal sesuai skill/kelas/difficulty; draft divalidasi dan direview sebelum dipakai assessment. AI tidak menentukan scoring/mastery.
+- Admin: review bank soal (kandidat draft, approve/reject dengan alasan). Prosesnya deterministik dan tidak bergantung AI. Akses guru ke bank soal sengaja tidak diberikan pada versi ini; ruang lingkup awal "guru dan admin" untuk draft soal ditunda sampai generator soal benar-benar ada.
 - Asisten guru: chat/brainstorming analisis seorang siswa yang boleh diakses, mengambil evidence lalu menyiapkan rekomendasi terstruktur. Jawaban membedakan evidence dan dugaan; tidak mengubah nilai atau menerbitkan soal otomatis. Provider/biaya belum dipilih.
 - Admin: membuat akun dan menentukan role, membuat kelas, mengatur enrollment siswa dan assignment guru, membantu guru menyiapkan soal. Hak akses data akademik individual lintas kelas untuk admin belum ditentukan; jangan memberi akses global secara implisit.
 - Ranking completion masih opsi, bukan kewajiban. Dashboard completion didahulukan; completion tidak disamakan dengan academic mastery dan ranking tidak ditampilkan publik kepada siswa.
