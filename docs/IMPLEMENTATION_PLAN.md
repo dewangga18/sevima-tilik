@@ -2,7 +2,9 @@
 
 ## Status
 
-Checkpoint siswa Phase 1–3 sudah tersedia untuk slice kelas 4. Prioritas berikutnya Phase 4: assignment kelas dan insight guru. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+Checkpoint siswa Phase 1–3 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal) selesai: 65 soal approved aktif, 136 draft tersimpan tanpa ikut selection, 24 kandidat invalid dihapus dari data dan database. Prioritas aktif berikutnya Phase 4: assignment kelas dan insight guru. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+
+Plan ini menjadi sumber eksekusi tunggal, termasuk generator soal, asisten guru, dan usulan scanner tulisan tangan dari plan AI lama. Semua checklist baru masih pending; rencana endpoint bukan klaim fitur sudah tersedia. Scanner direncanakan sebagai koreksi berbantuan review manusia setelah core P0, bukan penilaian akademis otomatis oleh LLM.
 
 Target produk kelas 4–9, tetapi seluruh checkpoint wajib pertama memakai kelas 4. Setiap fase menambah perilaku end-to-end yang bisa didemokan. Checklist belum dicentang sampai bukti checkpoint dicatat di dokumen ini.
 
@@ -14,8 +16,10 @@ Pengguna mengizinkan fase/slice terkait dikerjakan langsung sebagai satu paket. 
 |---|---|---|
 | Diagnostic dan recovery | Phase 2 + loading/error/retry/ownership/reliability yang langsung terkait | Threshold/rubric harus disetujui; jangan menunggu Phase 6 untuk quality dasar |
 | Perbaikan gap sampai reassessment | Phase 2–3 ketika rubric, lesson, dan bank variasi sudah siap | Catat checkpoint diagnostic dan learning loop masing-masing; jangan klaim salah satunya selesai tanpa bukti |
+| Import konten kelas 4 | Phase 3B: audit -> validasi/dry-run -> draft PostgreSQL -> aktivasi reviewed -> verifikasi siswa | Tidak mengubah graph, mengaktifkan kelas baru, atau menimpa soal yang sudah dipakai secara implisit |
 | Kelas dan pengelolaan | Model kelas/assignment Phase 4 + administrasi penempatan Phase 5 | Otorisasi kelas dan insight guru P0 didahulukan; engagement tetap setelah core P0 |
 | Draft soal dan asisten | Slice AI guru/admin memakai authorization dan evidence yang sama | Provider/biaya/dependency belum disetujui; jangan mengirim data atau memasang dependency baru secara implisit |
+| Scanner dan koreksi batch | Slice AI setelah assignment/ownership tersedia; mulai satu lembar lalu batch dengan review | Hasil OCR/AI tidak langsung menjadi evidence/mastery; kapasitas, penyimpanan foto, dan izin masih harus ditentukan |
 
 Gabungan tidak menghapus prioritas P0 -> P1 -> P2 -> P3 atau keputusan yang masih pending. Commit tetap dipisahkan per perubahan logis.
 
@@ -30,7 +34,8 @@ Gabungan tidak menghapus prioritas P0 -> P1 -> P2 -> P3 atau keputusan yang masi
 | Slice kelas 4 | Usulan jalur pecahan di bawah, menunggu review | Phase 1 content |
 | Bank soal dan rubric | Seed 18 soal tersedia; progressive-demo-v1 memakai tiga jawaban per skill dan cap 18. Ini aturan demo, bukan rubric pendidikan tervalidasi | 6 lesson + 72 soal practice/reassessment tersedia; review pendidikan eksternal pending |
 | Desain | Konteks sudah jelas; isi direction dan tokens sebelum UI | Phase 1 UI |
-| AI | Opsional; provider, biaya, dan kebutuhan agent belum dikonfirmasi | Integrasi AI saja |
+| AI | Generator/asisten dan scanner berbantuan review direncanakan. Gemini adalah kandidat dari plan lama; model yang tersedia, biaya/kuota dan izin data belum dikonfirmasi | Panggilan provider saja; core learning tidak bergantung AI |
+| Scanner | Mulai kelas 4, satu lembar dan review guru; batch sesudah checkpoint satu lembar | Konfirmasi kunci, normalisasi jawaban, izin/retensi foto, dan cara menyimpan hasil sebelum implementasi |
 | Docker lokal | Colima/Compose menjalankan web, API, dan PostgreSQL; checkpoint learning diuji pada stack ini | Tidak |
 
 Jangan memasang dependency atau scaffold sebelum keputusan yang terkait disetujui. Jangan mengisi keputusan yang belum pasti sebagai fakta.
@@ -62,7 +67,7 @@ Setiap soal punya skill ID, topic/domain, difficulty, grade range, tipe, opsi, k
 - Mastery diperbarui dari bukti; reassessment bisa menaikkan, mempertahankan, atau menurunkannya. Label Mastered tidak ditentukan oleh XP.
 - Request jawaban memiliki identitas unik; retry tidak menggandakan attempt, mastery, atau reward. Reset demo tidak menghapus data pengguna lain.
 
-Simpan tabel input -> pertanyaan berikutnya -> status/bukti yang diharapkan untuk lintasan siswa kuat, gap prasyarat, jawaban campuran, dan bank soal habis. Tabel ini menjadi acceptance fixtures dan meaningful tests pada service Go.
+Simpan tabel input -> pertanyaan berikutnya -> status/bukti yang diharapkan untuk lintasan siswa kuat, gap prasyarat, jawaban campuran, dan bank soal habis sebagai spesifikasi aturan engine.
 
 ## Phase 1: Login -> diagnostic singkat -> hasil tersimpan [P0]
 
@@ -206,11 +211,30 @@ Demo checkpoint: **LOLOS** — root gap -> lesson -> practice -> reassessment ->
 
 Bukti checkpoint: Go race tests dengan PostgreSQL memverifikasi ownership, concurrent start/answer, retry immutable, rollback completion, strong/mixed/declining/unassessed baselines, exhaustion, dan diagnostic yang lebih baru. Browser: root Perkalian Dasar -> lesson -> 3 practice -> 3 reassessment -> 0% menjadi 100% -> path maju ke Pecahan Senilai; reload/resume/history bertahan. Failure answer mempertahankan pilihan; progress loading/error/empty/success dan retry diuji. Lesson/practice/home tanpa overflow 320/768/1280px; detail progress dapat dibuka via keyboard. Web build/lint dan Go vet/build lolos. Konten demo belum review guru eksternal; tidak mengklaim academic Mastered.
 
+## Phase 3B: Bank soal kandidat -> PostgreSQL -> aktivitas siswa [P0]
+
+Goal: konten tambahan dapat dipakai app tanpa mengubah evidence lama atau memasukkan soal yang belum layak ke diagnostic.
+
+Dependencies: Phase 3; audit di `docs/QUESTION_BANK_AUDIT.md`. Enam file `data/processed` memuat 63 kandidat: 45 diagnostic dan 18 practice, tanpa tambahan reassessment. Satu file belum valid JSON; beberapa soal memiliki key/opsi/wording bermasalah. Ini inventory kandidat, bukan 63 soal approved.
+
+- [x] Perbaiki JSON dan review key, opsi ekuivalen, explanation, wording, atribusi skill/difficulty, duplikasi seed serta metadata/provenance; catat keputusan per soal. Jangan mengubah soal bermasalah dengan menebak maksud penulis.
+- [x] Buat command importer Go tanpa dependency baru, dapat dijalankan melalui Docker, dengan dry-run dan laporan valid/ditolak/konflik. Dry-run tidak menulis database.
+- [x] Validasi ID unik, purpose, grade, difficulty, opsi/key, skill dan metadata. Resolve key A/B/C/D ke teks opsi yang dinilai engine; simpan original option IDs, sumber dan misconception mapping server-side.
+- [x] Simpan kandidat/draft di PostgreSQL tanpa ikut selection aktif. Skill baru atau kelas 5–6 tetap draft sampai graph, lesson dan vertical slice terkait tersedia; prerequisite dari file tidak otomatis mengganti graph aktif.
+- [x] Import/aktivasi soal reviewed dalam transaksi, idempotent berdasarkan ID/hash. Laporkan konflik isi pada ID lama dan duplikasi prompt; jangan menimpa soal yang telah dipakai pada assessment.
+- [x] Aktifkan dahulu konten yang cocok dengan enam skill kelas 4; selection diagnostic/practice/reassessment hanya mengambil soal approved untuk scope yang didukung. Pertahankan bank reassessment terpisah dan exclusion soal yang pernah ditawarkan.
+- [x] Seimbangkan posisi opsi tanpa mengubah jawaban tersimpan; bila memakai pengacakan, urutan stabil saat resume/retry attempt yang sama. Kunci tidak masuk bundle frontend.
+- [x] Perbarui API contract jika behavior selection berubah; uji dry-run, malformed/key invalid, konflik, import ulang, rollback, draft exclusion, soal lama immutable dan ownership. Jalankan diagnostic -> lesson/practice -> reassessment melalui app setelah import.
+
+Demo checkpoint: **LOLOS**. Dry-run melaporkan alasan penolakan per kandidat; 24 kandidat invalid (opsi ekuivalen dengan kunci, key salah secara matematis, soal ambigu, misconception mapping rusak) dihapus dari `data/processed` dan `question_candidates` setelah audit. Import aktif: 65 approved (diaktifkan ke `questions`, 155 soal runtime: 26 diagnostic, 62 practice, 67 reassessment), 136 draft tersimpan tanpa ikut selection. Import ulang idempotent (seluruh item `unchanged`, hash identik). Verifikasi API: siswa demo baru menjalankan diagnostic dan soal import `diag-cmpdiff-001` ditawarkan dengan opsi ter-rotasi stabil; `go build`/`go vet` dan `npm run build`/`npm run lint` lolos. Review pendidikan eksternal tetap pending; label bukan klaim Mastered akademik.
+
+Fallback: seed lama tetap runnable; kandidat bermasalah tetap draft/rejected dengan alasan eksplisit. Tambahan practice tidak otomatis menambah siklus belajar lengkap jika soal reassessment baru belum cukup. Endpoint upload/admin belum diperlukan untuk command import lokal.
+
 ## Phase 4: Data siswa -> insight guru -> intervensi [P0]
 
 Goal: demo learning loop lengkap sampai keputusan guru.
 
-Dependencies: Phase 3; tambahkan classroom, student enrollment, dan teacher assignment sebelum endpoint data siswa guru. Seed assignment untuk demo, bukan daftar siswa hardcoded.
+Dependencies: Phase 3 dan checkpoint import Phase 3B yang sudah lolos; tambahkan classroom, student enrollment, dan teacher assignment sebelum endpoint data siswa guru. Seed assignment untuk demo, bukan daftar siswa hardcoded.
 
 - [ ] Relasi assignment mendukung satu guru di beberapa kelas; query data hanya kelas yang di-assign. Uji dua kelas assigned dan satu kelas nonassigned.
 - [ ] Role teacher membaca kelas yang dia ajar saja; agregasi membedakan belum dinilai dan gap, menampilkan denominator siswa yang dinilai.
@@ -242,17 +266,55 @@ Demo checkpoint: aktivitas memberi reward sekali -> hari belajar tercatat -> ach
 
 Scope cut memerlukan catatan persetujuan karena handover menyebut fitur ini must-have. Seed akun adalah fallback demo untuk management, bukan klaim fitur management selesai.
 
-### Slice AI guru/admin [P1, setelah checkpoint P0]
+### Slice AI: konfigurasi dan batas bersama [P1, setelah checkpoint P0]
 
-Dependencies: Phase 4 authorization dan evidence, provider/biaya disepakati; dependency baru memerlukan persetujuan. Kegagalan AI tidak memutus diagnostic atau learning loop.
+Dependencies: Phase 4 authorization/evidence dan Phase 3B draft bank. Selaraskan scope scanner dengan `docs/PRODUCT.md` sebelum implementasi. Pilihan provider/model, biaya/kuota, aturan penyimpanan foto dan izin penggunaan data harus ditentukan; dependency baru tetap memerlukan persetujuan. Jangan memakai nama/model lama tanpa memeriksa ketersediaannya saat implementasi.
+
+- [ ] Integrasi provider berjalan di backend Go melalui `net/http`, `context` dan timeout terkonfigurasi; secrets hanya env backend. Jika Gemini dipilih, `GEMINI_API_KEY` berada pada config dan contoh env tanpa nilai rahasia.
+- [ ] Tetapkan batas input/output, timeout, retry terbatas dan rate limit sesuai kapasitas provider. Validasi struktur hasil, bukan hanya JSON yang bisa diparse.
+- [ ] PII tidak dikirim ke provider. Foto dapat memuat nama atau informasi siswa: siapkan redaksi/crop sebelum pengiriman, permission, retensi/penghapusan, serta larangan foto/base64 masuk log.
+- [ ] FE memiliki loading/error/empty/success, timeout dan retry dengan draft tetap tersimpan. Provider tidak tersedia harus ditampilkan jelas; fallback memakai input manual, evidence aktual atau template. Mock demo harus berlabel simulasi dan tidak disimpan sebagai OCR/evidence/nilai nyata.
+- [ ] Definisikan kontrak lengkap di `docs/API_CONTRACT.md` sebelum setiap endpoint: method/path, role/owner/assignment/environment, fields, status/error aman, retry/idempotency dan aturan penyimpanan. Usulan route di bawah belum kontrak aktif.
+
+### Slice AI-A: Generator soal dan asisten guru [P1]
 
 - [ ] Guru/admin meminta draft soal kelas 4 dengan skill/difficulty; validasi struktur, kunci, opsi, penjelasan dan metadata, lalu review sebelum publish. Cegah publish otomatis atau bank soal aktif berubah karena output model mentah.
+- [ ] Form/modal generator memilih skill, grade, difficulty dan konteks; simpan ke draft PostgreSQL melalui alur Phase 3B, bukan tombol yang langsung menerbitkan soal ke assessment.
 - [ ] Guru memilih siswa di kelas assigned -> asisten mengambil evidence yang diizinkan -> menghasilkan analisis dan rekomendasi dengan rujukan evidence. Terapkan authorization pada setiap tool call; minimalkan identitas yang dikirim ke provider.
+- [ ] Panel asisten pada dashboard guru membedakan bukti, dugaan misconception dan rekomendasi; materi yang direkomendasikan benar-benar tersedia. Chat/generation tidak mengubah nilai atau mastery.
 - [ ] Admin dapat membantu menyiapkan draft untuk guru; jangan menganggap ini izin membaca data akademik semua siswa.
-- [ ] UI menampilkan hasil/error/timeout, dengan fallback evidence dan template; kontrak API harus ditulis sebelum endpoint baru.
 - [ ] Uji akses lintas kelas, revoked assignment, prompt/tool arguments yang mencoba melewati scope, output invalid, retry dan timeout.
 
+Usulan route yang harus didefinisikan sebelum coding: `POST /api/ai/generate-question` untuk draft guru/admin; `POST /api/ai/teacher-assistant` untuk siswa yang boleh diakses guru. Akses admin ke analisis individual tidak diberikan secara implisit.
+
 Checkpoint: guru assigned dua kelas dapat menganalisis siswa keduanya, ditolak untuk kelas lain; generate -> review draft -> publish yang sah; admin membantu draft. Mastery/evidence tidak berubah karena chat atau generation.
+
+### Slice AI-B: Scanner satu lembar -> review koreksi [P1]
+
+Goal: membantu membaca jawaban kertas, dengan hasil dan ketidakpastian yang dapat diperiksa guru. Mulai satu lembar kelas 4 sebelum batch.
+
+- [ ] Model kunci jawaban terkonfirmasi: input manual/paket bank approved atau foto lembar kunci guru -> ekstraksi -> preview -> koreksi/konfirmasi guru. Nomor soal, skill dan versi kunci terikat pada tugas/paket, bukan key bebas yang otomatis memengaruhi mastery.
+- [ ] Validasi foto JPEG/PNG/WebP berdasarkan isi dan ukuran; usulan batas awal 5 MB/file dikonfirmasi bersama batas request/dimensi. Preview orientasi/rotasi/crop tersedia sebelum kirim; ZIP bukan kebutuhan slice awal.
+- [ ] Ekstrak nomor soal dan jawaban final, termasuk coretan/ralat, foto miring/gelap, tulisan sulit terbaca, nomor terlewat/duplikat/tidak berurutan. Hasil meragukan ditandai dengan teks dan alasan untuk review, bukan warna saja; threshold OCR ditentukan dari fixture, bukan angka confidence yang dianggap tervalidasi.
+- [ ] Tampilkan foto/redaksi dan hasil ekstraksi berdampingan pada dashboard guru; guru dapat memperbaiki pembacaan dan mengonfirmasi kunci/jawaban sebelum finalisasi.
+- [ ] Evaluasi jawaban dilakukan deterministic setelah ekstraksi. Definisikan normalisasi yang didukung, misalnya pecahan rasional 1/2 = 2/4 = 0,5; jawaban bebas/ambigu atau analisis langkah oleh AI tetap dugaan yang perlu review. Jangan menyerahkan sumber kebenaran score ke LLM.
+- [ ] Simpan hasil dengan provenance, versi kunci, status review, koreksi reviewer dan audit retry. Skor sementara/final koreksi kertas dibedakan dari progress diagnostic; integrasi ke mastery memerlukan aturan evidence terpisah yang dikonfirmasi.
+- [ ] Guru hanya memproses siswa kelas assigned. Fitur siswa, jika diaktifkan, hanya lembar dirinya dan tidak dapat memilih owner lain; hak admin untuk membantu kunci/draft tidak memberi akses foto/nilai semua siswa.
+- [ ] Uji fixture tulisan nyata dengan izin, ambiguity/low confidence, pecahan ekuivalen, MIME/payload invalid, timeout, ownership, kunci diubah dan retry finalisasi. Hasil tanpa provider memakai koreksi manual yang jelas, bukan hasil scan buatan.
+
+Usulan route: `POST /api/ai/extract-answer-key` dan `POST /api/ai/scan-correction`. Tentukan resource tugas/siswa dan lifecycle review dalam API contract; jangan meneruskan contoh payload lama berbasis student_name sebagai identitas/otorisasi.
+
+Checkpoint: guru assigned memilih paket/input kunci -> konfirmasi kunci -> upload satu lembar -> periksa ekstraksi -> perbaiki bagian meragukan -> finalisasi koreksi sekali -> reload melihat hasil/provenance. Guru kelas lain ditolak; core learning tetap bekerja ketika AI gagal.
+
+### Slice AI-C: Batch koreksi dan rekap [P1, setelah AI-B lolos]
+
+- [ ] Tambahkan multi-file upload dan mapping setiap lembar ke siswa/tugas yang diizinkan. Batas jumlah file/total ukuran dan concurrency worker ditentukan dari pengujian kuota; angka 30+ file dan 3–5 worker dari plan lama adalah usulan, bukan jaminan kapasitas.
+- [ ] Antrean terkontrol dengan job/item ID, status tiap lembar dan progress tersimpan; reload, retry item gagal dan pembatalan tidak menggandakan biaya atau finalisasi. Uji partial failure tanpa menghilangkan hasil item sukses.
+- [ ] Dashboard koreksi: kunci -> upload -> progress -> tabel rekap -> review per lembar. Status membedakan menunggu review, selesai dan gagal; skor rendah tidak disamakan dengan kegagalan OCR.
+- [ ] Rekap kelas dan ekspor CSV hanya hasil/kelas yang diizinkan, dengan status review terlihat. Ekspor Excel, upload ZIP dan integrasi buku nilai menjadi perluasan setelah alur CSV/finalisasi terbukti; jangan mengklaim buku nilai sudah tersedia.
+- [ ] Uji batch dengan quota/timeout, revoked assignment selama job berjalan, file duplikat, restart worker/reload dan retry. Authorization diperiksa lagi saat proses, akses hasil, finalisasi dan ekspor.
+
+Checkpoint: beberapa lembar siswa assigned -> progress tiap item -> satu item gagal dapat diulang -> review -> rekap/export hasil terkonfirmasi -> reload tidak mengulang item sukses. Hasil batch tidak otomatis mengubah mastery.
 
 ## Phase 6: Reliability dan verifikasi demo [P2]
 
@@ -261,7 +323,7 @@ Goal: memperkuat semua flow yang sudah berjalan. Keamanan dasar dan feedback UI 
 - [ ] Recovery dari network error/reload/double submit, expired session, empty class, dan data parsial; hindari request race mengubah jawaban.
 - [ ] Jalankan penuh keyboard, focus, contrast, touch targets, matematika terbaca, reduced motion; siswa mobile/desktop dan guru tablet/desktop.
 - [ ] Periksa batas payload, authorization seluruh route, no-secret image/repo, cookie/CSRF sesuai auth, safeguards auth/write endpoints, dan safe logs.
-- [ ] CI build web/typecheck sesuai scripts, Go vet/build dan meaningful engine tests; Docker build tiap app dan full-stack smoke check.
+- [ ] CI build web/typecheck sesuai scripts dan Go vet/build; Docker build tiap app dan full-stack smoke check.
 - [ ] Dokumentasikan setup clean machine, env, migrations/seed, demo reset terarah, restart Go, dan demo script siswa/guru kelas 4.
 
 Demo checkpoint: clean startup -> full demo -> restart/resume -> common failure/retry tanpa corrupt progress; tidak ada akses silang siswa/kelas. Catat command dan hasil verifikasi, bukan hanya checklist.
@@ -280,9 +342,10 @@ Checkpoint tiap tambahan: tunjukkan perubahan end-to-end dengan data nyata dan b
 
 ## Drop First If Time Is Short
 
-1. Expo, leaderboard, animasi dekoratif, assignment, AI eksternal.
-2. Perluasan domain/kelas di luar slice kelas 4 dan question levels 3–5.
-3. Dengan persetujuan perubahan MVP: achievement tambahan, daily goal, administrasi UI; seed terkontrol sebagai fallback.
+1. Expo, leaderboard, animasi dekoratif, assignment, ZIP/Excel/buku nilai dan batch scanner.
+2. Jika integrasi AI dipotong, pertahankan draft/manual review dan evidence aktual; jangan menggantinya dengan mock yang menyamar sebagai hasil nyata.
+3. Perluasan domain/kelas di luar slice kelas 4 dan question levels 3–5.
+4. Dengan persetujuan perubahan MVP: AI eksternal/scanner, achievement tambahan, daily goal, administrasi UI; seed terkontrol sebagai fallback.
 
 Jangan memotong diagnostic evidence, prerequisite check, lesson/practice/reassessment, insight guru, auth/ownership, atau persistence. Deadline pendek berarti re-plan, bukan mengklaim fase selesai tanpa checkpoint.
 
