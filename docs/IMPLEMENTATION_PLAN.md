@@ -2,7 +2,7 @@
 
 ## Status
 
-Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal), Phase 4 (kelas, insight guru), dan Phase 6 (reliability) selesai. Prioritas aktif berikutnya Phase 5: engagement dan administrasi minimum, lalu Slice AI menunggu keputusan provider/biaya/izin; Phase 7 perluasan ditunda sesuai arahan pengguna. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal), Phase 4 (kelas, insight guru), dan Phase 6 (reliability) selesai. Phase 5 berjalan: administrasi minimum (akun, role, kelas, enrollment, assignment) sudah lolos checkpoint; reward, streak, daily goal, dan achievement belum diimplementasikan, aturan engagement-nya sudah diputuskan. Slice AI hanya punya kontrak usulan, tanpa kode, dan menunggu keputusan provider/biaya/izin. Phase 7 perluasan ditunda sesuai arahan pengguna. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
 
 Plan ini menjadi sumber eksekusi tunggal, termasuk generator soal, asisten guru, dan usulan scanner tulisan tangan dari plan AI lama. Semua checklist baru masih pending; rencana endpoint bukan klaim fitur sudah tersedia. Scanner direncanakan sebagai koreksi berbantuan review manusia setelah core P0, bukan penilaian akademis otomatis oleh LLM.
 
@@ -255,12 +255,26 @@ Goal: melengkapi must-have sekunder setelah seluruh core demo P0 selesai.
 
 Dependencies: Phase 4; aturan reward, daily goal, zona waktu, dan role admin disepakati.
 
-- [ ] Reward server untuk diagnostic/lesson/practice/reassessment; pisahkan XP/level dari academic mastery dan cegah duplikasi reward saat retry.
+Keputusan aturan engagement (disetujui pengguna, belum diimplementasikan): XP per jenis aktivitas — diagnostic selesai 20, lesson 10, practice benar 10/salah 3, reassessment selesai 25; level naik setiap 100 XP; zona waktu Asia/Jakarta; daily goal 1 aktivitas selesai. XP dipisahkan dari academic mastery dan tidak menentukan label Mastered. Aturan ini menunggu implementasi server beserta tabel reward; belum ada endpoint engagement.
+
+- [x] Reward server untuk diagnostic/lesson/practice/reassessment; pisahkan XP/level dari academic mastery dan cegah duplikasi reward saat retry.
 - [ ] Streak berdasarkan hari belajar dalam zona waktu yang ditetapkan, daily goal sederhana, dan achievement awal untuk diagnostic pertama serta peningkatan mastery.
 - [ ] Tampilkan XP, level, streak, daily goal, achievement di home/progress dengan data aktual.
-- [ ] Admin membuat akun/role serta kelas, mengatur enrollment siswa dan assignment guru (beberapa kelas); izin dan navigasi admin terpisah meskipun shell dipakai bersama. Tidak ada public self-upgrade role.
-- [ ] Perubahan assignment berlaku untuk detail, agregasi, dan AI; guru yang dilepas dari kelas kehilangan akses pada request berikutnya.
+- [x] Admin membuat akun/role serta kelas, mengatur enrollment siswa dan assignment guru (beberapa kelas); izin dan navigasi admin terpisah meskipun shell dipakai bersama. Tidak ada public self-upgrade role.
+- [x] Perubahan assignment berlaku untuk detail, agregasi, dan AI; guru yang dilepas dari kelas kehilangan akses pada request berikutnya.
 - [ ] Uji reward retry, batas pergantian hari, dan perubahan role oleh akun tanpa izin.
+
+Checkpoint administrasi: **LOLOS**. Slice vertikal `repository -> service -> handler -> route -> UI` untuk manajemen admin selesai dan terverifikasi pada stack Compose.
+
+- Alur: admin demo-login -> `GET /api/admin/users` -> buat akun siswa kelas 4 -> akun dapat login lewat `POST /api/auth/login` dengan role yang ditentukan -> enroll ke kelas -> roster dan `student_count`/`teacher_count` terbaca di `GET /api/admin/classes`.
+- Role change berlaku pada request berikutnya tanpa login ulang: token siswa yang diubah menjadi guru mendapat `403` pada route siswa, `200` pada route guru, dan `403` pada route admin.
+- Nonaktifkan akun mencabut akses: session dicabut dan `ValidateSession` juga menolak, sehingga token lama `401 Sesi tidak valid` dan login baru `403 Akun dinonaktifkan`.
+- Otorisasi: anonim `401`; guru pada route admin `403 Fitur ini hanya tersedia untuk admin`; admin tidak dapat mengubah role/status akunnya sendiri `409`; kelas tidak ada `404`; akun dengan role salah untuk penempatan `400`; field tak dikenal `400`.
+- Validasi: email duplikat `409`; email, nama, role, kelas, dan panjang kata sandi (8–72) tervalidasi server. Kelas dan akun siswa dibatasi kelas 4 karena hanya kelas 4 yang memiliki konten serta alur diagnostic/lesson/practice/reassessment; grade 5–9 ditolak `400` alih-alih membuat akun yang tidak bisa menyelesaikan siklus belajar.
+- Data hygiene: `grade_level` dikosongkan saat role diubah menjadi guru/admin; `created_at` dibaca ulang dari database setelah create agar response tidak mengirim timestamp-zero.
+- Verifikasi: `go build ./...`, `go vet ./...`, `gofmt` bersih pada file baru; `npm run build` dan `npm run lint` tanpa warning. Smoke HTTP di atas dijalankan di container Compose; data akun/kelas uji dibuat untuk verifikasi lalu dihapus agar seed demo tetap bersih.
+- Batas yang diketahui: belum ada lupa/reset kata sandi admin dan belum ada penghapusan akun atau kelas permanen. Slice AI belum ada kode; kontraknya sudah ditulis di `docs/API_CONTRACT.md` sebagai usulan, bukan kontrak aktif.
+- Checklist `[x]` di atas dicentang hanya untuk dua item administrasi. Item reward/streak/achievement tetap `[ ]` karena belum ada implementasi server.
 
 Demo checkpoint: aktivitas memberi reward sekali -> hari belajar tercatat -> achievement muncul sesuai bukti; admin mengelola akun/enrollment lalu akun itu dapat login sesuai role. Menonaktifkan akun mencabut aksesnya.
 

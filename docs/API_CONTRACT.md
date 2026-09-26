@@ -53,6 +53,19 @@ Semua endpoint terlindungi dapat mengembalikan `401` jika session tidak ditemuka
 | GET | `/api/learning/sessions/{id}` | Session siswa + owner | 200 |
 | POST | `/api/learning/lesson-complete` | Session siswa + owner | 200 |
 | POST | `/api/learning/answer` | Session siswa + owner | 200 |
+| GET | `/api/teacher/classes` | Session guru | 200 |
+| GET | `/api/teacher/classes/{class_id}/students` | Session guru + kelas ditugaskan | 200 |
+| GET | `/api/teacher/students/{student_id}/insight` | Session guru + siswa diajar | 200 |
+| GET | `/api/admin/users` | Session admin | 200 |
+| POST | `/api/admin/users` | Session admin | 201 |
+| PUT | `/api/admin/users/{id}` | Session admin, bukan akun sendiri | 200 |
+| GET | `/api/admin/classes` | Session admin | 200 |
+| POST | `/api/admin/classes` | Session admin | 201 |
+| GET | `/api/admin/classes/{class_id}/roster` | Session admin | 200 |
+| POST | `/api/admin/classes/{class_id}/enrollments` | Session admin | 200 |
+| DELETE | `/api/admin/classes/{class_id}/enrollments` | Session admin | 200 |
+| POST | `/api/admin/classes/{class_id}/assignments` | Session admin | 200 |
+| DELETE | `/api/admin/classes/{class_id}/assignments` | Session admin | 200 |
 
 Semua route `/api/diagnostic/*` memerlukan session dengan role `student`. Session tidak valid menghasilkan `401`; role teacher/admin menghasilkan `403` dengan pesan `Fitur ini hanya tersedia untuk siswa`, sebelum request body atau resource diproses. Ownership tetap wajib: siswa tidak dapat membaca/submit attempt siswa lain (`403 Akses ditolak`). Pembatasan berlaku di seluruh environment. Retry setelah `401/403` tidak melakukan perubahan; login dengan akun yang berhak sebelum mencoba lagi. Tidak ada endpoint untuk membaca assessment milik siswa lain atau teacher analytics pada fase ini.
 
@@ -277,3 +290,118 @@ Teacher middleware. Kelas tidak ditugaskan kepada guru 403 `Akses ditolak`; clas
 ## GET /api/teacher/students/{student_id}/insight
 
 Teacher middleware. Siswa tidak terdaftar di kelas mana pun yang ditugaskan kepada guru 403 `Akses ditolak`; siswa tidak ditemukan 404 `Siswa tidak ditemukan`; student_id kosong 400 `Permintaan siswa tidak valid`. 200 StudentInsight: `{student_id,student_name,classroom_id,classroom_name,assessment_id?,assessed_at?,target_skill_id?,results[],recommendations[],progress[]}`. results memakai definisi SkillResult yang sama dengan hasil diagnostic siswa (tanpa kunci soal); recommendations adalah learning_path assessment terakhir (lesson/practice yang benar-benar tersedia); progress dari skill_progress terbaru. Siswa tanpa assessment completed: arrays kosong, assessment_id absent. Tanpa perubahan data; assignment otomatis tidak dilakukan. 500 `Insight siswa belum bisa dimuat. Silakan coba lagi.`
+
+## Admin management
+
+Admin middleware berlaku di semua environment: `401` session tidak valid, `403` role selain admin dengan pesan `Fitur ini hanya tersedia untuk admin`, dicek sebelum body atau resource diproses. Body dibatasi 4 KiB dan field tak dikenal ditolak `400` agar kesalahan client tidak diam-diam diabaikan. Admin adalah satu-satunya role yang boleh mengubah role, status aktif, enrollment, dan assignment; tidak ada endpoint publik untuk menaikkan role sendiri.
+
+Actor diambil dari session backend, bukan dari body. Admin tidak dapat mengubah role atau status aktif akunnya sendiri (`409`); ini mencegah admin terakhir mengunci dirinya keluar dari manajemen. Detail kegagalan storage hanya dicatat di server.
+
+`grade_level` hanya berlaku untuk role `student`. Saat role diubah menjadi `teacher`/`admin`, `grade_level` dikosongkan di database agar tidak ada akun guru yang diam-diam membawa kelas siswa. Sebaliknya, akun siswa yang diubah menjadi guru kehilangan akses route siswa pada request berikutnya tanpa perlu login ulang: session divalidasi ulang ke database pada setiap request, sehingga perubahan role langsung berlaku.
+
+### GET /api/admin/users
+
+200 array User untuk seluruh akun, terurut role lalu nama: `{id,email,name,role,grade_level?,is_active,created_at}`. Password dan hash tidak diserialisasi. Read-only dan idempoten, aman diulang. 500 `Data akun belum bisa dimuat. Silakan coba lagi.`
+
+### POST /api/admin/users
+
+Request:
+
+```json
+{"email":"guru.baru@sekolah.test","name":"Guru Baru","role":"teacher","grade_level":0,"password":"<minimal 8 karakter>"}
+```
+
+- `email` wajib, di-trim dan di-lowercase, maksimal 254 karakter, harus mengandung `@` dan `.`, tanpa spasi.
+- `name` wajib, di-trim, maksimal 100 karakter.
+- `role` wajib `student`, `teacher`, atau `admin`.
+- `grade_level` wajib 4 untuk `student`; harus 0 atau tidak diisi untuk role lain.
+- `password` wajib 8–72 karakter (bcrypt menerima maksimum 72 byte) dan di-hash server-side dengan bcrypt cost 12. Password tidak pernah dikembalikan.
+- `201`: `data` adalah User yang tersimpan, termasuk `created_at` dari database.
+- `400`: email/nama/role/kelas/password tidak valid.
+- `409`: email sudah dipakai akun lain.
+- `500`: kegagalan penyimpanan dengan pesan aman.
+
+Endpoint ini membuat akun kredensial, bukan akun demo. Akun yang dibuat dapat langsung login melalui `POST /api/auth/login` dan hanya bisa masuk dengan role yang ditentukan. Saat ini belum ada lupa kata sandi atau reset kata sandi oleh admin; itu batas yang diketahui, bukan jaminan pemulihan akun.
+
+Kelas yang dapat dibuat dibatasi pada kelas 4 karena hanya kelas 4 yang memiliki konten dan alur diagnostic/lesson/practice/reassessment. Membuat akun kelas lain akan menghasilkan akun yang tidak dapat menyelesaikan satu pun siklus belajar, sehingga ditolak `400` sampai slice kelas 5–9 tersedia.
+
+### PUT /api/admin/users/{id}
+
+Request berisi subset berikut; minimal satu field wajib:
+
+```json
+{"role":"teacher"}
+{"is_active":false}
+```
+
+- `role` mengikuti aturan yang sama dengan create user.
+- `is_active` `false` menonaktifkan akun: seluruh session aktif dicabut, sehingga token yang sudah ada mendapat `401 Sesi tidak valid` pada request berikutnya, dan login baru ditolak `403 Akun dinonaktifkan. Hubungi administrator.`
+- `200`: `data` adalah User terbaru setelah perubahan.
+- `400`: body kosong, field tak dikenal, atau role tidak valid.
+- `404`: akun tidak ditemukan.
+- `409`: `id` menunjuk akun admin yang sedang login (`Akun sendiri tidak dapat diubah role atau dinonaktifkan`).
+- `500`: kegagalan penyimpanan dengan pesan aman.
+
+Idempotent: mengatur role atau status yang sama tidak menghasilkan error maupun efek samping. Perubahan berlaku pada request berikutnya tanpa pencabutan token.
+
+### GET /api/admin/classes
+
+200 array AdminClass seluruh kelas: `{id,name,grade_level,student_count,teacher_count}`. Bentuk ini sengaja terpisah dari `GET /api/teacher/classes` yang `assessed_count`-nya menghitung siswa terdata, sedangkan admin perlu jumlah guru yang ditugaskan. Read-only dan idempoten. 500 `Data kelas belum bisa dimuat. Silakan coba lagi.`
+
+### POST /api/admin/classes
+
+Request `{"name":"Kelas 4C","grade_level":4}`. `name` wajib di-trim maksimal 100 karakter; `grade_level` harus 4. ID kelas dibuat server, bukan ditentukan client. `201`: `data` AdminClass baru dengan `student_count` dan `teacher_count` nol. `400`: nama atau kelas tidak valid. `500`: kegagalan penyimpanan.
+
+### GET /api/admin/classes/{class_id}/roster
+
+200 ClassRoster `{classroom_id,student_ids,teacher_ids}` untuk penempatan siswa dan guru. Array kosong berarti belum ada penempatan, bukan kegagalan. Urutan id stabil. `400` class_id kosong; `404` `Kelas tidak ditemukan`; `500` `Data peserta kelas belum bisa dimuat. Silakan coba lagi.`
+
+### POST /api/admin/classes/{class_id}/enrollments
+
+Request `{"user_id":"usr-..."}`. Id siswa harus benar-benar ada dengan role `student`; akun guru/admin ditolak agar satu orang tidak menjadi siswa dan guru pada kelas yang sama. `200` dengan pesan konfirmasi. `400` `Permintaan penempatan tidak valid` atau `Akun dengan role siswa tidak ditemukan`; `404` `Kelas tidak ditemukan`; `500` kegagalan penyimpanan. Idempoten: pendaftaran siswa yang sudah terdaftar tidak menggandakan baris.
+
+### DELETE /api/admin/classes/{class_id}/enrollments
+
+Request body yang sama. Menghapus siswa dari kelas; nilai yang tidak terdaftar tidak menghasilkan error. Status dan error sama dengan endpoint enrollment. Menghapus siswa tidak menghapus akun atau riwayat belajarnya.
+
+### POST /api/admin/classes/{class_id}/assignments
+
+Request `{"user_id":"usr-..."}`. Id harus ada dengan role `teacher`; akun siswa/admin ditolak. `200` dengan pesan konfirmasi. `400` `Permintaan penempatan tidak valid` atau `Akun dengan role guru tidak ditemukan`; `404` `Kelas tidak ditemukan`; `500` kegagalan penyimpanan. Idempoten.
+
+### DELETE /api/admin/classes/{class_id}/assignments
+
+Request body yang sama. Melepas guru berlaku segera: request guru berikutnya ke kelas yang sudah dilepas menghasilkan `403 Akses ditolak` pada `/api/teacher/classes/{class_id}/students` dan `/api/teacher/students/{student_id}/insight`, tanpa perlu login ulang, karena assignment diperiksa di backend pada setiap request. Guru tetap kehilangan akses kelas lain yang tidak ditugaskan kepadanya. Status dan error sama dengan endpoint assignment.
+
+## Slice AI — kontrak usulan, belum diimplementasikan
+
+Bagian ini **bukan kontrak aktif**. Endpoint di bawah belum didaftarkan di router, tidak punya handler, dan tidak boleh dipanggil client. Disusun lebih awal agar batas keamanan, ownership, dan privasi ditetapkan sebelum ada kode. Implementasi memerlukan persetujuan provider, model, biaya/kuota, dependency, dan aturan retensi data; lihat `docs/IMPLEMENTATION_PLAN.md` Phase 5 Slice AI.
+
+Aturan yang berlaku untuk semua endpoint AI ini, baik saat ini maupun nanti:
+
+- Tetap memakai envelope dan bentuk error yang sama; `404` router default selama route belum didaftarkan.
+- Timeout, retry terbatas, dan rate limit per-user mengikuti kapasitas provider yang disepakati, bukan nilai bawaan vendor.
+- Server tidak pernah mempercayai output model: struktur, kunci jawaban, opsi ekuivalen, dan metadata divalidasi ulang di backend sebelum disimpan.
+- Kegagalan provider tidak boleh memutus alur belajar. Response membawa status yang jelas dan client menawarkan fallback input manual atau evidence aktual.
+- PII tidak dikirim ke provider. Nama siswa tidak pernah masuk payload prompt; identitas memakai ID opaque yang dipetakan di server.
+- Foto atau base64 tidak boleh masuk log. Redaksi/crop, permission, dan retensi foto ditetapkan sebelum endpoint scanner diaktifkan.
+- Output model tidak pernah langsung mengubah score, mastery, role, atau assignment.
+
+### POST /api/ai/generate-question (usulan)
+
+Purpose: draft soal untuk review guru/admin. Akses: session dengan role `teacher` atau `admin`. Request usulan: `{skill_id,grade_level,difficulty}`. Response usulan: draft soal terstruktur plus status review. Aturan: hasil selalu berstatus `draft` dan tidak pernah dipublikasikan ke bank aktif; aktivasi tetap lewat alur import/review Phase 3B. `403` untuk siswa. Admin tidak otomatis mendapat akses baca data akademik semua siswa hanya karena role-nya.
+
+### POST /api/ai/teacher-assistant (usulan)
+
+Purpose: analisis dan rekomendasi terstruktur untuk satu siswa yang boleh diakses guru. Akses: session `teacher` dengan assignment kelas yang memuat siswa tersebut; otorisasi dicek ulang pada setiap pemanggilan tool, bukan hanya di awal request. Request usulan: `{student_id}`. Response usulan: analisis yang memisahkan evidence terverifikasi, dugaan, dan rekomendasi; rujukan materi harus benar-benar tersedia di lesson/practice. `403` `Akses ditolak` untuk siswa di luar kelas yang ditugaskan.Akses admin atas analisis individual adalah keputusan produk terpisah dan tidak diasumsikan.
+
+### POST /api/ai/extract-answer-key (usulan)
+
+Purpose: membaca kunci jawaban dari input manual atau paket bank approved. Akses: `teacher` dengan assignment, atau `admin` untuk menyiapkan draft. Kunci yang diekstraksi disimpan sebagai draft dengan versi; tidak langsung memengaruhi mastery.
+
+### POST /api/ai/scan-correction (usulan)
+
+Purpose: membaca jawaban kertas satu lembar dan mengubahnya menjadi draft koreksi untuk review guru. Akses: `teacher` pada kelas assigned. Batas payload, MIME, dimensi, dan orientasi ditetapkan sebelum implementasi. Hasil ambigu ditandai dengan alasan untuk review, bukan hanya nilai confidence. Skoring tetap deterministic di backend setelah ekstraksi; hasil OCR tidak pernah menjadi evidence atau mastery secara otomatis. `403` untuk kelas lain. Data foto mengikuti aturan retensi di atas.
+
+### Endpoint AI batch (usulan, setelah slice satu lembar lolos)
+
+Upload multi-file, antrean job, dan rekap ekspor CSV hanya dibahas setelah alur satu lembar terbukti bekerja di browser. Aturan minimum yang sudah disepakati: ekspor dan rekap hanya untuk kelas yang diizinkan, status review terlihat di hasil, dan job yang gagal dapat diulang tanpa menggandakan finalisasi maupun biaya.

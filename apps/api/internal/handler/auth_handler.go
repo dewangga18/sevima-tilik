@@ -176,6 +176,27 @@ func (h *AuthHandler) TeacherMiddleware(next http.Handler) http.Handler {
 	return h.AuthMiddleware(requireTeacher(next))
 }
 
+// AdminMiddleware authenticates first, then restricts account and classroom
+// management to admins. It is required on every admin route in all environments.
+func (h *AuthHandler) AdminMiddleware(next http.Handler) http.Handler {
+	return h.AuthMiddleware(requireAdmin(next))
+}
+
+func requireAdmin(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		user, ok := r.Context().Value(UserContextKey).(*domain.User)
+		if !ok || user == nil {
+			WriteError(w, http.StatusUnauthorized, "Sesi tidak ditemukan atau telah kedaluwarsa")
+			return
+		}
+		if user.Role != domain.RoleAdmin {
+			WriteError(w, http.StatusForbidden, "Fitur ini hanya tersedia untuk admin")
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
 func requireTeacher(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user, ok := r.Context().Value(UserContextKey).(*domain.User)

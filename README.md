@@ -16,11 +16,11 @@ MVP pertama memprioritaskan kelas 4 dan pengalaman web. React Native + Expo menj
 
 Status:
 
-- Berjalan: login/session, beranda siswa, riwayat/statistik, diagnostic progresif kelas 4 (Go/PostgreSQL/Docker).
-- Attempt baru memakai aturan demo `progressive-demo-v1` dengan pemeriksaan prasyarat dan rekomendasi review; hasil legacy tetap tersedia.
-- Micro lesson, adaptive practice, reassessment, dan progress/path tersedia untuk enam skill kelas 4.
-- Dashboard guru/admin masih shell tanpa data kelas.
-- Aturan score masih demo awal; mastery jangka panjang belum tersedia.
+- **Berjalan**: login/session, beranda siswa, riwayat/statistik, diagnostic progresif kelas 4, micro lesson, adaptive practice, reassessment, progress/path, insight guru (Go/PostgreSQL/Docker).
+- **Phase 1–6**: Demo checkpoint LOLOS.
+- **Phase 5**: Engagement dan administrasi minimum sedang dikerjakan.
+- **Phase 7**: Polish dan perluasan opsional.
+- Aturan scoring deterministic; mastery jangka panjang dan AI (generator soal, asisten guru) menunggu keputusan provider/biaya.
 
 ## Core Features
 
@@ -110,13 +110,11 @@ Untuk production deployment dengan HTTPS, rate limiting, dan security hardening:
 
 📖 **[Lihat Deployment Guide](guides/DEPLOYMENT.md#production-deployment)**
 
-Quick production deploy:
-```bash
-# 1. Setup environment
-cp .env.production.example .env.production
-# Edit .env.production dengan values production
+Quick production deploy (Cloud / Railway):
+📖 **[Handbook Deployment Railway](docs/RAILWAY_DEPLOYMENT.md)** — panduan langkah-demi-langkah deploy live online via Railway (PostgreSQL, Go API, React Web) menggunakan [.env.railway.example](.env.railway.example).
 
-# 2. Deploy dengan HTTPS (Caddy auto SSL)
+Untuk VPS mandiri dengan Docker Compose + Caddy (HTTPS otomatis):
+```bash
 ./prod-deploy.sh
 ```
 

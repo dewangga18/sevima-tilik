@@ -6,6 +6,7 @@ export interface User {
   name: string
   role: Role
   grade_level?: number
+  is_active?: boolean
   created_at: string
 }
 
@@ -184,4 +185,20 @@ export interface StudentInsight {
   results: SkillEvidence[]
   recommendations: { skill_id: string; skill_name: string; reason: string }[]
   progress: { skill_id: string; skill_name: string; score: number; status: string; evidence_count: number; updated_at: string }[]
+}
+
+// Admin management shapes. AdminClass is separate from TeacherClass because the
+// admin view needs the assigned-teacher count, not the assessed-student count.
+export interface AdminClass {
+  id: string
+  name: string
+  grade_level: number
+  student_count: number
+  teacher_count: number
+}
+
+export interface ClassRoster {
+  classroom_id: string
+  student_ids: string[]
+  teacher_ids: string[]
 }

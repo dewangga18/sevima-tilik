@@ -78,6 +78,8 @@ func main() {
 	learningHandler := handler.NewLearningHandler(learningService)
 	teacherService := service.NewTeacherService(db)
 	teacherHandler := handler.NewTeacherHandler(teacherService)
+	adminService := service.NewAdminService(db, userRepo)
+	adminHandler := handler.NewAdminHandler(adminService)
 
 	mux := http.NewServeMux()
 
@@ -126,6 +128,21 @@ func main() {
 	mux.Handle("GET /api/teacher/classes", apiLimiter.Middleware(authHandler.TeacherMiddleware(http.HandlerFunc(teacherHandler.GetClasses))))
 	mux.Handle("GET /api/teacher/classes/{class_id}/students", apiLimiter.Middleware(authHandler.TeacherMiddleware(http.HandlerFunc(teacherHandler.GetClassStudents))))
 	mux.Handle("GET /api/teacher/students/{student_id}/insight", apiLimiter.Middleware(authHandler.TeacherMiddleware(http.HandlerFunc(teacherHandler.GetStudentInsight))))
+
+	// Admin management routes (admin role enforced in middleware, all environments)
+	adminMux := func(h http.HandlerFunc) http.Handler {
+		return apiLimiter.Middleware(authHandler.AdminMiddleware(h))
+	}
+	mux.Handle("GET /api/admin/users", adminMux(adminHandler.ListUsers))
+	mux.Handle("POST /api/admin/users", adminMux(adminHandler.CreateUser))
+	mux.Handle("PUT /api/admin/users/{id}", adminMux(adminHandler.UpdateUser))
+	mux.Handle("GET /api/admin/classes", adminMux(adminHandler.ListClasses))
+	mux.Handle("POST /api/admin/classes", adminMux(adminHandler.CreateClass))
+	mux.Handle("GET /api/admin/classes/{class_id}/roster", adminMux(adminHandler.GetRoster))
+	mux.Handle("POST /api/admin/classes/{class_id}/enrollments", adminMux(adminHandler.SetEnrollment))
+	mux.Handle("DELETE /api/admin/classes/{class_id}/enrollments", adminMux(adminHandler.RemoveEnrollment))
+	mux.Handle("POST /api/admin/classes/{class_id}/assignments", adminMux(adminHandler.SetAssignment))
+	mux.Handle("DELETE /api/admin/classes/{class_id}/assignments", adminMux(adminHandler.RemoveAssignment))
 
 	// Middleware chain: Logging -> CORS
 	wrappedMux := loggingMiddleware(corsMiddleware(cfg.AllowedOrigin)(mux))

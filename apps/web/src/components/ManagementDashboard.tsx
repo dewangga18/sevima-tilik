@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { Skill, User, TeacherClass, StudentOverview, StudentInsight } from '../types'
 import { api } from '../services/api'
+import { AdminManagement } from './AdminManagement'
 import './ManagementDashboard.css'
 
 const teacherPages = [
@@ -19,8 +20,6 @@ const adminPages = [
 ]
 
 const pendingContent: Record<string, { title: string; description: string }> = {
-  accounts: { title: 'Pengelolaan akun belum tersedia', description: 'Pembuatan akun dan perubahan role belum tersedia pada versi ini.' },
-  classes: { title: 'Data kelas belum tersedia', description: 'Kelas, penempatan siswa, dan penugasan guru belum terhubung. Daftar siswa akan ditampilkan setelah data kelas tersedia.' },
   questions: { title: 'Pengelolaan soal belum tersedia', description: 'Pembuatan dan review draft soal belum tersedia. Soal diagnostic saat ini memakai bank awal yang sudah tersimpan.' },
   assistant: { title: 'Asisten analisis belum tersedia', description: 'Analisis AI belum aktif. Fitur ini memerlukan data siswa dari kelas yang ditugaskan kepadamu.' },
 }
@@ -148,8 +147,8 @@ export function ManagementDashboard({ user, onLogout, loggingOut }: { user: User
       <main id="main-content" className="management-content">
         <div className="management-page-heading"><h1 ref={heading} tabIndex={-1}>{pageTitle}</h1><p>{isAdmin ? 'Kelola akses dan kegiatan belajar di Tilik.' : 'Pantau pembelajaran dan siapkan materi untuk siswamu.'}</p></div>
         {page === 'overview' && <>
-          <section className="management-overview" aria-labelledby="workspace-status"><h2 id="workspace-status">Selamat datang, {user.name}.</h2><p>{isAdmin ? 'Area administrasi sudah dipisahkan dari dashboard guru. Pengelolaan akun dan kelas masih dalam pengembangan.' : 'Kurikulum awal dan data kelas yang ditugaskan sudah tersedia. Buka menu Kelas & siswa untuk melihat evidence dan rekomendasi.'}</p><button type="button" className="btn btn-primary" onClick={() => navigate(isAdmin ? 'curriculum' : 'classes')}>{isAdmin ? 'Lihat kurikulum' : 'Lihat kelas & siswa'}</button></section>
-          <section className="management-status-section" aria-busy={loading}><h2>Ketersediaan fitur</h2><dl className="management-status-list"><div><dt>Kurikulum kelas 4</dt><dd role="status">{loading ? 'Memuat...' : error ? 'Belum bisa dimuat' : `${skills.length} keterampilan tersedia`}</dd></div><div><dt>{isAdmin ? 'Akun & kelas' : 'Data siswa & completion'}</dt><dd>{isAdmin ? 'Belum tersedia' : 'Tersedia untuk kelas yang ditugaskan'}</dd></div><div><dt>{isAdmin ? 'Pembuatan soal' : 'Asisten analisis'}</dt><dd>Belum tersedia</dd></div></dl></section>
+          <section className="management-overview" aria-labelledby="workspace-status"><h2 id="workspace-status">Selamat datang, {user.name}.</h2><p>{isAdmin ? 'Area administrasi sudah dipisahkan dari dashboard guru. Kelola akun, role, kelas, dan penempatan siswa serta guru dari menu Akun & role dan Kelas & penempatan.' : 'Kurikulum awal dan data kelas yang ditugaskan sudah tersedia. Buka menu Kelas & siswa untuk melihat evidence dan rekomendasi.'}</p><button type="button" className="btn btn-primary" onClick={() => navigate(isAdmin ? 'accounts' : 'classes')}>{isAdmin ? 'Kelola akun & role' : 'Lihat kelas & siswa'}</button></section>
+          <section className="management-status-section" aria-busy={loading}><h2>Ketersediaan fitur</h2><dl className="management-status-list"><div><dt>Kurikulum kelas 4</dt><dd role="status">{loading ? 'Memuat...' : error ? 'Belum bisa dimuat' : `${skills.length} keterampilan tersedia`}</dd></div><div><dt>{isAdmin ? 'Akun & kelas' : 'Data siswa & completion'}</dt><dd>{isAdmin ? 'Tersedia: buat akun, ubah role, kelas, enrollment, assignment' : 'Tersedia untuk kelas yang ditugaskan'}</dd></div><div><dt>{isAdmin ? 'Pembuatan soal' : 'Asisten analisis'}</dt><dd>Belum tersedia</dd></div></dl></section>
         </>}
         {(page === 'overview' || page === 'curriculum') && error && <div className="home-data-error" role="alert"><p>{error}</p><button type="button" className="btn btn-secondary" onClick={loadCurriculum}>Coba lagi</button></div>}
         {page === 'curriculum' && <section className="management-curriculum" aria-label="Kurikulum kelas 4" aria-busy={loading}>
@@ -174,6 +173,7 @@ export function ManagementDashboard({ user, onLogout, loggingOut }: { user: User
             </div>}
           </>}
         </section>}
+        {isAdmin && (page === 'accounts' || page === 'classes') && <AdminManagement view={page} currentUserId={user.id} />}
         {pending && !(page === 'classes' && !isAdmin) && <section className="management-empty"><h2>{pending.title}</h2><p>{pending.description}</p><button type="button" className="btn btn-secondary" onClick={() => navigate('overview')}>Kembali ke ringkasan</button></section>}
       </main>
     </div>

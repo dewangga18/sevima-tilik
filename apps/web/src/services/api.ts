@@ -1,4 +1,4 @@
-import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession, TeacherClass, StudentOverview, StudentInsight } from '../types'
+import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession, TeacherClass, StudentOverview, StudentInsight, AdminClass, ClassRoster, Role } from '../types'
 
 const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
@@ -150,6 +150,25 @@ export const api = {
   getTeacherClasses: () => request<TeacherClass[]>('/api/teacher/classes'),
   getClassStudents: (classId: string) => request<StudentOverview[]>(`/api/teacher/classes/${encodeURIComponent(classId)}/students`),
   getStudentInsight: (studentId: string) => request<StudentInsight>(`/api/teacher/students/${encodeURIComponent(studentId)}/insight`),
+
+  // Admin
+  getAdminUsers: () => request<User[]>('/api/admin/users'),
+  createAdminUser: (input: { email: string; name: string; role: Role; grade_level: number; password: string }) =>
+    request<User>('/api/admin/users', { method: 'POST', body: JSON.stringify(input) }),
+  updateAdminUser: (id: string, input: { role?: Role; is_active?: boolean }) =>
+    request<User>(`/api/admin/users/${encodeURIComponent(id)}`, { method: 'PUT', body: JSON.stringify(input) }),
+  getAdminClasses: () => request<AdminClass[]>('/api/admin/classes'),
+  createAdminClass: (input: { name: string; grade_level: number }) =>
+    request<AdminClass>('/api/admin/classes', { method: 'POST', body: JSON.stringify(input) }),
+  getClassRoster: (classId: string) => request<ClassRoster>(`/api/admin/classes/${encodeURIComponent(classId)}/roster`),
+  addEnrollment: (classId: string, userId: string) =>
+    request<{ message: string }>(`/api/admin/classes/${encodeURIComponent(classId)}/enrollments`, { method: 'POST', body: JSON.stringify({ user_id: userId }) }),
+  removeEnrollment: (classId: string, userId: string) =>
+    request<{ message: string }>(`/api/admin/classes/${encodeURIComponent(classId)}/enrollments`, { method: 'DELETE', body: JSON.stringify({ user_id: userId }) }),
+  addAssignment: (classId: string, userId: string) =>
+    request<{ message: string }>(`/api/admin/classes/${encodeURIComponent(classId)}/assignments`, { method: 'POST', body: JSON.stringify({ user_id: userId }) }),
+  removeAssignment: (classId: string, userId: string) =>
+    request<{ message: string }>(`/api/admin/classes/${encodeURIComponent(classId)}/assignments`, { method: 'DELETE', body: JSON.stringify({ user_id: userId }) }),
 
   startLearning: (sourceId: string, skillId: string, requestId: string) => request<LearningSession>('/api/learning/start', { method: 'POST', body: JSON.stringify({ source_assessment_id: sourceId, skill_id: skillId, request_id: requestId }) }),
   getLearningSession: (id: string) => request<LearningSession>(`/api/learning/sessions/${encodeURIComponent(id)}`),
