@@ -126,3 +126,40 @@ func (h *DiagnosticHandler) GetSkills(w http.ResponseWriter, r *http.Request) {
 
 	WriteJSON(w, http.StatusOK, skills)
 }
+
+func (h *DiagnosticHandler) GetHistory(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(UserContextKey).(*domain.User)
+	if !ok || user == nil {
+		WriteError(w, http.StatusUnauthorized, "Unauthorized")
+		return
+	}
+	history, err := h.diagService.GetHistory(r.Context(), user.ID)
+	if err != nil {
+		log.Printf("load assessment history for user %s: %v", user.ID, err)
+		WriteError(w, http.StatusInternalServerError, "Gagal memuat riwayat belajar. Silakan coba lagi.")
+		return
+	}
+	WriteJSON(w, http.StatusOK, history)
+}
+
+func (h *DiagnosticHandler) GetByID(w http.ResponseWriter, r *http.Request) {
+	user, ok := r.Context().Value(UserContextKey).(*domain.User)
+	if !ok || user == nil {
+		WriteError(w, http.StatusUnauthorized, "Unauthorized")
+		return
+	}
+	assessment, err := h.diagService.GetAssessment(r.Context(), user.ID, r.PathValue("id"))
+	if err != nil {
+		switch {
+		case errors.Is(err, service.ErrForbidden):
+			WriteError(w, http.StatusForbidden, "Akses ditolak")
+		case errors.Is(err, service.ErrAssessmentNotFound):
+			WriteError(w, http.StatusNotFound, "Asesmen tidak ditemukan")
+		default:
+			log.Printf("load assessment %s for user %s: %v", r.PathValue("id"), user.ID, err)
+			WriteError(w, http.StatusInternalServerError, "Gagal memuat asesmen. Silakan coba lagi.")
+		}
+		return
+	}
+	WriteJSON(w, http.StatusOK, assessment)
+}

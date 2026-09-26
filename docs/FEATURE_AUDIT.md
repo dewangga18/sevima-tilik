@@ -1,0 +1,29 @@
+# Audit fitur dan batas akses Tilik
+
+Tanggal: 26 September 2026. Scope berdasarkan arahan pengguna terbaru; pemeriksaan source dan smoke HTTP lokal. Tidak ada endpoint baru pada perubahan dokumentasi ini.
+
+| Role / fitur | Status saat ini | Target |
+|---|---|---|
+| Siswa: data sendiri, latest/history/statistik | Tersedia: query menggunakan ID session; detail/submit memeriksa owner | Pertahankan isolasi; tambah pembatasan role student |
+| Guru: kelas assigned, lebih dari satu | Belum tersedia: tidak ada tabel classroom/enrollment/teacher assignment | Otorisasi setiap resource dan query berdasarkan assignment |
+| Guru: data siswa/dashboard | Shell dashboard dengan kurikulum aktual; data kelas/completion belum tersedia | Data aktual API, completion dan insight dari evidence |
+| Guru/admin: generate soal | Belum tersedia | Draft -> validasi -> review -> publish |
+| Guru: asisten analisis seorang siswa | Belum tersedia | Ambil evidence authorized -> analisis/rekomendasi; provider pending |
+| Ranking completion | Belum tersedia; opsional | Tentukan eligibility/window; bukan ranking nilai/mastery |
+| Admin: akun/role/kelas/penempatan | Shell admin terpisah tersedia; CRUD belum tersedia | Alur admin terpisah dan permission backend |
+
+## Temuan yang perlu ditangani
+
+1. AuthMiddleware memvalidasi session, belum role. HTTP history untuk student, teacher, admin sama-sama menghasilkan 200; teacher/admin hanya mendapat data ID dirinya, bukan izin akses kelas. Batasi route siswa sebelum memperluas fitur.
+2. Daftar siswa hardcoded sudah dihapus dari halaman aktif; guru/admin memakai ManagementDashboard dengan kurikulum API dan status jujur untuk data kelas yang belum tersedia. Ini belum bukti authorization kelas.
+3. Migration hanya memiliki users/sessions, curriculum, assessments/items dan evidence. Klaim kelas/enrollment sudah selesai di plan dikoreksi.
+4. Guru/admin memakai shell dashboard dengan menu sesuai role. Form/action administrasi belum tersedia.
+5. Error kurikulum pada shell baru sudah tampil dengan retry. TeacherView lama tidak dipakai oleh App.tsx.
+
+## Bukti dan batas pemeriksaan
+
+Source: apps/api/cmd/server/main.go, internal/handler/auth_handler.go, internal/service/diagnostic_service.go, internal/repository/assessment_repo.go dan db.go; apps/web/src/components/TeacherView.tsx dan App.tsx.
+
+Smoke HTTP: tanpa session history 401; setiap role dengan session history 200; assessment ID tidak ada 404. Ownership antar siswa telah diuji pada regression PostgreSQL sebelumnya. Smoke ini tidak membuktikan assignment guru karena model/endpoint belum ada. Tidak dibuat assessment baru untuk audit.
+
+Urutan: role guard siswa -> core learning P0 Phase 2–3 -> classroom/assignment dan data guru Phase 4 -> admin serta AI P1. Ranking completion tetap opsional. Tidak perlu build untuk perubahan dokumentasi saja.

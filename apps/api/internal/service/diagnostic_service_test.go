@@ -196,3 +196,45 @@ func TestConcurrentCompletionAndRollback(t *testing.T) {
 		t.Fatal("retry changed winning submission")
 	}
 }
+
+func TestStudentHistoryAndOwnership(t *testing.T) {
+	db := diagnosticTestDB(t)
+	ctx := context.Background()
+	s := NewDiagnosticService(repository.NewCurriculumRepository(db), repository.NewAssessmentRepository(db))
+	history, err := s.GetHistory(ctx, "u-student-new")
+	if err != nil || len(history.Items) != 0 || history.CompletedCount != 0 {
+		t.Fatalf("fresh history: %+v %v", history, err)
+	}
+	for i := 0; i < 7; i++ {
+		assessment, err := s.StartDiagnostic(ctx, "u-student-new", 4)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if _, err = s.GetAssessment(ctx, "u-student-1", assessment.ID); !errors.Is(err, ErrForbidden) {
+			t.Fatalf("ownership error: %v", err)
+		}
+		answers := make([]AnswerSubmission, len(assessment.Items))
+		for j, item := range assessment.Items {
+			answers[j] = AnswerSubmission{QuestionID: item.QuestionID, StudentAnswer: item.Question.Options[0]}
+		}
+		if _, err = s.SubmitDiagnostic(ctx, "u-student-new", assessment.ID, answers); err != nil {
+			t.Fatal(err)
+		}
+	}
+	history, err = s.GetHistory(ctx, "u-student-new")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if history.CompletedCount != 7 || len(history.Items) != 5 {
+		t.Fatalf("history limit and total: %+v", history)
+	}
+	for _, item := range history.Items {
+		if item.AnsweredCount != item.QuestionCount || item.AssessedSkillCount == 0 {
+			t.Fatalf("missing evidence: %+v", item)
+		}
+	}
+	other, err := s.GetHistory(ctx, "u-student-1")
+	if err != nil || len(other.Items) != 0 {
+		t.Fatalf("history leaked across owners: %+v %v", other, err)
+	}
+}

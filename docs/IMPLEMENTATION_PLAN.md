@@ -77,9 +77,11 @@ Checkpoint 1A: **LOLOS**. `docker compose up --build` menyalakan web dan api; cu
 
 Dependencies: checkpoint 1A dan keputusan auth/DB/seed/desain terkait selesai.
 
-- [x] Tetapkan API contract/error shape dan model minimum: user/role, profile/grade, kelas/enrollment, skill/prerequisite, soal, assessment, answer, evidence/mastery.
+- [x] API contract/error shape dan model user/role, grade, skill/prerequisite, soal, assessment, answer, evidence tersedia.
+- [ ] Model kelas, enrollment siswa, dan assignment guru belum tersedia; selesaikan sebagai prerequisite Phase 4.
 - [x] Tambahkan database yang disepakati ke Compose dengan storage persisten, readiness, dan env examples; pertahankan app build independen dari source app lain.
-- [x] Migration dan seed akun siswa/guru fiktif serta kelas 4A; pisahkan reset demo dari startup biasa.
+- [x] Migration dan seed akun siswa/guru fiktif; data progress tidak direset pada startup.
+- [ ] Kelas 4A saat ini label UI, belum record database/enrollment; jangan mengklaim seed kelas selesai.
 - [x] Login/logout -> session backend -> onboarding kelas 4 -> diagnostic singkat menggunakan soal reviewed.
 - [x] Submit jawaban -> server mengevaluasi -> simpan bukti -> tampilkan hasil per skill dan belum dinilai. Progressive selection/backtracking ditambahkan Phase 2.
 - [x] Validasi input, session/ownership, CORS, safe errors, serta loading/error/empty states pada flow ini sejak awal.
@@ -100,6 +102,50 @@ Review hardening Phase 1:
 - Verifikasi: `go test -race ./...` dengan PostgreSQL test/schema terisolasi, `go vet ./...`, `go build ./...`, `npm run build`, `npm run lint`, kedua Docker production builds, HTTP smoke test, serta browser test untuk retry via klik/keyboard dan quick-login. Pemeriksaan ini mencakup review fixes; tidak menggantikan validasi pedagogis, konten, atau fitur fase berikutnya.
 
 Fallback: seed akun demo menghindari kebutuhan registration/password recovery, tetapi tidak menghapus auth. Jika Docker belum siap, build native hanya checkpoint sementara; fase belum selesai sampai checkpoint Docker lolos.
+
+### Penyesuaian Phase 1/P0: beranda siswa sebelum assessment
+
+Permintaan pengguna: login siswa membuka welcoming page, profil/statistik, lalu recent history; pengerjaan dimulai secara eksplisit.
+
+- [x] Beranda menjadi tampilan awal untuk siswa baru maupun siswa yang memiliki attempt aktif/selesai.
+- [x] Akun demo siswa baru terpisah dari akun demo lama; jangan menghapus evidence yang sudah ada atau mereset tiap login.
+- [x] History dan statistik berasal dari PostgreSQL, dengan ownership, empty/loading/error/retry states.
+- [x] Mulai/lanjutkan assessment dan buka hasil history hanya melalui tindakan siswa; kembali ke beranda tetap tersedia.
+- [x] Periksa desktop/mobile, keyboard, contrast, build/lint, dan regresi API.
+
+Checkpoint: login siswa baru -> sambutan/profil/statistik nol/history kosong -> mulai -> kerjakan -> hasil -> kembali beranda -> statistik/history diperbarui -> reload tetap beranda dengan data tersimpan. Akun dengan attempt aktif harus memilih lanjutkan; hasil lama tetap dapat dibuka tanpa mengubah evidence.
+
+Bukti checkpoint: build dan lint frontend lolos; Go race tests menggunakan PostgreSQL terisolasi dan `go vet` lolos. Browser memverifikasi alur mulai -> submit -> hasil -> beranda -> buka hasil tersimpan, serta reload attempt aktif tetap beranda. Lebar 320/360/768/1280px tidak overflow; soal dan hasil diuji pada 320px. Error/retry dan statistik selesai diuji dengan respons browser terkontrol; riwayat/ownership/count diuji dengan PostgreSQL nyata. Contrast teks utama/muted/panel/action berada pada 6.19–14.65:1. Data assessment yang dibuat khusus pemeriksaan browser dibersihkan agar akun demo kembali belum mulai.
+
+### Penyesuaian shell guru/admin dan navigasi siswa [Phase 1/P0]
+
+Arahan pengguna: halaman guru/admin memakai dashboard pengelolaan, dengan sidebar dan area kerja; Beranda, Profil belajar, dan Riwayat siswa ditempatkan pada navbar. Scope ini mengubah presentasi/navigasi, bukan menyatakan API kelas/admin/AI sudah tersedia.
+
+Dependencies: shell login dan beranda siswa tersedia; gunakan token desain serta komponen/dependency yang ada. Backend dan kontrak API tidak berubah pada slice ini.
+
+- [x] Pindahkan tiga link siswa ke navbar; hapus navigasi duplikat di konten beranda.
+- [x] Link profil/riwayat dapat membuka beranda dari pengerjaan/hasil, menuju bagian yang diminta, tanpa menghapus pilihan jawaban yang belum dikirim.
+- [x] Guru memakai sidebar Ringkasan, Kelas & siswa, Kurikulum, Bank soal, dan Asisten analisis; tiap menu membuka konten yang sesuai.
+- [x] Admin memakai sidebar Ringkasan, Akun & role, Kelas & penempatan, Kurikulum, dan Bank soal; tidak memakai halaman siswa atau dashboard guru yang sama persis.
+- [x] Kurikulum memakai data aktual API dengan loading/error/retry; hilangkan daftar siswa statis dari halaman aktif. Tampilkan status belum tersedia untuk fitur kelas/admin/AI yang belum memiliki backend.
+- [x] Desktop memakai sidebar dan topbar; mobile memakai menu yang dapat dibuka/ditutup dengan keyboard dan layar sentuh. Tabel memiliki scroll lokal tanpa menyebabkan overflow halaman.
+- [x] Verifikasi navigasi, logout, focus keyboard, fresh/active student, desktop/mobile, serta frontend build/lint.
+- [x] FE menangani loading/error/empty/success pada kurikulum/dashboard, login/logout, dan assessment: status proses, disabled control, retry, empty evidence/history, dan konfirmasi hasil tersimpan.
+
+Checkpoint: **LOLOS**.
+
+ login siswa -> tiga link di navbar -> mulai aktivitas -> link Riwayat kembali ke beranda -> lanjutkan dengan pilihan tersimpan. Login guru/admin -> shell dashboard sesuai role -> menu Kurikulum memuat data aktual -> menu lain menampilkan status fitur yang jujur. Menu mobile dapat dibuka lalu memilih halaman dan tertutup kembali.
+
+Fitur data siswa kelas assigned, admin CRUD, dan AI tetap mengikuti Phase 4/5/slice AI; role guard siswa tetap pekerjaan P0 berikutnya. Perubahan shell tidak menggantikan authorization backend.
+
+Bukti: frontend build/lint lolos tanpa warning; browser student/guru/admin pada 320/768/1280px tidak memiliki overflow halaman. Tabel kurikulum scroll lokal, menu mobile menutup setelah navigasi, fokus pindah ke heading. Tiga link siswa berada di header; navigasi dari quiz ke riwayat lalu lanjut mempertahankan pilihan. Respons kurikulum terkontrol memverifikasi loading, error/retry, empty, success; logout sukses menampilkan konfirmasi. API dan permission belum berubah.
+
+### Audit batas role sebelum melanjutkan core flow [P0]
+
+- [ ] Batasi route diagnostic siswa dengan role student di backend; teacher/admin saat ini juga dapat memanggil route tersebut untuk ID session sendiri. Update API contract sebelum implementasi.
+- [ ] Pertahankan ownership untuk latest/history/detail/submit; tambah regresi HTTP siswa A terhadap assessment siswa B dan role nonstudent terhadap route siswa.
+
+Audit fitur terbaru berada di `docs/FEATURE_AUDIT.md`; perubahan scope AI/admin di bawah tidak melewati checkpoint core learning Phase 2–4.
 
 ## Phase 2: Progressive diagnostic -> prerequisite gap -> path [P0]
 
@@ -136,10 +182,12 @@ Demo checkpoint: root gap -> lesson -> practice -> reassessment -> mastery/path 
 
 Goal: demo learning loop lengkap sampai keputusan guru.
 
-Dependencies: Phase 3 dan enrollment siswa/guru di kelas 4A.
+Dependencies: Phase 3; tambahkan classroom, student enrollment, dan teacher assignment sebelum endpoint data siswa guru. Seed assignment untuk demo, bukan daftar siswa hardcoded.
 
+- [ ] Relasi assignment mendukung satu guru di beberapa kelas; query data hanya kelas yang di-assign. Uji dua kelas assigned dan satu kelas nonassigned.
 - [ ] Role teacher membaca kelas yang dia ajar saja; agregasi membedakan belum dinilai dan gap, menampilkan denominator siswa yang dinilai.
 - [ ] Dashboard kelas -> daftar siswa -> detail -> topic/skill mastery, bukti prasyarat, dan perubahan progress.
+- [ ] Dashboard completion memakai jumlah siswa/aktivitas eligible dan status aktual; ranking completion opsional setelah aturan denominator/window disepakati.
 - [ ] Agregasi visible gap dan root-gap candidate memakai definisi sama dengan hasil siswa; jangan menghitung rata-rata mastery seolah tervalidasi jika datanya belum cukup.
 - [ ] Rekomendasi intervensi mengacu pada lesson/skill yang benar-benar tersedia, tanpa assignment otomatis.
 - [ ] Seed beberapa pola siswa dengan label data demo untuk memperlihatkan insight kelas; progress siswa yang sedang didemokan harus data aktual.
@@ -147,7 +195,7 @@ Dependencies: Phase 3 dan enrollment siswa/guru di kelas 4A.
 
 Demo checkpoint: guru membuka kelas 4A -> melihat masalah perbandingan pecahan -> membuka siswa demo yang sama -> melihat kandidat gap pecahan senilai beserta evidence -> mendapat lesson/practice recommendation. Data berubah setelah siswa reassessment.
 
-Fallback: satu kelas dan satu guru dahulu; filter lintas sekolah dan assignment ditunda. Jangan mengganti insight guru dengan statistik statis.
+Fallback: demo utama satu kelas dan satu guru, tetapi model/otorisasi tetap mendukung beberapa kelas; filter lintas sekolah dan assignment ditunda. Jangan mengganti insight guru dengan statistik statis.
 
 ## Phase 5: Engagement dan administrasi minimum [P1]
 
@@ -158,12 +206,25 @@ Dependencies: Phase 4; aturan reward, daily goal, zona waktu, dan role admin dis
 - [ ] Reward server untuk diagnostic/lesson/practice/reassessment; pisahkan XP/level dari academic mastery dan cegah duplikasi reward saat retry.
 - [ ] Streak berdasarkan hari belajar dalam zona waktu yang ditetapkan, daily goal sederhana, dan achievement awal untuk diagnostic pertama serta peningkatan mastery.
 - [ ] Tampilkan XP, level, streak, daily goal, achievement di home/progress dengan data aktual.
-- [ ] Role admin boleh memakai shell dashboard guru, tetapi izin tetap terpisah; alur membuat/menonaktifkan akun siswa/guru dan enrollment minimum. Tidak ada public self-upgrade role.
+- [ ] Admin membuat akun/role serta kelas, mengatur enrollment siswa dan assignment guru (beberapa kelas); izin dan navigasi admin terpisah meskipun shell dipakai bersama. Tidak ada public self-upgrade role.
+- [ ] Perubahan assignment berlaku untuk detail, agregasi, dan AI; guru yang dilepas dari kelas kehilangan akses pada request berikutnya.
 - [ ] Uji reward retry, batas pergantian hari, dan perubahan role oleh akun tanpa izin.
 
 Demo checkpoint: aktivitas memberi reward sekali -> hari belajar tercatat -> achievement muncul sesuai bukti; admin mengelola akun/enrollment lalu akun itu dapat login sesuai role. Menonaktifkan akun mencabut aksesnya.
 
 Scope cut memerlukan catatan persetujuan karena handover menyebut fitur ini must-have. Seed akun adalah fallback demo untuk management, bukan klaim fitur management selesai.
+
+### Slice AI guru/admin [P1, setelah checkpoint P0]
+
+Dependencies: Phase 4 authorization dan evidence, provider/biaya disepakati; dependency baru memerlukan persetujuan. Kegagalan AI tidak memutus diagnostic atau learning loop.
+
+- [ ] Guru/admin meminta draft soal kelas 4 dengan skill/difficulty; validasi struktur, kunci, opsi, penjelasan dan metadata, lalu review sebelum publish. Cegah publish otomatis atau bank soal aktif berubah karena output model mentah.
+- [ ] Guru memilih siswa di kelas assigned -> asisten mengambil evidence yang diizinkan -> menghasilkan analisis dan rekomendasi dengan rujukan evidence. Terapkan authorization pada setiap tool call; minimalkan identitas yang dikirim ke provider.
+- [ ] Admin dapat membantu menyiapkan draft untuk guru; jangan menganggap ini izin membaca data akademik semua siswa.
+- [ ] UI menampilkan hasil/error/timeout, dengan fallback evidence dan template; kontrak API harus ditulis sebelum endpoint baru.
+- [ ] Uji akses lintas kelas, revoked assignment, prompt/tool arguments yang mencoba melewati scope, output invalid, retry dan timeout.
+
+Checkpoint: guru assigned dua kelas dapat menganalisis siswa keduanya, ditolak untuk kelas lain; generate -> review draft -> publish yang sah; admin membantu draft. Mastery/evidence tidak berubah karena chat atau generation.
 
 ## Phase 6: Reliability dan verifikasi demo [P2]
 

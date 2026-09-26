@@ -30,12 +30,15 @@ func NewAuthService(userRepo *repository.UserRepository, demoEnabled bool) *Auth
 }
 
 var demoUserIDs = map[domain.Role]string{
-	domain.RoleStudent: "u-student-1",
+	domain.RoleStudent: "u-student-new",
 	domain.RoleTeacher: "u-teacher-1",
 	domain.RoleAdmin:   "u-admin-1",
 }
 
 func isDemoUser(user *domain.User) bool {
+	if user.ID == "u-student-1" {
+		return true
+	}
 	for _, id := range demoUserIDs {
 		if user.ID == id {
 			return true

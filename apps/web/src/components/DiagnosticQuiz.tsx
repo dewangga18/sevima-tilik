@@ -95,6 +95,7 @@ export const DiagnosticQuiz: React.FC<DiagnosticQuizProps> = ({
                 className={`option-btn ${isSelected ? 'option-selected' : ''}`}
                 onClick={() => handleSelectOption(option)}
                 disabled={submitting}
+                aria-pressed={isSelected}
               >
                 <span className="option-letter">{letters[idx] || idx + 1}</span>
                 <span className="option-text">{option}</span>

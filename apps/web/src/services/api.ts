@@ -1,4 +1,4 @@
-import type { User, Assessment, Skill } from '../types'
+import type { User, Assessment, AssessmentHistory, Skill } from '../types'
 
 const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
@@ -109,5 +109,13 @@ export const api = {
   getLatestDiagnostic: async (): Promise<Assessment | null> => {
     const assessment = await request<Assessment | null>('/api/diagnostic/latest')
     return assessment ?? null
+  },
+
+  getDiagnosticHistory: async (): Promise<AssessmentHistory> => {
+    return request<AssessmentHistory>('/api/diagnostic/history')
+  },
+
+  getDiagnostic: async (id: string): Promise<Assessment> => {
+    return request<Assessment>(`/api/diagnostic/${encodeURIComponent(id)}`)
   },
 }

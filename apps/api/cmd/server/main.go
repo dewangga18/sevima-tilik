@@ -70,6 +70,8 @@ func main() {
 	mux.Handle("POST /api/diagnostic/start", authHandler.AuthMiddleware(http.HandlerFunc(diagHandler.Start)))
 	mux.Handle("POST /api/diagnostic/submit", authHandler.AuthMiddleware(http.HandlerFunc(diagHandler.Submit)))
 	mux.Handle("GET /api/diagnostic/latest", authHandler.AuthMiddleware(http.HandlerFunc(diagHandler.GetLatest)))
+	mux.Handle("GET /api/diagnostic/history", authHandler.AuthMiddleware(http.HandlerFunc(diagHandler.GetHistory)))
+	mux.Handle("GET /api/diagnostic/{id}", authHandler.AuthMiddleware(http.HandlerFunc(diagHandler.GetByID)))
 
 	// Middleware chain: Logging -> CORS
 	wrappedMux := loggingMiddleware(corsMiddleware(cfg.AllowedOrigin)(mux))

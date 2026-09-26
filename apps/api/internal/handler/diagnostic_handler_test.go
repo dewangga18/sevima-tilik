@@ -30,6 +30,8 @@ func TestDiagnosticDatabaseErrorsAreSafe(t *testing.T) {
 		{"submit", `{"assessment_id":"test"}`, "Gagal mengevaluasi asesmen. Silakan coba lagi.", h.Submit},
 		{"latest", "", "Gagal memuat asesmen", h.GetLatest},
 		{"skills", "", "Gagal memuat daftar skill", h.GetSkills},
+		{"history", "", "Gagal memuat riwayat belajar. Silakan coba lagi.", h.GetHistory},
+		{"detail", "", "Gagal memuat asesmen. Silakan coba lagi.", h.GetByID},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			req := httptest.NewRequest(http.MethodPost, "/", strings.NewReader(test.body))

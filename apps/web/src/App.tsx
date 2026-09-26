@@ -1,95 +1,52 @@
 import { useEffect, useState } from 'react'
-import type { User, Assessment } from './types'
+import type { User } from './types'
 import { api, getAuthToken } from './services/api'
 import { Navbar } from './components/Navbar'
 import { LoginView } from './components/LoginView'
-import { DiagnosticQuiz } from './components/DiagnosticQuiz'
-import { DiagnosticResult } from './components/DiagnosticResult'
-import { TeacherView } from './components/TeacherView'
+import { StudentDashboard } from './components/StudentDashboard'
+import { ManagementDashboard } from './components/ManagementDashboard'
 import './App.css'
 
 export function App() {
   const [user, setUser] = useState<User | null>(null)
-  const [assessment, setAssessment] = useState<Assessment | null>(null)
   const [loading, setLoading] = useState(() => Boolean(getAuthToken()))
   const [loginLoading, setLoginLoading] = useState(false)
-  const [quizSubmitting, setQuizSubmitting] = useState(false)
+  const [loggingOut, setLoggingOut] = useState(false)
+  const [notice, setNotice] = useState('')
   const [error, setError] = useState('')
-  const [assessmentLoadError, setAssessmentLoadError] = useState('')
-  const [assessmentLoading, setAssessmentLoading] = useState(false)
+  const [studentNavigation, setStudentNavigation] = useState<{ target: string; request: number } | null>(null)
 
-  // Check auth session on load
   useEffect(() => {
-    const token = getAuthToken()
-    if (!token) {
-      return
-    }
-
+    if (!getAuthToken()) return
+    let cancelled = false
     api.getMe()
-      .then((userData) => {
-        setUser(userData)
-        if (userData.role === 'student') {
-          return loadLatestAssessment()
-        }
-      })
-      .catch(() => {
-        setUser(null)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+      .then(data => { if (!cancelled) setUser(data) })
+      .catch(() => { if (!cancelled) setError('Sesi belum bisa dimuat. Periksa koneksi atau masuk kembali.') })
+      .finally(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
   }, [])
 
-  async function loadLatestAssessment() {
-    setAssessmentLoading(true)
-    setAssessmentLoadError('')
-    try {
-      const latest = await api.getLatestDiagnostic()
-      setAssessment(latest)
-    } catch {
-      setAssessmentLoadError('Asesmen terakhir belum bisa dimuat. Periksa koneksi lalu coba lagi.')
-    } finally {
-      setAssessmentLoading(false)
-    }
-  }
-
-  const handleLogin = async (email: string, pass: string) => {
+  async function handleLogin(email: string, password: string) {
     setLoginLoading(true)
+    setNotice('')
     setError('')
     try {
-      const data = await api.login(email, pass)
+      const data = await api.login(email, password)
       setUser(data.user)
-      if (data.user.role === 'student') {
-        await loadLatestAssessment()
-      }
-    } catch (err: any) {
-      setError(err.message || 'Login gagal. Periksa email dan password.')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Login gagal. Periksa email dan password.')
     } finally {
       setLoginLoading(false)
     }
   }
 
-  const handleLogout = async () => {
-    try {
-      await api.logout()
-    } finally {
-      setUser(null)
-      setAssessment(null)
-      setAssessmentLoadError('')
-    }
-  }
-
-  const handleDemoLogin = async (role: User['role']) => {
+  async function handleDemoLogin(role: User['role']) {
     setLoginLoading(true)
+    setNotice('')
     setError('')
     try {
       const data = await api.demoLogin(role)
-      setAssessment(null)
-      setAssessmentLoadError('')
       setUser(data.user)
-      if (data.user.role === 'student') {
-        await loadLatestAssessment()
-      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Gagal masuk ke akun demo.')
     } finally {
@@ -97,136 +54,35 @@ export function App() {
     }
   }
 
-  const handleStartDiagnostic = async () => {
-    setLoading(true)
+  async function handleLogout() {
+    if (loggingOut) return
+    setLoggingOut(true)
     setError('')
+    setNotice('')
     try {
-      const newAssessment = await api.startDiagnostic(4)
-      setAssessment(newAssessment)
-    } catch (err: any) {
-      setError(err.message || 'Gagal memulai tes diagnostik.')
+      await api.logout()
+      setNotice('Kamu sudah keluar dari Tilik.')
+    } catch {
+      setError('Keluar dari perangkat ini berhasil, tetapi sesi server belum bisa dicabut. Periksa koneksi lalu coba lagi.')
     } finally {
-      setLoading(false)
+      setUser(null)
+      setLoggingOut(false)
     }
   }
 
-  const handleSubmitQuiz = async (
-    answers: { question_id: string; student_answer: string }[]
-  ) => {
-    if (!assessment) return
-    setQuizSubmitting(true)
-    setError('')
-    try {
-      const completed = await api.submitDiagnostic(assessment.id, answers)
-      setAssessment(completed)
-    } catch (err: any) {
-      setError(err.message || 'Gagal mengirimkan jawaban.')
-    } finally {
-      setQuizSubmitting(false)
-    }
-  }
+  if (loading) return <div className="center-screen" role="status"><div className="spinner" aria-hidden="true" /><p className="loading-text">Memuat Tilik...</p></div>
 
-  const handleRetakeDiagnostic = async () => {
-    handleStartDiagnostic()
-  }
-
-  if (loading) {
-    return (
-      <div className="center-screen">
-        <div className="spinner" />
-        <p className="loading-text">Memuat Tilik...</p>
-      </div>
-    )
-  }
-
-  return (
-    <div className="app-layout">
-      <Navbar user={user} onLogout={handleLogout} />
-
-      <main className="main-content">
-        {error && (
-          <div className="alert alert-error main-alert">
-            <span>{error}</span>
-            <button className="alert-close" onClick={() => setError('')}>✕</button>
-          </div>
-        )}
-
-        {!user ? (
-          <div className="auth-wrapper">
-            <LoginView onLogin={handleLogin} onDemoLogin={handleDemoLogin} loading={loginLoading} error={error} />
-          </div>
-        ) : user.role === 'teacher' || user.role === 'admin' ? (
-          <TeacherView user={user} />
-        ) : (
-          /* Student Flow */
-          <div className="student-flow">
-            {assessmentLoading ? (
-              <p role="status">Memuat asesmen terakhir...</p>
-            ) : assessmentLoadError ? (
-              <div className="onboarding-card">
-                <p role="alert">{assessmentLoadError}</p>
-                <button type="button" className="btn btn-primary" onClick={loadLatestAssessment}>
-                  Coba lagi
-                </button>
-              </div>
-            ) : !assessment ? (
-              <div className="onboarding-card">
-                <div className="onboarding-badge">Kelas 4 SD</div>
-                <h2>Tes Diagnostik Pemahaman Pecahan & Fondasi</h2>
-                <p className="onboarding-desc">
-                  Tes ini dirancang untuk mendeteksi konsep numerasi apa saja yang sudah kamu kuasai
-                  dan prasyarat mana yang perlu diperkuat agar belajar matematika jadi lebih mudah dan menyenangkan.
-                </p>
-
-                <div className="onboarding-features">
-                  <div className="feature-item">
-                    <span className="feature-icon">🎯</span>
-                    <div>
-                      <strong>6 Soal Esensial</strong>
-                      <span>Mencakup perkalian, pembagian, dan representasi pecahan</span>
-                    </div>
-                  </div>
-                  <div className="feature-item">
-                    <span className="feature-icon">🔍</span>
-                    <div>
-                      <strong>Pemetaan Titik Hambat</strong>
-                      <span>Mendeteksi apakah kesulitan berakar dari konsep prasyarat</span>
-                    </div>
-                  </div>
-                  <div className="feature-item">
-                    <span className="feature-icon">⏱️</span>
-                    <div>
-                      <strong>Sekitar 5-10 Menit</strong>
-                      <span>Kerjakan dengan teliti dan tenang</span>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  className="btn btn-primary btn-lg"
-                  onClick={handleStartDiagnostic}
-                >
-                  🚀 Mulai Tes Diagnostik Sekarang
-                </button>
-              </div>
-            ) : assessment.status === 'completed' ? (
-              <DiagnosticResult
-                assessment={assessment}
-                onRetake={handleRetakeDiagnostic}
-              />
-            ) : (
-              <DiagnosticQuiz
-                assessment={assessment}
-                onSubmit={handleSubmitQuiz}
-                submitting={quizSubmitting}
-              />
-            )}
-          </div>
-        )}
-      </main>
-    </div>
-  )
+  return <div className="app-layout">
+    <a className="skip-link" href="#main-content">Lewati ke konten utama</a>
+    {user && user.role !== 'student' ? <ManagementDashboard key={user.id} user={user} onLogout={handleLogout} loggingOut={loggingOut} /> : <>
+    <Navbar user={user} onLogout={handleLogout} loggingOut={loggingOut} onStudentNavigate={target => setStudentNavigation(previous => ({ target, request: (previous?.request || 0) + 1 }))} />
+    <main id="main-content" className={`main-content ${user?.role === 'student' ? 'main-content-student' : ''}`}>
+      {error && user && <div className="alert alert-error main-alert" role="alert"><span>{error}</span><button type="button" className="alert-close" aria-label="Tutup pesan" onClick={() => setError('')}>Tutup</button></div>}
+      {!user ? <div className="auth-wrapper">{notice && <p className="alert auth-notice" role="status">{notice}</p>}<LoginView onLogin={handleLogin} onDemoLogin={handleDemoLogin} loading={loginLoading} error={error} /></div>
+        : user.role === 'student' ? <StudentDashboard key={user.id} user={user} navigation={studentNavigation} /> : null}
+    </main>
+    </>}
+  </div>
 }
 
 export default App

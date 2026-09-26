@@ -255,3 +255,7 @@ func prepareAssessmentForClient(assessment *domain.Assessment) {
 func (s *DiagnosticService) GetSkills(ctx context.Context, gradeLevel int) ([]domain.Skill, error) {
 	return s.curriculumRepo.GetSkills(ctx, gradeLevel)
 }
+
+func (s *DiagnosticService) GetHistory(ctx context.Context, studentID string) (*domain.AssessmentHistory, error) {
+	return s.assessmentRepo.GetHistoryByStudent(ctx, studentID)
+}

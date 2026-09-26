@@ -4,11 +4,13 @@ import type { Assessment } from '../types'
 interface DiagnosticResultProps {
   assessment: Assessment
   onRetake: () => void
+  retaking?: boolean
 }
 
 export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
   assessment,
   onRetake,
+  retaking = false,
 }) => {
   const items = assessment.items || []
   const results = assessment.results || []
@@ -22,6 +24,7 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
 
   return (
     <div className="results-container">
+      <p className="assessment-success" role="status">Jawaban tersimpan. Hasil cek pemahaman siap dilihat.</p>
       {/* Top Banner */}
       <div className="results-summary-card">
         <div className="results-header">
@@ -31,8 +34,8 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
               Selesai pada {new Date(assessment.completed_at || assessment.started_at).toLocaleString('id-ID')}
             </p>
           </div>
-          <button className="btn btn-secondary btn-sm" onClick={onRetake}>
-            🔄 Tes Ulang
+          <button type="button" className="btn btn-secondary btn-sm" onClick={onRetake} disabled={retaking}>
+            {retaking ? 'Menyiapkan aktivitas...' : 'Cek pemahaman lagi'}
           </button>
         </div>
 
@@ -63,6 +66,7 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
           Evaluasi objektif per konsep materi berdasarkan bukti jawaban siswa:
         </p>
 
+        {results.length === 0 && <p>Belum ada bukti konsep yang tersedia pada hasil ini.</p>}
         <div className="skills-grid">
           {results.map((res) => {
             const isMastered = res.status === 'mastered'

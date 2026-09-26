@@ -44,6 +44,8 @@ Semua endpoint terlindungi dapat mengembalikan `401` jika session tidak ditemuka
 | POST | `/api/diagnostic/start` | Session | 200 |
 | POST | `/api/diagnostic/submit` | Session + owner attempt | 200 |
 | GET | `/api/diagnostic/latest` | Session, hanya milik user | 200 |
+| GET | `/api/diagnostic/history` | Session, hanya milik user | 200 |
+| GET | `/api/diagnostic/{id}` | Session + owner attempt | 200 |
 
 Saat ini diagnostic routes belum membatasi role ke student secara terpisah; ownership tetap wajib. Tidak ada endpoint untuk membaca assessment milik siswa lain atau teacher analytics pada fase ini.
 
@@ -96,6 +98,7 @@ Request:
 - `500`: kegagalan session/storage dengan pesan aman.
 - Setiap request membuat session resmi baru. Session demo tidak diterima di luar development, termasuk session yang sudah tersimpan sebelum environment berubah.
 - Seed akun demo hanya development, memakai password acak yang tidak dibagikan. Frontend tidak memiliki password demo; tombol demo hanya tampil dalam Vite development.
+- Role demo student memakai profil siswa baru `u-student-new`. Profil lama `u-student-1` dan hasilnya tetap tersimpan; login ulang tidak mereset kedua profil. Siswa baru benar-benar belum memiliki assessment pada seed awal, bukan hasil selesai yang disembunyikan frontend.
 
 ## POST /api/auth/logout
 
@@ -181,9 +184,25 @@ Hasil selesai immutable: submit ulang tidak mengubah jawaban, evidence, atau tim
 
 - Tanpa body/query. Hanya latest assessment milik session user berdasarkan `started_at`.
 - `200`: Assessment dengan bentuk di atas; `in_progress` tanpa solusi, `completed` dengan explanation dan results.
-- `200` tanpa `data`: belum ada attempt; frontend menampilkan onboarding.
+- `200` tanpa `data`: belum ada attempt; frontend menampilkan beranda siswa dengan status belum mulai.
 - `500`: `Gagal memuat asesmen`; frontend menampilkan error dan retry, mempertahankan session, serta tidak memperlakukannya sebagai assessment kosong.
 - GET/retry tidak memodifikasi attempt.
+
+## GET /api/diagnostic/history
+
+Tanpa body/query; hanya milik session user. `200` memiliki `data`:
+
+```json
+{"completed_count":0,"items":[]}
+```
+
+`completed_count` adalah jumlah seluruh assessment selesai milik user, tidak dibatasi jumlah history yang ditampilkan. `items` memuat maksimal lima assessment terbaru, urut `started_at` terbaru dengan ID sebagai tie-break. Setiap item memuat `id`, `grade_level`, `status`, `started_at`, `completed_at` jika selesai, `question_count`, `answered_count`, `correct_count`, dan `assessed_skill_count` (evidence_count > 0). Semua count berasal dari storage; record aktif tidak dianggap sudah selesai. Tidak ada soal, kunci, atau explanation pada history summary.
+
+`401`: session invalid. `500`: `Gagal memuat riwayat belajar. Silakan coba lagi.` Client menampilkan error/retry dan tidak menggantinya dengan statistik nol. GET/retry tidak mengubah hasil.
+
+## GET /api/diagnostic/{id}
+
+`id` adalah ID assessment yang dipilih pada history. `200`: bentuk Assessment yang sama dengan latest; penjelasan hanya tersedia ketika selesai. `401`: session invalid; `403`: owner berbeda; `404`: assessment tidak ditemukan; `500`: `Gagal memuat asesmen. Silakan coba lagi.` Semua error storage dicatat server-side. GET tidak memodifikasi attempt atau membuat assessment baru.
 
 ## Verifikasi perubahan kontrak
 

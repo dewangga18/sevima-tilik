@@ -156,6 +156,7 @@ func (db *DB) SeedDemoUsers(ctx context.Context) error {
 		grade                 int
 	}{
 		{"u-student-1", "budi@tilik.id", "Budi Santoso", "student", 4},
+		{"u-student-new", "budi.baru@tilik.id", "Budi Santoso", "student", 4},
 		{"u-teacher-1", "siti@tilik.id", "Ibu Siti Rahayu", "teacher", 4},
 		{"u-admin-1", "admin@tilik.id", "Admin Tilik", "admin", 0},
 	}

@@ -64,3 +64,20 @@ export interface Assessment {
   items?: AssessmentItem[]
   results?: SkillResult[]
 }
+
+export interface AssessmentSummary {
+  id: string
+  grade_level: number
+  status: AssessmentStatus
+  started_at: string
+  completed_at?: string
+  question_count: number
+  answered_count: number
+  correct_count: number
+  assessed_skill_count: number
+}
+
+export interface AssessmentHistory {
+  completed_count: number
+  items: AssessmentSummary[]
+}

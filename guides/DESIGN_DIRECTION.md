@@ -1,102 +1,19 @@
-# Design Direction Guide
+# Tilik Design Direction
 
-Fill this only after the PRD is confirmed.
+Tilik serves grades 4–9, prioritizing grade 4. Student screens should feel welcoming, readable, and calm; teacher screens emphasize evidence and next actions.
 
-Purpose: define the product's visual personality. `DESIGN_SYSTEM.md` defines reusable component structure; this file defines how this specific product should look and feel.
+## Reference and palette
 
-## Product Context
+The supplied Gamified Learning App screenshot informs personal greetings, compact statistics, dark green surfaces, and a lime primary action. It is inspiration rather than a clone. Spin wheels, coins, and invented engagement statistics are outside the current scope. The Figma page could not be inspected directly.
 
-- Product / theme: _____
-- Primary user: _____
-- Main environment of use: _____
-- Desired feeling: _____
+Use forest green `#284d3a`, lime `#d8ef62`, a light canvas `#f6f7f3`, white surfaces, text `#17261e`, and muted text `#58645b`. The invitation panel is the main dark surface; learning questions retain a light canvas for mathematical readability. Tokens live in `apps/web/src/App.css`.
 
-## Visual Reference
+## Hierarchy and layout
 
-Reference image/link (optional): `_____`
+Student home: welcome and explicit start/continue action, then profile statistics, then recent history. Login and reload always open home; entering an assessment requires an action. Statistics describe persisted evidence, with honest empty and failure states.
 
-Extract attributes such as palette, typography, density, hierarchy, and mood. Do not clone another product's branded identity 1:1.
+Use a system font, sentence case, left alignment, and balanced spacing. Desktop content has a maximum width of 68.75rem. Below 600px the welcome and profile stack vertically; history actions remain reachable. At 360px and narrower profile statistics stack as well.
 
-## Color
+## Interaction and accessibility
 
-Choose a compact palette with named roles.
-
-- Primary: `#_____`
-- Secondary: `#_____`
-- Accent: `#_____`
-- Background: `#_____`
-- Surface: `#_____`
-- Text: `#_____`
-
-Use color deliberately. Avoid making every card/button compete for attention.
-
-## Typography
-
-- Heading/display font: _____
-- Body font: _____
-- Type scale: _____
-
-Maximum two font families. Prefer readability over novelty for dense app screens.
-
-## Layout
-
-- Primary alignment: _____
-- Density: compact / balanced / spacious
-- Main content width behavior: _____
-- Navigation model: _____
-
-Key screen wireframe:
-
-```text
-+--------------------------------------+
-|                                      |
-|                                      |
-|                                      |
-+--------------------------------------+
-```
-
-## Signature Element
-
-The one bold visual idea: `_____`
-
-Spend visual risk here. Keep supporting UI quiet and disciplined.
-
-## Motion
-
-Primary purposeful motion: `_____`
-
-Do not add animation to every section or hover state. Respect `prefers-reduced-motion`.
-
-## Avoid Generic AI/SaaS Defaults
-
-Do not automatically fall back to:
-
-- neon-on-black AI dashboard styling
-- endless rounded cards with identical shadows
-- gradient blobs with no product meaning
-- eyebrow labels above every heading
-- numbered sections when content is not sequential
-- decorative arrow symbols on every CTA
-- fade/slide animation on every block
-
-The design should derive from the confirmed user/problem, not from a generic startup template.
-
-## Quality Floor
-
-Non-negotiable:
-
-- Responsive at common mobile and desktop widths
-- Usable keyboard navigation
-- Visible focus indicators
-- WCAG AA contrast for essential text/actions
-- Reduced-motion preference respected
-- Clear loading, empty, success, and error states
-- Body copy remains comfortably readable
-
-## Copy Style
-
-- Plain, active language
-- Sentence case
-- CTA labels describe the action (`Save changes`, not `Submit`)
-- Errors explain what happened and the next useful action
-- Empty states guide the user toward a next step
+Use one primary learning action per screen, minimum 44px touch targets, visible keyboard focus, named controls, and explicit loading/retry states. State labels include text, not color alone. Respect reduced motion. Avoid decorative gradients, emoji, fabricated progress, and automatic transitions into questions.

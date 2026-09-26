@@ -1,18 +1,39 @@
 :root {
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-primary-light: #eff6ff;
-  --color-success: #16a34a;
+  --color-primary: #284d3a;
+  --color-accent: #d8ef62;
+  --color-accent-hover: #c7df4e;
+  --color-inverse: #ffffff;
+  --color-inverse-muted: #dce7da;
+  --color-primary-hover: #1c392a;
+  --color-primary-light: #eef3e9;
+  --color-success: #15803d;
   --color-success-light: #f0fdf4;
-  --color-warning: #ea580c;
+  --color-warning: #9a3412;
   --color-warning-light: #fff7ed;
   --color-danger: #dc2626;
   --color-danger-light: #fef2f2;
-  --color-bg: #f8fafc;
+  --color-bg: #f6f7f3;
   --color-surface: #ffffff;
-  --color-border: #e2e8f0;
-  --color-text: #0f172a;
-  --color-muted: #64748b;
+  --color-border: #dfe5dc;
+  --color-text: #17261e;
+  --color-muted: #58645b;
+
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --content-width: 68.75rem;
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -30,7 +51,7 @@
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.5;
@@ -79,7 +100,7 @@ body {
 .brand-logo {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, var(--color-primary), #4f46e5);
+  background: var(--color-primary);
   color: #fff;
   border-radius: var(--radius-md);
   display: flex;
@@ -159,6 +180,7 @@ body {
   text-decoration: none;
   font-size: 0.95rem;
   padding: 0.65rem 1.25rem;
+  min-height: 44px;
 }
 
 .btn:disabled {
@@ -311,7 +333,7 @@ body {
 }
 
 .btn-demo {
-  background: #f8fafc;
+  background: #f6f7f3;
   border: 1px solid var(--color-border);
   padding: 0.65rem 1rem;
   border-radius: var(--radius-md);
@@ -379,7 +401,7 @@ body {
 .feature-item {
   display: flex;
   gap: 0.85rem;
-  background: #f8fafc;
+  background: #f6f7f3;
   padding: 1.25rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
@@ -416,7 +438,7 @@ body {
 
 .quiz-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary), #4f46e5);
+  background: var(--color-primary);
   transition: width 0.3s ease;
 }
 
@@ -491,7 +513,7 @@ body {
 
 .option-btn:hover:not(:disabled) {
   border-color: #cbd5e1;
-  background-color: #f8fafc;
+  background-color: #f6f7f3;
 }
 
 .option-selected {
@@ -554,7 +576,7 @@ body {
 }
 
 .pill-answered {
-  background: #e2e8f0;
+  background: #dfe5dc;
   color: var(--color-text);
 }
 
@@ -603,7 +625,7 @@ body {
 }
 
 .stat-card {
-  background: #f8fafc;
+  background: #f6f7f3;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 1.25rem;
@@ -830,7 +852,7 @@ body {
 .review-explanation {
   margin-top: 0.75rem;
   padding: 0.75rem;
-  background: #f8fafc;
+  background: #f6f7f3;
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
   border: 1px dashed var(--color-border);
@@ -895,7 +917,7 @@ body {
   padding: 0.85rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background: #f8fafc;
+  background: #f6f7f3;
 }
 
 .student-meta {
@@ -941,7 +963,7 @@ body {
   padding: 0.85rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background: #f8fafc;
+  background: #f6f7f3;
 }
 
 .curriculum-item-top {
@@ -978,7 +1000,7 @@ body {
 
 .prereq-badge {
   font-size: 0.7rem;
-  background: #e2e8f0;
+  background: #dfe5dc;
   padding: 1px 6px;
   border-radius: 4px;
 }

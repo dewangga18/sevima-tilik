@@ -20,7 +20,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, onDemoLogin, load
   }
 
   return (
-    <div className="login-card">
+    <div className="login-card" aria-busy={loading}>
       <div className="login-header">
         <h2>Masuk ke Tilik</h2>
         <p className="login-desc">
@@ -28,7 +28,9 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, onDemoLogin, load
         </p>
       </div>
 
-      {error && <div className="alert alert-error">{error}</div>}
+      {error && <div className="alert alert-error" role="alert">{error}</div>}
+
+      {loading && <p className="login-progress" role="status">Sedang masuk ke Tilik...</p>}
 
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
@@ -74,7 +76,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, onDemoLogin, load
             disabled={loading}
           >
             <strong>👦 Budi Santoso</strong>
-            <span className="demo-sub">Siswa (Kelas 4A)</span>
+            <span className="demo-sub">Siswa baru · Kelas 4 SD</span>
           </button>
           <button
             type="button"

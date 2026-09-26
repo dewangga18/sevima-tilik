@@ -18,7 +18,20 @@ Kesalahan pada materi tertentu dapat berasal dari prasyarat yang belum dipahami.
 
 - Utama: siswa kelas 4 untuk MVP pertama; target produk tetap kelas 4–9.
 - Pendukung: guru yang perlu melihat bukti learning gap dan intervensi berikutnya.
-- Admin: manajemen role, siswa, dan guru dasar; school management lengkap bukan prioritas.
+- Admin: membuat akun/role dan kelas, mengatur siswa serta guru pada kelas, dan membantu menyiapkan soal; school management lengkap bukan prioritas.
+
+## Batas akses dan fitur per role
+
+Arahan pengguna: siswa hanya mengakses data dirinya; guru hanya mengakses siswa dalam kelas yang ditugaskan kepadanya, termasuk beberapa kelas; admin mengelola akun/role, kelas, serta penempatan siswa/guru.
+
+- Siswa: profil, statistik, recent test, jawaban, hasil, dan progress milik sendiri. Identitas pemilik ditentukan session backend, bukan ID dari client.
+- Guru: daftar kelas yang di-assign, daftar/detail siswa pada kelas tersebut, dashboard completion dan insight. Semua detail, agregasi, export, dan tool AI harus memeriksa assignment di backend. Tidak ada akses semua siswa hanya karena role teacher.
+- Guru dan admin: generate draft soal sesuai skill/kelas/difficulty; draft divalidasi dan direview sebelum dipakai assessment. AI tidak menentukan scoring/mastery.
+- Asisten guru: chat/brainstorming analisis seorang siswa yang boleh diakses, mengambil evidence lalu menyiapkan rekomendasi terstruktur. Jawaban membedakan evidence dan dugaan; tidak mengubah nilai atau menerbitkan soal otomatis. Provider/biaya belum dipilih.
+- Admin: membuat akun dan menentukan role, membuat kelas, mengatur enrollment siswa dan assignment guru, membantu guru menyiapkan soal. Hak akses data akademik individual lintas kelas untuk admin belum ditentukan; jangan memberi akses global secara implisit.
+- Ranking completion masih opsi, bukan kewajiban. Dashboard completion didahulukan; completion tidak disamakan dengan academic mastery dan ranking tidak ditampilkan publik kepada siswa.
+
+Status implementasi dan gap dicatat di `docs/FEATURE_AUDIT.md`. Daftar ini adalah scope tujuan, bukan klaim seluruh fitur tersedia.
 
 ## Core Demo Flow
 
@@ -39,15 +52,15 @@ Demo kelas 8/aljabar dari handover menjadi skenario perluasan setelah demo kelas
 
 Core scoring, grading, graph traversal, mastery, dan keputusan path bersifat deterministic. AI dapat membantu hint, penjelasan, dan contoh alternatif; kegagalan AI tidak boleh memutus pembelajaran.
 
-Functional agent bukan kewajiban produk yang sudah dikonfirmasi. Jika diperlukan oleh penilaian hackathon, usulkan dua tool terpisah: mengambil bukti skill siswa dan menyiapkan penjelasan/intervensi terstruktur. Agent tidak diberi wewenang mengubah nilai, role, atau mengeksekusi assignment tanpa persetujuan. Kebutuhan dan provider harus dikonfirmasi sebelum implementasi integrasi.
+Asisten analisis guru dan generate draft soal masuk scope arahan terbaru. Dua aksi asisten: mengambil bukti skill siswa yang diizinkan dan menyiapkan rekomendasi/intervensi terstruktur. Agent tidak diberi wewenang mengubah nilai, role, atau mengeksekusi assignment tanpa persetujuan. Kebutuhan dan provider harus dikonfirmasi sebelum implementasi integrasi.
 
 ## Nice to Have
 
-AI explanation, assignment individu/kelompok/kelas, filter tambahan, leaderboard, Expo mobile, serta cakupan kurikulum lebih luas.
+AI explanation untuk siswa, assignment aktivitas individu/kelompok/kelas, filter tambahan, ranking completion, Expo mobile, serta cakupan kurikulum lebih luas.
 
 ## Out of Scope
 
-Shop, coins economy, avatar marketplace, guild, chat, multiplayer, parent social network, LMS lengkap, homework solver, dan penilaian akademis otomatis oleh LLM.
+Shop, coins economy, avatar marketplace, guild, chat sosial antarpengguna, multiplayer, parent social network, LMS lengkap, homework solver, dan penilaian akademis otomatis oleh LLM.
 
 ## Success Criteria
 
@@ -65,5 +78,5 @@ Ini kriteria demonstrasi perilaku sistem, bukan klaim diagnostic accuracy atau e
 - React Native + Expo hanya setelah web demo selesai. Next.js/Supabase backend/Drizzle dari suggested stack handover tidak menggantikan kesepakatan ini.
 - PostgreSQL sudah dikonfirmasi pengguna sebagai database. Dependency baru dan provider AI tetap perlu persetujuan sebelum pemasangan.
 - Deadline dan bank soal tervalidasi belum diberikan. Jangan menjanjikan seluruh domain atau kelas 4–9 selesai dalam hackathon.
-- UI friendly, modern, tidak childish; siswa mobile-first, guru desktop/tablet. Arah palette/font tetap perlu ditetapkan sebelum UI dibuat.
+- UI friendly, modern, tidak childish; siswa mobile-first, guru desktop/tablet. Arah palette/font mengikuti guides/DESIGN_DIRECTION.md dan guides/DESIGN_SYSTEM.md.
 - Data demo memakai identitas fiktif yang diberi label; jangan mengirim data identitas anak ke provider AI.

@@ -163,6 +163,42 @@ func (r *AssessmentRepository) GetLatestByStudent(ctx context.Context, studentID
 	return r.GetAssessmentByID(ctx, id)
 }
 
+func (r *AssessmentRepository) GetHistoryByStudent(ctx context.Context, studentID string) (*domain.AssessmentHistory, error) {
+	rows, err := r.db.QueryContext(ctx, `
+		SELECT a.id, a.grade_level, a.status, a.started_at, a.completed_at,
+		       (SELECT COUNT(*) FROM assessment_items WHERE assessment_id = a.id),
+		       (SELECT COUNT(*) FROM assessment_items WHERE assessment_id = a.id AND student_answer <> ''),
+		       (SELECT COUNT(*) FROM assessment_items WHERE assessment_id = a.id AND is_correct = TRUE),
+		       (SELECT COUNT(*) FROM skill_evidence WHERE assessment_id = a.id AND evidence_count > 0),
+		       COUNT(*) FILTER (WHERE a.status = $2) OVER ()
+		FROM assessments a
+		WHERE a.student_id = $1
+		ORDER BY a.started_at DESC, a.id DESC
+		LIMIT 5
+	`, studentID, string(domain.AssessmentCompleted))
+	if err != nil {
+		return nil, fmt.Errorf("query assessment history: %w", err)
+	}
+	defer rows.Close()
+	history := &domain.AssessmentHistory{Items: []domain.AssessmentSummary{}}
+	for rows.Next() {
+		var item domain.AssessmentSummary
+		var completedAt sql.NullTime
+		if err := rows.Scan(&item.ID, &item.GradeLevel, &item.Status, &item.StartedAt, &completedAt,
+			&item.QuestionCount, &item.AnsweredCount, &item.CorrectCount, &item.AssessedSkillCount, &history.CompletedCount); err != nil {
+			return nil, fmt.Errorf("scan assessment history: %w", err)
+		}
+		if completedAt.Valid {
+			item.CompletedAt = &completedAt.Time
+		}
+		history.Items = append(history.Items, item)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("read assessment history: %w", err)
+	}
+	return history, nil
+}
+
 func (r *AssessmentRepository) SaveEvaluation(ctx context.Context, assessmentID string, items []domain.AssessmentItem, results []domain.SkillResult, studentID string) error {
 	tx, err := r.db.BeginTx(ctx, nil)
 	if err != nil {

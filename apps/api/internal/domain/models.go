@@ -68,14 +68,31 @@ type Assessment struct {
 }
 
 type AssessmentItem struct {
-	ID             string    `json:"id"`
-	AssessmentID   string    `json:"assessment_id"`
-	QuestionID     string    `json:"question_id"`
-	OrderIndex     int       `json:"order_index"`
-	Question       *Question `json:"question,omitempty"`
-	StudentAnswer  string    `json:"student_answer,omitempty"`
-	IsCorrect      *bool     `json:"is_correct,omitempty"`
-	AnsweredAt     *time.Time `json:"answered_at,omitempty"`
+	ID            string     `json:"id"`
+	AssessmentID  string     `json:"assessment_id"`
+	QuestionID    string     `json:"question_id"`
+	OrderIndex    int        `json:"order_index"`
+	Question      *Question  `json:"question,omitempty"`
+	StudentAnswer string     `json:"student_answer,omitempty"`
+	IsCorrect     *bool      `json:"is_correct,omitempty"`
+	AnsweredAt    *time.Time `json:"answered_at,omitempty"`
+}
+
+type AssessmentSummary struct {
+	ID                 string           `json:"id"`
+	GradeLevel         int              `json:"grade_level"`
+	Status             AssessmentStatus `json:"status"`
+	StartedAt          time.Time        `json:"started_at"`
+	CompletedAt        *time.Time       `json:"completed_at,omitempty"`
+	QuestionCount      int              `json:"question_count"`
+	AnsweredCount      int              `json:"answered_count"`
+	CorrectCount       int              `json:"correct_count"`
+	AssessedSkillCount int              `json:"assessed_skill_count"`
+}
+
+type AssessmentHistory struct {
+	CompletedCount int                 `json:"completed_count"`
+	Items          []AssessmentSummary `json:"items"`
 }
 
 type SkillStatus string
