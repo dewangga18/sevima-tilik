@@ -36,7 +36,9 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const json = await res.json().catch(() => ({}))
 
   if (!res.ok) {
-    throw new Error(json.error || `HTTP error ${res.status}`)
+    const err = new Error(json.error || `HTTP error ${res.status}`) as Error & { status?: number }
+    err.status = res.status
+    throw err
   }
 
   return json.data as T

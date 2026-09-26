@@ -79,3 +79,9 @@
 .status-completed { color: var(--color-success); background: var(--color-success-light); }
 .status-in_progress { color: #92400e; background: #fef3c7; }
 .status-unassessed { color: var(--color-muted); background: #eef1ec; }
+
+@media (max-width: 600px) {
+  .teacher-class-list { flex-direction: column; }
+  .teacher-class-list .btn { width: 100%; min-height: 44px; }
+  .teacher-insight-panel { padding: var(--space-4); }
+}

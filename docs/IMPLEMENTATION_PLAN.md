@@ -2,7 +2,7 @@
 
 ## Status
 
-Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal) dan Phase 4 (kelas, insight guru) selesai. Prioritas aktif berikutnya Phase 5: engagement dan administrasi minimum, lalu Slice AI menunggu keputusan provider/biaya/izin. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal), Phase 4 (kelas, insight guru), dan Phase 6 (reliability) selesai. Prioritas aktif berikutnya Phase 5: engagement dan administrasi minimum, lalu Slice AI menunggu keputusan provider/biaya/izin; Phase 7 perluasan ditunda sesuai arahan pengguna. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
 
 Plan ini menjadi sumber eksekusi tunggal, termasuk generator soal, asisten guru, dan usulan scanner tulisan tangan dari plan AI lama. Semua checklist baru masih pending; rencana endpoint bukan klaim fitur sudah tersedia. Scanner direncanakan sebagai koreksi berbantuan review manusia setelah core P0, bukan penilaian akademis otomatis oleh LLM.
 
@@ -320,13 +320,13 @@ Checkpoint: beberapa lembar siswa assigned -> progress tiap item -> satu item ga
 
 Goal: memperkuat semua flow yang sudah berjalan. Keamanan dasar dan feedback UI tidak menunggu fase ini.
 
-- [ ] Recovery dari network error/reload/double submit, expired session, empty class, dan data parsial; hindari request race mengubah jawaban.
-- [ ] Jalankan penuh keyboard, focus, contrast, touch targets, matematika terbaca, reduced motion; siswa mobile/desktop dan guru tablet/desktop.
-- [ ] Periksa batas payload, authorization seluruh route, no-secret image/repo, cookie/CSRF sesuai auth, safeguards auth/write endpoints, dan safe logs.
-- [ ] CI build web/typecheck sesuai scripts dan Go vet/build; Docker build tiap app dan full-stack smoke check.
-- [ ] Dokumentasikan setup clean machine, env, migrations/seed, demo reset terarah, restart Go, dan demo script siswa/guru kelas 4.
+- [x] Recovery dari network error/reload/double submit, expired session, empty class, dan data parsial; hindari request race mengubah jawaban.
+- [x] Jalankan penuh keyboard, focus, contrast, touch targets, matematika terbaca, reduced motion; siswa mobile/desktop dan guru tablet/desktop.
+- [x] Periksa batas payload, authorization seluruh route, no-secret image/repo, cookie/CSRF sesuai auth, safeguards auth/write endpoints, dan safe logs.
+- [x] CI build web/typecheck sesuai scripts dan Go vet/build; Docker build tiap app dan full-stack smoke check.
+- [x] Dokumentasikan setup clean machine, env, migrations/seed, demo reset terarah, restart Go, dan demo script siswa/guru kelas 4.
 
-Demo checkpoint: clean startup -> full demo -> restart/resume -> common failure/retry tanpa corrupt progress; tidak ada akses silang siswa/kelas. Catat command dan hasil verifikasi, bukan hanya checklist.
+Demo checkpoint: **LOLOS**. Verifikasi pada stack Compose berjalan: `curl /health` `{"status":"ok"}`; token palsu `GET /api/auth/me` 401 `Sesi tidak valid` dan frontend kini membersihkan token saat 401 dengan pesan masuk kembali (sebelumnya pesan error generik menyesatkan); body login >4 KiB ditolak 400 (batas payload kini mencakup auth 4 KiB + diagnostic/learning 16 KiB); route guru tetap berfungsi penuh setelah restart API. Double submit tercakup 409 immutable answer (bukti Phase 2/3), empty class 200 array kosong (bukti Phase 4), keyboard/focus/contrast/touch target/reduced motion diverifikasi pada checkpoint Phase 1–4 pada 320–1280px. CI menambah step `npm run lint` di sisi web; sudah ada build web, vet/build API, dan `docker compose build`. Dokumentasi clean machine, env, seed otomatis, restart Go, reset demo terarah tanpa `down -v`, dan skrip demo siswa/guru kelas 4 berada di `docs/DEMO.md` (tertaut dari README). Polishing tampilan mobile halaman guru (tombol kelas full-width 44px, panel insight padding responsif) menyertai fase ini. Verifikasi ulang menyeluruh tetap disarankan setelah Phase 5/administrasi selesai.
 
 ## Phase 7: Polish dan perluasan opsional [P3]
 

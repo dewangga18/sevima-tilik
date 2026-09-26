@@ -40,7 +40,7 @@ type LoginResponse struct {
 
 func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var req LoginRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 4<<10)).Decode(&req); err != nil {
 		WriteError(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}
@@ -68,7 +68,7 @@ func (h *AuthHandler) DemoLogin(w http.ResponseWriter, r *http.Request) {
 	var req struct {
 		Role domain.Role `json:"role"`
 	}
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, 4<<10)).Decode(&req); err != nil {
 		WriteError(w, http.StatusBadRequest, "Invalid request body")
 		return
 	}

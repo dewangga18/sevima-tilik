@@ -10,7 +10,7 @@ Contohnya, siswa kesulitan membandingkan pecahan. Tilik memeriksa pemahaman peca
 
 Scope produk: [docs/PRODUCT.md](docs/PRODUCT.md). Rencana implementasi dan checkpoint per fase: [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
 
-Kontrak endpoint yang sudah tersedia: [docs/API_CONTRACT.md](docs/API_CONTRACT.md).
+Kontrak endpoint yang sudah tersedia: [docs/API_CONTRACT.md](docs/API_CONTRACT.md). Skrip demo siswa/guru dan reset data terarah: [docs/DEMO.md](docs/DEMO.md).
 
 MVP pertama memprioritaskan kelas 4 dan pengalaman web. React Native + Expo menjadi perluasan setelah demo web selesai.
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { User } from './types'
-import { api, getAuthToken } from './services/api'
+import { api, getAuthToken, setAuthToken } from './services/api'
 import { Navbar } from './components/Navbar'
 import { LoginView } from './components/LoginView'
 import { StudentDashboard } from './components/StudentDashboard'
@@ -21,7 +21,15 @@ export function App() {
     let cancelled = false
     api.getMe()
       .then(data => { if (!cancelled) setUser(data) })
-      .catch(() => { if (!cancelled) setError('Sesi belum bisa dimuat. Periksa koneksi atau masuk kembali.') })
+      .catch((err: unknown) => {
+        if (cancelled) return
+        if ((err as { status?: number }).status === 401) {
+          setAuthToken('')
+          setError('Sesi telah berakhir. Silakan masuk kembali.')
+        } else {
+          setError('Sesi belum bisa dimuat. Periksa koneksi atau masuk kembali.')
+        }
+      })
       .finally(() => { if (!cancelled) setLoading(false) })
     return () => { cancelled = true }
   }, [])
