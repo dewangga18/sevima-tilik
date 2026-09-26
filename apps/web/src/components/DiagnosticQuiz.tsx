@@ -55,6 +55,12 @@ export const DiagnosticQuiz: React.FC<DiagnosticQuizProps> = ({
       question_id: item.question_id,
       student_answer: answers[item.question_id] || '',
     }))
+    const unanswered = formatted.filter((a) => !a.student_answer).length
+    if (unanswered > 0 && !window.confirm(
+      `Masih ada ${unanswered} soal yang belum dijawab. Soal yang tidak dijawab akan dianggap salah. Lanjutkan?`
+    )) {
+      return
+    }
     onSubmit(formatted)
   }
 

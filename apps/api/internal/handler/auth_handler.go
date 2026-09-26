@@ -46,8 +46,17 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	req.Email = strings.TrimSpace(req.Email)
+	req.Password = strings.TrimSpace(req.Password)
 	if req.Email == "" || req.Password == "" {
-		WriteError(w, http.StatusBadRequest, "Email and password are required")
+		WriteError(w, http.StatusBadRequest, "Email dan password harus diisi")
+		return
+	}
+	if len(req.Password) > 72 {
+		WriteError(w, http.StatusBadRequest, "Password maksimal 72 karakter")
+		return
+	}
+	if !strings.Contains(req.Email, "@") || !strings.Contains(req.Email, ".") {
+		WriteError(w, http.StatusBadRequest, "Format email tidak valid")
 		return
 	}
 

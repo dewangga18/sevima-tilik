@@ -116,7 +116,7 @@ export function StudentDashboard({ user, navigation }: { user: User; navigation:
   }
 
   async function submitDiagnostic(answers: { question_id: string; student_answer: string }[]) {
-    if (!current) return
+    if (!current || submitting) return
     setSubmitting(true)
     setActionError('')
     try {

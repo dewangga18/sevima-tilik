@@ -37,6 +37,20 @@ func main() {
 	curriculumRepo := repository.NewCurriculumRepository(db)
 	assessmentRepo := repository.NewAssessmentRepository(db)
 
+	// Periodic expired-session cleanup; failures only logged, never fatal.
+	go func() {
+		if _, err := userRepo.CleanupExpiredSessions(context.Background()); err != nil {
+			log.Printf("Session cleanup error: %v", err)
+		}
+		ticker := time.NewTicker(1 * time.Hour)
+		defer ticker.Stop()
+		for range ticker.C {
+			if _, err := userRepo.CleanupExpiredSessions(context.Background()); err != nil {
+				log.Printf("Session cleanup error: %v", err)
+			}
+		}
+	}()
+
 	// Services
 	authService := service.NewAuthService(userRepo, demoEnabled)
 	diagService := service.NewDiagnosticService(curriculumRepo, assessmentRepo)

@@ -58,12 +58,36 @@ func (r *UserRepository) FindByID(ctx context.Context, id string) (*domain.User,
 	return &u, nil
 }
 
+// maxSessionsPerUser bounds concurrent active sessions; the oldest is pruned beyond it.
+const maxSessionsPerUser = 10
+
 func (r *UserRepository) CreateSession(ctx context.Context, session *domain.Session) error {
+	// Prune every active session beyond the newest maxSessionsPerUser before inserting.
+	if _, err := r.db.ExecContext(ctx, `
+		DELETE FROM sessions
+		WHERE user_id = $1 AND expires_at > NOW()
+			AND token NOT IN (
+				SELECT token FROM sessions
+				WHERE user_id = $1 AND expires_at > NOW()
+				ORDER BY created_at DESC LIMIT $2
+			)
+	`, session.UserID, maxSessionsPerUser-1); err != nil {
+		return err
+	}
 	_, err := r.db.ExecContext(ctx, `
 		INSERT INTO sessions (token, user_id, expires_at, created_at)
 		VALUES ($1, $2, $3, $4)
 	`, session.Token, session.UserID, session.ExpiresAt, session.CreatedAt)
 	return err
+}
+
+// CleanupExpiredSessions removes expired session tokens.
+func (r *UserRepository) CleanupExpiredSessions(ctx context.Context) (int64, error) {
+	result, err := r.db.ExecContext(ctx, `DELETE FROM sessions WHERE expires_at < NOW()`)
+	if err != nil {
+		return 0, fmt.Errorf("cleanup expired sessions: %w", err)
+	}
+	return result.RowsAffected()
 }
 
 func (r *UserRepository) FindSession(ctx context.Context, token string) (*domain.Session, error) {

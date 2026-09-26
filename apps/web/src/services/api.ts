@@ -27,13 +27,33 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     headers['Authorization'] = `Bearer ${authToken}`
   }
 
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers,
-    credentials: 'include',
-  })
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 30000)
 
-  const json = await res.json().catch(() => ({}))
+  let res: Response
+  try {
+    res = await fetch(`${API_BASE}${path}`, {
+      ...options,
+      headers,
+      credentials: 'include',
+      signal: controller.signal,
+    })
+  } catch (err) {
+    if (err instanceof DOMException && err.name === 'AbortError') {
+      throw new Error('Permintaan melebihi batas waktu. Periksa koneksi lalu coba lagi.')
+    }
+    throw err
+  } finally {
+    clearTimeout(timeoutId)
+  }
+
+  if (!(res.headers.get('content-type') || '').includes('application/json')) {
+    throw new Error('Respons server tidak valid. Silakan coba lagi.')
+  }
+  const json = await res.json().catch(() => null) as { data?: unknown; error?: string } | null
+  if (!json) {
+    throw new Error('Respons server tidak valid. Silakan coba lagi.')
+  }
 
   if (!res.ok) {
     const err = new Error(json.error || `HTTP error ${res.status}`) as Error & { status?: number }

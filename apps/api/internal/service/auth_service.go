@@ -103,7 +103,8 @@ func (s *AuthService) createSession(ctx context.Context, user *domain.User) (*do
 }
 
 func (s *AuthService) ValidateSession(ctx context.Context, token string) (*domain.User, error) {
-	if token == "" {
+	// Tokens are 64 hex characters; reject other shapes before hitting the database.
+	if !isValidTokenFormat(token) {
 		return nil, ErrUnauthorized
 	}
 
@@ -124,6 +125,18 @@ func (s *AuthService) ValidateSession(ctx context.Context, token string) (*domai
 	}
 
 	return user, nil
+}
+
+func isValidTokenFormat(token string) bool {
+	if len(token) != 64 {
+		return false
+	}
+	for _, c := range token {
+		if !((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')) {
+			return false
+		}
+	}
+	return true
 }
 
 func (s *AuthService) Logout(ctx context.Context, token string) error {

@@ -197,7 +197,9 @@ func (db *DB) SeedDemoUsers(ctx context.Context) error {
 	if _, err := rand.Read(password); err != nil {
 		return err
 	}
-	pwHash, err := bcrypt.GenerateFromPassword([]byte(hex.EncodeToString(password)), bcrypt.DefaultCost)
+	// Cost 12: strong hash with acceptable login latency for this app's scale.
+	const bcryptCost = 12
+	pwHash, err := bcrypt.GenerateFromPassword([]byte(hex.EncodeToString(password)), bcryptCost)
 	if err != nil {
 		return err
 	}

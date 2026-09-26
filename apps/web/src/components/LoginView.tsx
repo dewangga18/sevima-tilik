@@ -42,6 +42,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, onDemoLogin, load
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="nama@tilik.id"
+            maxLength={254}
             required
             disabled={loading}
           />
@@ -56,6 +57,7 @@ export const LoginView: React.FC<LoginViewProps> = ({ onLogin, onDemoLogin, load
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
+            maxLength={72}
             required
             disabled={loading}
           />
