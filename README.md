@@ -1,16 +1,33 @@
 # Tilik
 
-Aplikasi diagnostic learning dan adaptive numeracy untuk siswa kelas 4–9, dengan demo pertama berfokus pada kelas 4.
+**Temukan pijakan belajar berikutnya.**
+
+Aplikasi diagnostic learning dan adaptive numeracy untuk siswa kelas 4 SD hingga kelas 9 SMP. Tilik membantu menemukan konsep dan prasyarat yang belum dipahami siswa, menentukan pembelajaran berikutnya, dan membantu guru memilih intervensi berdasarkan bukti belajar.
+
+Tilik menelusuri jawaban siswa untuk membantu menjawab dua pertanyaan: **apa yang perlu dipelajari berikutnya?** dan **mengapa siswa kesulitan?**
+
+Contohnya, siswa kesulitan membandingkan pecahan. Tilik memeriksa pemahaman pecahan senilai sebagai salah satu prasyarat. Jika jawaban menunjukkan kemungkinan gap di konsep tersebut, siswa diarahkan ke micro lesson dan latihan yang sesuai, kemudian dinilai kembali. Guru dapat melihat bukti kesulitan dan rekomendasi pembelajaran berikutnya.
 
 Scope produk: [docs/PRODUCT.md](docs/PRODUCT.md). Rencana implementasi dan checkpoint per fase: [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
 
-Status: perencanaan; aplikasi dan konfigurasi Docker belum diimplementasikan. Instruksi runtime di bawah adalah target setup setelah Phase 1 selesai.
+MVP pertama memprioritaskan kelas 4 dan pengalaman web. React Native + Expo menjadi perluasan setelah demo web selesai.
+
+Status: scaffold frontend, backend, dan konfigurasi Docker sudah tersedia. Fitur pembelajaran masih mengikuti implementation plan; scaffold belum berarti checkpoint Docker atau fitur produk sudah lolos verifikasi.
 
 ## Core Features
 
 - Diagnostic assessment dan pemeriksaan prerequisite gap.
 - Learning path, micro lesson, adaptive practice, dan mastery progress.
 - Insight guru tentang kesulitan siswa dan intervensi berikutnya.
+
+Alur utama yang direncanakan:
+
+```text
+Diagnostic -> Learning gap -> Pemeriksaan prasyarat
+-> Micro lesson -> Adaptive practice -> Reassessment -> Mastery progress
+```
+
+Evaluasi jawaban dan mastery menggunakan aturan deterministic. AI dapat membantu penjelasan atau hint sebagai fitur opsional.
 
 ## Tech Stack
 
@@ -19,12 +36,12 @@ Status: perencanaan; aplikasi dan konfigurasi Docker belum diimplementasikan. In
 | Frontend | React + TypeScript |
 | Backend | Go |
 | Mobile (optional after web MVP) | React Native + Expo |
-| Database | _____ |
-| Auth | _____ |
+| Database | Belum ditetapkan; kandidat PostgreSQL |
+| Auth | Belum ditetapkan |
 | Local Runtime | Docker Compose |
 | Deployment | Container-ready, provider TBD |
 
-Architecture rationale lives in `guides/ARCHITECTURE.md`.
+Panduan batas frontend/backend berada di [guides/ARCHITECTURE.md](guides/ARCHITECTURE.md).
 
 ## Repository Structure
 
@@ -32,17 +49,22 @@ Architecture rationale lives in `guides/ARCHITECTURE.md`.
 apps/
   web/      # React + TypeScript
   api/      # Go API
+docs/       # scope produk dan implementation plan
 guides/     # project and agent rules
 docker-compose.yml
-.github/
-  workflows/
 AGENTS.md
 README.md
 ```
 
 ## Local Setup
 
-Docker is the reference setup. A clean machine should only need Docker + Docker Compose.
+Docker adalah runtime lokal acuan. Siapkan Docker CLI, Docker Compose, dan runtime container. Jika menggunakan Colima pada macOS, jalankan terlebih dahulu:
+
+```bash
+colima start
+```
+
+Dari root repository:
 
 ```bash
 cp .env.example .env
