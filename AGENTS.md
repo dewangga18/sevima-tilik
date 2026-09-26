@@ -12,6 +12,7 @@ Before implementation:
 3. `guides/CLEAN_CODE.md` — apply implementation rules.
 4. For UI work: `guides/DESIGN_SYSTEM.md` + `guides/DESIGN_DIRECTION.md`.
 5. For auth, input, storage, API, AI tools/actions, or secrets: `guides/SECURITY.md`.
+   For API work, also read `docs/API_CONTRACT.md` and update it in the same change whenever an endpoint or its behavior changes.
 6. For local runtime/Docker/config/CI/deployment portability: `guides/DEPLOYMENT.md`.
 7. For commits: `guides/GIT_CONVENTION.md`.
 
@@ -33,6 +34,7 @@ Before implementation:
 - Ask before introducing a new dependency, architectural pattern, or major rewrite.
 - Keep secrets in environment variables only.
 - Surface errors explicitly; never silently swallow failures.
+- Before adding or changing an API endpoint, define its contract in `docs/API_CONTRACT.md`; reconcile the document with the final implementation before committing. Include method/path, auth/role/environment restrictions, request/response fields, status codes, safe errors, and retry/idempotency behavior. Endpoint work is not complete until its contract is updated in the same commit.
 - Keep changes scoped to the requested task and the active implementation phase.
 
 ## Must Not

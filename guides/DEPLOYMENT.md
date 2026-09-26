@@ -157,6 +157,9 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 FROM base AS build
 COPY . .
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
+RUN test -n "$VITE_API_URL" || (echo "VITE_API_URL build argument is required" >&2; exit 1)
 RUN npm run build
 
 FROM nginx:alpine AS production
@@ -165,6 +168,14 @@ EXPOSE 80
 ```
 
 If the project uses another package manager, keep the same stage structure but replace the install/build commands consistently.
+
+For the production frontend image, pass a public browser-accessible API URL at build time:
+
+```bash
+docker build --target production --build-arg VITE_API_URL="$PUBLIC_API_URL" -t tilik-web-prod ./apps/web
+```
+
+Set `PUBLIC_API_URL` to the intended backend origin before running this command. A missing argument fails the build. `VITE_*` values are embedded in the JavaScript bundle, so changing environment variables on the nginx container will not update the API URL; rebuild the image when it changes. The development Compose target still receives `VITE_API_URL` through its environment. Never pass secrets as frontend build arguments.
 
 ## Backend Dockerfile — Go
 

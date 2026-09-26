@@ -10,6 +10,8 @@ Contohnya, siswa kesulitan membandingkan pecahan. Tilik memeriksa pemahaman peca
 
 Scope produk: [docs/PRODUCT.md](docs/PRODUCT.md). Rencana implementasi dan checkpoint per fase: [docs/IMPLEMENTATION_PLAN.md](docs/IMPLEMENTATION_PLAN.md).
 
+Kontrak endpoint yang sudah tersedia: [docs/API_CONTRACT.md](docs/API_CONTRACT.md).
+
 MVP pertama memprioritaskan kelas 4 dan pengalaman web. React Native + Expo menjadi perluasan setelah demo web selesai.
 
 Status: scaffold frontend, backend, dan konfigurasi Docker sudah tersedia. Fitur pembelajaran masih mengikuti implementation plan; scaffold belum berarti checkpoint Docker atau fitur produk sudah lolos verifikasi.
@@ -36,7 +38,7 @@ Evaluasi jawaban dan mastery menggunakan aturan deterministic. AI dapat membantu
 | Frontend | React + TypeScript |
 | Backend | Go |
 | Mobile (optional after web MVP) | React Native + Expo |
-| Database | Belum ditetapkan; kandidat PostgreSQL |
+| Database | PostgreSQL |
 | Auth | Belum ditetapkan |
 | Local Runtime | Docker Compose |
 | Deployment | Container-ready, provider TBD |
@@ -88,6 +90,8 @@ docker compose down
 Native Node/Go setup is optional and documented in `guides/DEPLOYMENT.md`.
 
 ## Environment Variables
+
+Di development, tombol akun demo memakai `POST /api/auth/demo-login` dengan role yang diizinkan backend; frontend tidak menyimpan password demo. Endpoint dan seed akun demo hanya aktif pada `APP_ENV=development`. Production menolak akun/session demo yang tersisa dan tidak menampilkan tombol tersebut. Akun pengguna production perlu disediakan melalui proses pengelolaan akun yang sesuai.
 
 Frontend example:
 

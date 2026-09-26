@@ -63,7 +63,7 @@ Ini kriteria demonstrasi perilaku sistem, bukan klaim diagnostic accuracy atau e
 
 - Stack disepakati: React + TypeScript web, Go HTTP API, Docker Compose. Colima adalah runtime lokal macOS.
 - React Native + Expo hanya setelah web demo selesai. Next.js/Supabase backend/Drizzle dari suggested stack handover tidak menggantikan kesepakatan ini.
-- PostgreSQL merupakan kandidat dari handover; auth, driver DB, UI dependencies, dan AI provider belum ditetapkan. Minta persetujuan dependency sebelum pemasangan.
+- PostgreSQL sudah dikonfirmasi pengguna sebagai database. Dependency baru dan provider AI tetap perlu persetujuan sebelum pemasangan.
 - Deadline dan bank soal tervalidasi belum diberikan. Jangan menjanjikan seluruh domain atau kelas 4–9 selesai dalam hackathon.
 - UI friendly, modern, tidak childish; siswa mobile-first, guru desktop/tablet. Arah palette/font tetap perlu ditetapkan sebelum UI dibuat.
 - Data demo memakai identitas fiktif yang diberi label; jangan mengirim data identitas anak ke provider AI.

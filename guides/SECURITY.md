@@ -18,6 +18,7 @@ Authoritative validation and permission checks belong on the Go backend.
 ## Auth and Authorization
 
 - Never store plaintext passwords.
+- Demo quick-login is available only when `APP_ENV=development`, via a backend role allowlist and normal session issuance. Never bundle demo passwords in the frontend. Production must not seed demo users or accept existing demo credentials/sessions; the demo route is not registered there.
 - Prefer a proven identity provider when auth is not the product's core innovation.
 - Enforce authorization on backend resources/actions, not only in UI visibility.
 - Use secure cookie settings when cookie-based sessions are used.

@@ -8,7 +8,7 @@ Purpose: keep a React + TypeScript frontend and Go backend simple, independent, 
 |---|---|---|
 | Frontend | React + TypeScript | Prefer Vite unless framework features are required |
 | Backend | Go | HTTP API |
-| Database | _____ | Choose based on confirmed PRD |
+| Database | PostgreSQL | Confirmed by user; local Compose service |
 | Auth | _____ | Choose based on confirmed PRD |
 | Runtime | Docker Compose | Local-first reference environment |
 | Deployment | Container-ready | Provider selected later |
@@ -128,7 +128,7 @@ Never hardcode environment-specific URLs into application logic. Use environment
 |---|---|
 | React + TypeScript frontend | _____ |
 | Go backend | _____ |
-| Database | _____ |
+| Database | PostgreSQL; explicitly confirmed by user, supports persistent diagnostic evidence |
 | Auth | _____ |
 | AI provider/agent approach | _____ |
 
