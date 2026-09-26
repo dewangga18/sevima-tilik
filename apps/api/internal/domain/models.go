@@ -19,6 +19,7 @@ type User struct {
 	Name         string    `json:"name"`
 	Role         Role      `json:"role"`
 	GradeLevel   int       `json:"grade_level,omitempty"`
+	IsActive     bool      `json:"is_active"`
 	CreatedAt    time.Time `json:"created_at"`
 }
 
@@ -168,4 +169,20 @@ type StudentInsight struct {
 	Results        []SkillResult      `json:"results"`
 	Recommendations []LearningPathItem `json:"recommendations"`
 	Progress       []ProgressEntry    `json:"progress"`
+}
+
+type QuestionBankSkillRow struct {
+	SkillID       string `json:"skill_id"`
+	SkillName     string `json:"skill_name"`
+	QuestionCount int    `json:"question_count"`
+}
+
+type QuestionBankStatusRow struct {
+	Status string `json:"status"`
+	Count  int    `json:"count"`
+}
+
+type QuestionBankSummary struct {
+	Active    []QuestionBankSkillRow  `json:"active"`
+	Candidate []QuestionBankStatusRow `json:"candidate"`
 }

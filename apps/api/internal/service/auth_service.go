@@ -18,6 +18,7 @@ var (
 	ErrUnauthorized       = errors.New("unauthorized")
 	ErrDemoDisabled       = errors.New("demo login disabled")
 	ErrInvalidDemoRole    = errors.New("invalid demo role")
+	ErrAccountDisabled    = errors.New("account disabled")
 )
 
 type AuthService struct {
@@ -81,6 +82,9 @@ func (s *AuthService) Login(ctx context.Context, email, password string) (*domai
 }
 
 func (s *AuthService) createSession(ctx context.Context, user *domain.User) (*domain.User, *domain.Session, error) {
+	if !user.IsActive {
+		return nil, nil, ErrAccountDisabled
+	}
 	// Generate secure session token
 	tokenBytes := make([]byte, 32)
 	if _, err := rand.Read(tokenBytes); err != nil {
@@ -120,7 +124,7 @@ func (s *AuthService) ValidateSession(ctx context.Context, token string) (*domai
 	if err != nil {
 		return nil, err
 	}
-	if user == nil || (!s.demoEnabled && isDemoUser(user)) {
+	if user == nil || !user.IsActive || (!s.demoEnabled && isDemoUser(user)) {
 		return nil, ErrUnauthorized
 	}
 

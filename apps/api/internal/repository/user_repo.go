@@ -20,14 +20,14 @@ func NewUserRepository(db *DB) *UserRepository {
 
 func (r *UserRepository) FindByEmail(ctx context.Context, email string) (*domain.User, error) {
 	row := r.db.QueryRowContext(ctx, `
-		SELECT id, email, password_hash, name, role, grade_level, created_at
+		SELECT id, email, password_hash, name, role, grade_level, is_active, created_at
 		FROM users
 		WHERE email = $1
 	`, email)
 
 	var u domain.User
 	var roleStr string
-	err := row.Scan(&u.ID, &u.Email, &u.PasswordHash, &u.Name, &roleStr, &u.GradeLevel, &u.CreatedAt)
+	err := row.Scan(&u.ID, &u.Email, &u.PasswordHash, &u.Name, &roleStr, &u.GradeLevel, &u.IsActive, &u.CreatedAt)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil
@@ -40,14 +40,14 @@ func (r *UserRepository) FindByEmail(ctx context.Context, email string) (*domain
 
 func (r *UserRepository) FindByID(ctx context.Context, id string) (*domain.User, error) {
 	row := r.db.QueryRowContext(ctx, `
-		SELECT id, email, password_hash, name, role, grade_level, created_at
+		SELECT id, email, password_hash, name, role, grade_level, is_active, created_at
 		FROM users
 		WHERE id = $1
 	`, id)
 
 	var u domain.User
 	var roleStr string
-	err := row.Scan(&u.ID, &u.Email, &u.PasswordHash, &u.Name, &roleStr, &u.GradeLevel, &u.CreatedAt)
+	err := row.Scan(&u.ID, &u.Email, &u.PasswordHash, &u.Name, &roleStr, &u.GradeLevel, &u.IsActive, &u.CreatedAt)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, nil

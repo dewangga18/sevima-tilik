@@ -47,10 +47,9 @@ func Connect(ctx context.Context, databaseURL string, seedDemoUsers bool) (*DB, 
 		return nil, fmt.Errorf("migrate: %w", err)
 	}
 
-	if seedDemoUsers {
-		if err := wrapped.SeedDemoUsers(ctx); err != nil {
-			return nil, fmt.Errorf("seed demo users: %w", err)
-		}
+	// Seed akun dasar (siswa/guru/admin) agar foreign key kelas/enrollment terpenuhi
+	if err := wrapped.SeedDemoUsers(ctx); err != nil {
+		return nil, fmt.Errorf("seed demo users: %w", err)
 	}
 	if err := wrapped.SeedClassrooms(ctx); err != nil {
 		return nil, fmt.Errorf("seed classrooms: %w", err)
@@ -76,6 +75,7 @@ func (db *DB) Migrate(ctx context.Context) error {
 		grade_level INT DEFAULT 4,
 		created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 	);
+	ALTER TABLE users ADD COLUMN IF NOT EXISTS is_active BOOLEAN NOT NULL DEFAULT TRUE;
 
 	CREATE TABLE IF NOT EXISTS sessions (
 		token TEXT PRIMARY KEY,

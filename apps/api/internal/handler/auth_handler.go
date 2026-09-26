@@ -62,11 +62,14 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	user, session, err := h.authService.Login(r.Context(), req.Email, req.Password)
 	if err != nil {
-		if errors.Is(err, service.ErrInvalidCredentials) {
+		switch {
+		case errors.Is(err, service.ErrAccountDisabled):
+			WriteError(w, http.StatusForbidden, "Akun dinonaktifkan. Hubungi administrator.")
+		case errors.Is(err, service.ErrInvalidCredentials):
 			WriteError(w, http.StatusUnauthorized, "Email atau kata sandi salah")
-			return
+		default:
+			WriteError(w, http.StatusInternalServerError, "Gagal melakukan login")
 		}
-		WriteError(w, http.StatusInternalServerError, "Gagal melakukan login")
 		return
 	}
 
