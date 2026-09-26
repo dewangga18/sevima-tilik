@@ -1,0 +1,76 @@
+# ============================================
+# Caddy Reverse Proxy Configuration
+# ============================================
+# Automatic HTTPS with Let's Encrypt
+# 
+# Setup:
+# 1. Replace yourdomain.com with your actual domain
+# 2. Ensure DNS A records point to your server IP:
+#    - tilik.yourdomain.com → your-server-ip
+#    - api.yourdomain.com → your-server-ip
+# 3. Uncomment caddy service in docker-compose.prod.yml
+# 4. Run: docker compose -f docker-compose.prod.yml up -d
+
+# Frontend
+tilik.yourdomain.com {
+    reverse_proxy web:80
+    
+    # Security headers
+    header {
+        # Enable HSTS
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        # Prevent clickjacking
+        X-Frame-Options "SAMEORIGIN"
+        # XSS protection
+        X-Content-Type-Options "nosniff"
+        # Referrer policy
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+    
+    # Logging
+    log {
+        output file /var/log/caddy/web-access.log
+        level INFO
+    }
+}
+
+# API Backend
+api.yourdomain.com {
+    reverse_proxy api:8080
+    
+    # Forward real IP to backend
+    header_up X-Real-IP {remote_host}
+    header_up X-Forwarded-For {remote_host}
+    header_up X-Forwarded-Proto {scheme}
+    
+    # Security headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+    }
+    
+    # Rate limiting (additional layer on top of app-level limiting)
+    # Uncomment if you want reverse proxy level rate limiting
+    # @too_many_requests {
+    #     header Connection "close"
+    # }
+    # rate_limit {
+    #     zone api {
+    #         key {remote_host}
+    #         events 200
+    #         window 1m
+    #     }
+    # }
+    
+    # Logging
+    log {
+        output file /var/log/caddy/api-access.log
+        level INFO
+    }
+}
+
+# Optional: Redirect www to non-www
+www.tilik.yourdomain.com {
+    redir https://tilik.yourdomain.com{uri} permanent
+}

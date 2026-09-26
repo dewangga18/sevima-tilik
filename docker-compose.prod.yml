@@ -1,0 +1,108 @@
+# ============================================
+# PRODUCTION DOCKER COMPOSE
+# ============================================
+# Usage:
+#   1. Copy .env.production.example to .env.production
+#   2. Fill in actual values (DB password, domains, etc.)
+#   3. Build web with API URL:
+#      docker compose -f docker-compose.prod.yml build --build-arg VITE_API_URL=https://api.yourdomain.com web
+#   4. Run:
+#      docker compose -f docker-compose.prod.yml --env-file .env.production up -d
+
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-tilik}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-tilik_db}
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    # DO NOT EXPOSE PORT IN PRODUCTION
+    # Database is only accessible within docker network
+    networks:
+      - tilik-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-tilik}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+      target: production
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      APP_ENV: production
+      PORT: ${PORT:-8080}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+    # Only expose to internal network
+    # Use reverse proxy (nginx/Caddy/Traefik) for external access
+    expose:
+      - "8080"
+    networks:
+      - tilik-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+      target: production
+      args:
+        # IMPORTANT: Set this to your actual API URL
+        VITE_API_URL: ${VITE_API_URL}
+    restart: unless-stopped
+    depends_on:
+      - api
+    expose:
+      - "80"
+    networks:
+      - tilik-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Reverse proxy with automatic HTTPS (optional but recommended)
+  # Uncomment this section if you want built-in HTTPS with Caddy
+  # caddy:
+  #   image: caddy:2-alpine
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile
+  #     - caddy_data:/data
+  #     - caddy_config:/config
+  #   networks:
+  #     - tilik-network
+  #   depends_on:
+  #     - api
+  #     - web
+
+volumes:
+  postgres_data_prod:
+    driver: local
+  # caddy_data:
+  # caddy_config:
+
+networks:
+  tilik-network:
+    driver: bridge

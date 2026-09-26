@@ -41,13 +41,15 @@ Evaluasi jawaban dan mastery menggunakan aturan deterministic. AI dapat membantu
 
 | Layer | Technology |
 |---|---|
-| Frontend | React + TypeScript |
-| Backend | Go |
+| Frontend | React + TypeScript + Vite |
+| Backend | Go (net/http) |
 | Mobile (optional after web MVP) | React Native + Expo |
-| Database | PostgreSQL |
-| Auth | Session backend PostgreSQL, bcrypt; demo-login development saja |
+| Database | PostgreSQL 16 |
+| Auth | Session-based (PostgreSQL), bcrypt password hashing |
+| Rate Limiting | Token bucket per-IP (10 req/min auth, 100 req/min API) |
 | Local Runtime | Docker Compose |
-| Deployment | Container-ready, provider TBD |
+| Production | Docker + HTTPS reverse proxy (Caddy/nginx) |
+| Deployment | Container-ready, cloud-agnostic |
 
 Panduan batas frontend/backend berada di [guides/ARCHITECTURE.md](guides/ARCHITECTURE.md).
 
@@ -72,9 +74,13 @@ Prasyarat: Docker CLI dan Docker Compose. Jika memakai Colima pada macOS, jalank
 colima start
 ```
 
-Dari root repository:
+### Quick Start (Development)
 
 ```bash
+# Otomatis setup dan jalankan development environment
+./dev-start.sh
+
+# Atau manual:
 cp .env.example .env
 docker compose up --build
 ```
@@ -87,10 +93,31 @@ API:      http://localhost:8080
 Health:   http://localhost:8080/health
 ```
 
+**Demo accounts (development only):**
+- Student: `student@tilik.local` / `student123`
+- Teacher: `teacher@tilik.local` / `teacher123`
+- Admin: `admin@tilik.local` / `admin123`
+
 Hentikan stack dengan:
 
 ```bash
 docker compose down
+```
+
+### Production Deployment
+
+Untuk production deployment dengan HTTPS, rate limiting, dan security hardening:
+
+📖 **[Lihat Deployment Guide](guides/DEPLOYMENT.md#production-deployment)**
+
+Quick production deploy:
+```bash
+# 1. Setup environment
+cp .env.production.example .env.production
+# Edit .env.production dengan values production
+
+# 2. Deploy dengan HTTPS (Caddy auto SSL)
+./prod-deploy.sh
 ```
 
 Setup native Node/Go bersifat opsional dan didokumentasikan di `guides/DEPLOYMENT.md`.
@@ -116,11 +143,36 @@ ALLOWED_ORIGIN=http://localhost:5173
 
 Jangan commit secret asli.
 
+## Security Features
+
+Production-ready security measures:
+
+- ✅ **Session-based auth** dengan secure, httpOnly cookies (auto-enabled di production)
+- ✅ **bcrypt password hashing** dengan proper cost factor
+- ✅ **Rate limiting** per IP address (auth endpoints + API endpoints)
+- ✅ **CORS protection** dengan strict origin validation
+- ✅ **Demo account lockout** otomatis di production
+- ✅ **SQL injection protection** via parameterized queries
+- ✅ **HTTPS enforcement** melalui reverse proxy (Caddy/nginx)
+- ✅ **Database SSL** support untuk managed DB
+
+Lihat [SECURITY.md](guides/SECURITY.md) untuk detail lengkap.
+
 ## Runtime & Deployment
 
-Prioritas saat ini adalah lingkungan lokal berbasis Docker yang reproducible. Cloud hosting baru dipilih setelah MVP stabil.
+Development menggunakan Docker Compose dengan hot-reload. Production menggunakan optimized container builds dengan multi-stage Dockerfile.
 
-Container setup dan aturan deployment lanjutan: `guides/DEPLOYMENT.md`.
+**Development:**
+```bash
+./dev-start.sh  # Vite dev server + Go hot-reload
+```
+
+**Production:**
+```bash
+./prod-deploy.sh  # Optimized builds + HTTPS + rate limiting
+```
+
+Cloud hosting bersifat cloud-agnostic (AWS/GCP/Azure/VPS). Container setup dan deployment guide: **[guides/DEPLOYMENT.md](guides/DEPLOYMENT.md)**
 
 ## Project Guides
 

@@ -17,11 +17,15 @@ type contextKey string
 const UserContextKey contextKey = "user"
 
 type AuthHandler struct {
-	authService *service.AuthService
+	authService    *service.AuthService
+	isProduction   bool
 }
 
-func NewAuthHandler(authService *service.AuthService) *AuthHandler {
-	return &AuthHandler{authService: authService}
+func NewAuthHandler(authService *service.AuthService, isProduction bool) *AuthHandler {
+	return &AuthHandler{
+		authService:  authService,
+		isProduction: isProduction,
+	}
 }
 
 type LoginRequest struct {
@@ -57,7 +61,7 @@ func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeLoginResponse(w, user, session)
+	h.writeLoginResponse(w, user, session)
 }
 
 func (h *AuthHandler) DemoLogin(w http.ResponseWriter, r *http.Request) {
@@ -83,16 +87,17 @@ func (h *AuthHandler) DemoLogin(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	writeLoginResponse(w, user, session)
+	h.writeLoginResponse(w, user, session)
 }
 
-func writeLoginResponse(w http.ResponseWriter, user *domain.User, session *domain.Session) {
+func (h *AuthHandler) writeLoginResponse(w http.ResponseWriter, user *domain.User, session *domain.Session) {
 	http.SetCookie(w, &http.Cookie{
 		Name:     "tilik_session",
 		Value:    session.Token,
 		Path:     "/",
 		Expires:  session.ExpiresAt,
 		HttpOnly: true,
+		Secure:   h.isProduction,
 		SameSite: http.SameSiteLaxMode,
 	})
 
@@ -114,6 +119,7 @@ func (h *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
 		Path:     "/",
 		MaxAge:   -1,
 		HttpOnly: true,
+		Secure:   h.isProduction,
 	})
 
 	WriteJSON(w, http.StatusOK, map[string]string{"message": "Logged out successfully"})

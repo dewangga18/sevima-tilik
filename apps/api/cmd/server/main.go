@@ -12,6 +12,7 @@ import (
 
 	"github.com/sevima/tilik-api/internal/config"
 	"github.com/sevima/tilik-api/internal/handler"
+	"github.com/sevima/tilik-api/internal/middleware"
 	"github.com/sevima/tilik-api/internal/repository"
 	"github.com/sevima/tilik-api/internal/service"
 )
@@ -41,14 +42,21 @@ func main() {
 	diagService := service.NewDiagnosticService(curriculumRepo, assessmentRepo)
 
 	// Handlers
-	authHandler := handler.NewAuthHandler(authService)
+	isProduction := cfg.AppEnv == "production"
+	authHandler := handler.NewAuthHandler(authService, isProduction)
 	diagHandler := handler.NewDiagnosticHandler(diagService)
 	learningService := service.NewLearningService(repository.NewLearningRepository(db), curriculumRepo, diagService)
 	learningHandler := handler.NewLearningHandler(learningService)
 
 	mux := http.NewServeMux()
 
-	// Public healthcheck
+	// Rate limiters
+	// Auth endpoints: 10 requests per minute per IP
+	authLimiter := middleware.NewRateLimiter(10, 1*time.Minute)
+	// General API: 100 requests per minute per IP
+	apiLimiter := middleware.NewRateLimiter(100, 1*time.Minute)
+
+	// Public healthcheck (no rate limit)
 	mux.HandleFunc("GET /health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
 		_ = json.NewEncoder(w).Encode(map[string]string{
@@ -57,31 +65,31 @@ func main() {
 		})
 	})
 
-	// Auth routes
-	mux.HandleFunc("POST /api/auth/login", authHandler.Login)
+	// Auth routes (strict rate limiting)
+	mux.Handle("POST /api/auth/login", authLimiter.Middleware(http.HandlerFunc(authHandler.Login)))
 	if demoEnabled {
-		mux.HandleFunc("POST /api/auth/demo-login", authHandler.DemoLogin)
+		mux.Handle("POST /api/auth/demo-login", authLimiter.Middleware(http.HandlerFunc(authHandler.DemoLogin)))
 	}
-	mux.HandleFunc("POST /api/auth/logout", authHandler.Logout)
+	mux.Handle("POST /api/auth/logout", authLimiter.Middleware(http.HandlerFunc(authHandler.Logout)))
 	mux.Handle("GET /api/auth/me", authHandler.AuthMiddleware(http.HandlerFunc(authHandler.Me)))
 
-	// Curriculum routes
-	mux.HandleFunc("GET /api/skills", diagHandler.GetSkills)
+	// Curriculum routes (general rate limit)
+	mux.Handle("GET /api/skills", apiLimiter.Middleware(http.HandlerFunc(diagHandler.GetSkills)))
 
-	// Diagnostic routes (protected)
-	mux.Handle("POST /api/diagnostic/answer", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Answer)))
-	mux.Handle("POST /api/diagnostic/start", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Start)))
-	mux.Handle("POST /api/diagnostic/submit", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Submit)))
-	mux.Handle("GET /api/diagnostic/latest", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetLatest)))
-	mux.Handle("GET /api/diagnostic/history", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetHistory)))
-	mux.Handle("GET /api/diagnostic/{id}", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetByID)))
+	// Diagnostic routes (protected + rate limited)
+	mux.Handle("POST /api/diagnostic/answer", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Answer))))
+	mux.Handle("POST /api/diagnostic/start", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Start))))
+	mux.Handle("POST /api/diagnostic/submit", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.Submit))))
+	mux.Handle("GET /api/diagnostic/latest", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetLatest))))
+	mux.Handle("GET /api/diagnostic/history", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetHistory))))
+	mux.Handle("GET /api/diagnostic/{id}", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetByID))))
 
-	mux.Handle("GET /api/learning/progress", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Progress)))
-	mux.Handle("GET /api/learning/lessons/{skill_id}", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Lesson)))
-	mux.Handle("GET /api/learning/sessions/{id}", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Session)))
-	mux.Handle("POST /api/learning/start", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Start)))
-	mux.Handle("POST /api/learning/lesson-complete", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.CompleteLesson)))
-	mux.Handle("POST /api/learning/answer", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Answer)))
+	mux.Handle("GET /api/learning/progress", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Progress))))
+	mux.Handle("GET /api/learning/lessons/{skill_id}", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Lesson))))
+	mux.Handle("GET /api/learning/sessions/{id}", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Session))))
+	mux.Handle("POST /api/learning/start", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Start))))
+	mux.Handle("POST /api/learning/lesson-complete", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.CompleteLesson))))
+	mux.Handle("POST /api/learning/answer", apiLimiter.Middleware(authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Answer))))
 
 	// Middleware chain: Logging -> CORS
 	wrappedMux := loggingMiddleware(corsMiddleware(cfg.AllowedOrigin)(mux))

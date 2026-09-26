@@ -2,7 +2,7 @@
 
 Purpose: make the React + TypeScript frontend and Go backend easy to run, share, and later deploy without requiring each developer to manually install matching Node and Go versions on the host machine.
 
-For this project, Docker is the default runtime setup. Production hosting is intentionally left open until the MVP is stable.
+For this project, Docker is the default runtime setup. Production deployment is documented in the Production Deployment section below.
 
 ## Runtime Model
 
@@ -354,6 +354,75 @@ Add lint/typecheck/test steps only when those commands actually exist in the rep
 Do not couple the project to a specific cloud provider yet.
 
 The production-ready Docker targets should make later deployment possible on platforms that can run containers. When hosting is selected, add provider-specific instructions only then.
+
+## Production Deployment
+
+The stack ships `docker-compose.prod.yml`, `.env.production.example`, and `prod-deploy.sh`. TLS is terminated by a reverse proxy; a `Caddyfile` is provided (auto HTTPS via Let's Encrypt), nginx with certbot is an alternative.
+
+### Prerequisites
+
+- Docker & Docker Compose on the server
+- DNS A records for the web domain (e.g. `tilik.yourdomain.com`) and API domain (`api.yourdomain.com`) pointing to the server IP
+- Ports 80 and 443 open
+
+### Environment
+
+```bash
+cp .env.production.example .env.production
+```
+
+Required values:
+
+| Variable | Requirement |
+|---|---|
+| `APP_ENV` | `production` |
+| `DB_PASSWORD` | strong random password, min 16 chars (`openssl rand -base64 24`) |
+| `ALLOWED_ORIGIN` | `https://tilik.yourdomain.com` |
+| `VITE_API_URL` | `https://api.yourdomain.com` — build argument; changing it requires a web image rebuild |
+
+`.env.production` is gitignored; never commit it.
+
+### Reverse proxy
+
+Option A — Caddy (recommended): replace `yourdomain.com` in `Caddyfile`, uncomment the caddy service in `docker-compose.prod.yml`. Certificates are issued automatically.
+
+Option B — nginx + certbot: terminate TLS on the host, proxy the web port (8081) and API port (8080), then run `certbot --nginx -d tilik.yourdomain.com -d api.yourdomain.com`.
+
+### Deploy and verify
+
+```bash
+./prod-deploy.sh
+# or
+docker compose -f docker-compose.prod.yml --env-file .env.production build
+docker compose -f docker-compose.prod.yml --env-file .env.production up -d
+
+docker compose -f docker-compose.prod.yml ps
+curl https://api.yourdomain.com/health   # {"status":"ok","env":"production"}
+```
+
+### Security checklist
+
+- [ ] `DB_PASSWORD` replaced (not the dev default)
+- [ ] HTTPS active; cookies set `Secure` automatically under `APP_ENV=production`
+- [ ] `ALLOWED_ORIGIN` equals the frontend origin
+- [ ] DB port not exposed publicly (no `ports:` for db in production compose)
+- [ ] `sslmode=require` for managed databases
+- [ ] Demo login disabled (`APP_ENV=production`)
+- [ ] Rate limiting active (built-in: 10 req/min for `/api/auth/*`, 100 req/min for other API routes; tunable in `apps/api/cmd/server/main.go`)
+
+### Operations
+
+```bash
+# logs
+docker compose -f docker-compose.prod.yml logs -f api
+
+# backup / restore
+docker compose -f docker-compose.prod.yml exec db pg_dump -U tilik tilik_db > backup_$(date +%Y%m%d).sql
+docker compose -f docker-compose.prod.yml exec -T db psql -U tilik tilik_db < backup.sql
+
+# stop (keeps volumes); adding -v also deletes the database
+docker compose -f docker-compose.prod.yml down
+```
 
 Keep these assumptions portable:
 
