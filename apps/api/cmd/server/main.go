@@ -43,6 +43,8 @@ func main() {
 	// Handlers
 	authHandler := handler.NewAuthHandler(authService)
 	diagHandler := handler.NewDiagnosticHandler(diagService)
+	learningService := service.NewLearningService(repository.NewLearningRepository(db), curriculumRepo, diagService)
+	learningHandler := handler.NewLearningHandler(learningService)
 
 	mux := http.NewServeMux()
 
@@ -73,6 +75,13 @@ func main() {
 	mux.Handle("GET /api/diagnostic/latest", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetLatest)))
 	mux.Handle("GET /api/diagnostic/history", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetHistory)))
 	mux.Handle("GET /api/diagnostic/{id}", authHandler.StudentMiddleware(http.HandlerFunc(diagHandler.GetByID)))
+
+	mux.Handle("GET /api/learning/progress", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Progress)))
+	mux.Handle("GET /api/learning/lessons/{skill_id}", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Lesson)))
+	mux.Handle("GET /api/learning/sessions/{id}", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Session)))
+	mux.Handle("POST /api/learning/start", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Start)))
+	mux.Handle("POST /api/learning/lesson-complete", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.CompleteLesson)))
+	mux.Handle("POST /api/learning/answer", authHandler.StudentMiddleware(http.HandlerFunc(learningHandler.Answer)))
 
 	// Middleware chain: Logging -> CORS
 	wrappedMux := loggingMiddleware(corsMiddleware(cfg.AllowedOrigin)(mux))

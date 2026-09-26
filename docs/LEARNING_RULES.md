@@ -1,0 +1,11 @@
+# Learning demo Phase 3
+
+Versi learning-demo-v1 meneruskan klasifikasi evidence tiga jawaban pada Phase 2. Usulan progress disampaikan sebelum implementasi: 3 practice -> 3 reassessment baru, rounded percentage reassessment terakhir, strong 3/3 / inconclusive 2/3 / needs_practice 0–1/3. Label bukan mastery akademis tervalidasi. Provider AI tidak digunakan.
+
+Lesson satu konsep dengan tiga langkah/contoh dan hint konsep, sekitar 2 menit. Seed awal untuk enam skill; contoh dan kunci diperiksa secara matematis, review guru/kurikulum eksternal masih pending. Bank diagnostic tetap 18 soal; bank practice/reassessment masing-masing 6 soal per skill (3 per level 1–2), total 72 soal baru. Soal setiap purpose berbeda; selection mengecualikan seluruh soal learning yang pernah ditawarkan kepada siswa, bukan hanya jawaban benar. Dua siklus per skill maksimum dengan bank awal; exhaustion eksplisit, tidak menambah evidence palsu.
+
+Difficulty selection memakai level yang tersedia dan belum digunakan; start practice level 1 (level 2 jika baseline 100%), start reassessment level 2 jika practice terakhir benar, level 1 jika salah. Setelah answer: benar menuju level berikutnya, salah menuju level sebelumnya, fallback terdekat dan tie-break level/ID. Dua salah berturut-turut practice menampilkan rekomendasi prasyarat yang tersedia, dengan wording review, tidak pasti lemah. Tidak ada otomatisasi pemindahan sesi atau scoring oleh AI.
+
+Progress berasal dari latest completed progressive diagnostic, di-overlay reassessment yang lebih baru. Snapshot diagnostic immutable; path current berubah berdasarkan evidence terbaru. Score baseline dapat null untuk skill unassessed; jangan membuat delta dari nol yang tidak pernah diukur. Hasil yang tidak membaik tetap recommended review. Lesson read/complete/practice hanya mencatat engagement aktivitas; skor berubah atomically saat reassessment selesai.
+
+Acceptance: weak foundation -> lesson -> practice -> reassessment kuat -> score/path berubah -> reload; nonimproving dan declining tetap gap; lesson click tidak menaikkan score; bank habis tidak menciptakan skor; retry/concurrent jawab tidak menggandakan evidence; ownership dan teacher/admin denied; malformed requests safe; pending reassessment solusi tersembunyi; startup/reload tidak reset.

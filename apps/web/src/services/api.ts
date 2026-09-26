@@ -1,4 +1,4 @@
-import type { User, Assessment, AssessmentHistory, Skill } from '../types'
+import type { User, Assessment, AssessmentHistory, Skill, LearningProgress, LearningSession } from '../types'
 
 const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8080' : '')
 
@@ -121,6 +121,12 @@ export const api = {
   getDiagnosticHistory: async (): Promise<AssessmentHistory> => {
     return request<AssessmentHistory>('/api/diagnostic/history')
   },
+
+  getLearningProgress: () => request<LearningProgress>('/api/learning/progress'),
+  startLearning: (sourceId: string, skillId: string, requestId: string) => request<LearningSession>('/api/learning/start', { method: 'POST', body: JSON.stringify({ source_assessment_id: sourceId, skill_id: skillId, request_id: requestId }) }),
+  getLearningSession: (id: string) => request<LearningSession>(`/api/learning/sessions/${encodeURIComponent(id)}`),
+  completeLesson: (id: string) => request<LearningSession>('/api/learning/lesson-complete', { method: 'POST', body: JSON.stringify({ session_id: id }) }),
+  answerLearning: (id: string, questionId: string, answer: string) => request<LearningSession>('/api/learning/answer', { method: 'POST', body: JSON.stringify({ session_id: id, question_id: questionId, student_answer: answer }) }),
 
   getDiagnostic: async (id: string): Promise<Assessment> => {
     return request<Assessment>(`/api/diagnostic/${encodeURIComponent(id)}`)

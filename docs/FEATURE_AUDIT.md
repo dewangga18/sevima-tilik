@@ -1,6 +1,6 @@
 # Audit fitur dan batas akses Tilik
 
-Tanggal: 26 September 2026. Scope berdasarkan arahan pengguna terbaru; pemeriksaan source dan smoke HTTP lokal. Tidak ada endpoint baru pada perubahan dokumentasi ini.
+Tanggal: 26 September 2026. Scope berdasarkan arahan pengguna terbaru; pemeriksaan source dan smoke HTTP lokal. Audit diperbarui setelah slice learning Phase 3.
 
 | Role / fitur | Status saat ini | Target |
 |---|---|---|
@@ -14,13 +14,13 @@ Tanggal: 26 September 2026. Scope berdasarkan arahan pengguna terbaru; pemeriksa
 
 ## Diagnostic Phase 2
 
-Attempt baru menggunakan progressive-demo-v1: satu soal pending, evidence per jawaban, pemeriksaan prerequisite, kandidat gap dan path review. Legacy results tetap bisa dibuka/diselesaikan. Is_correct dan correct_count tidak tersedia saat pengerjaan aktif. Lesson/practice/reassessment belum tersedia; path adalah rekomendasi, bukan aktivitas belajar yang sudah berfungsi.
+Attempt baru menggunakan progressive-demo-v1: satu soal pending, evidence per jawaban, pemeriksaan prerequisite, kandidat gap dan path review. Legacy results tetap bisa dibuka/diselesaikan. Is_correct dan correct_count tidak tersedia saat pengerjaan aktif. Path kini membuka lesson nyata untuk enam skill kelas 4. Practice dan reassessment terpisah memperbarui progress/path terbaru, sementara snapshot diagnostic tetap utuh.
 
 ## Temuan yang perlu ditangani
 
 1. StudentMiddleware kini memvalidasi session lalu role student untuk semua diagnostic routes. Smoke teacher/admin menghasilkan 403; ownership antar siswa tetap wajib.
 2. Daftar siswa hardcoded sudah dihapus dari halaman aktif; guru/admin memakai ManagementDashboard dengan kurikulum API dan status jujur untuk data kelas yang belum tersedia. Ini belum bukti authorization kelas.
-3. Migration hanya memiliki users/sessions, curriculum, assessments/items dan evidence. Klaim kelas/enrollment sudah selesai di plan dikoreksi.
+3. Migration memiliki users/sessions, curriculum, assessments/items/evidence, lessons, learning sessions/items/request retries dan skill progress. Klaim kelas/enrollment sudah selesai di plan dikoreksi.
 4. Guru/admin memakai shell dashboard dengan menu sesuai role. Form/action administrasi belum tersedia.
 5. Error kurikulum pada shell baru sudah tampil dengan retry. TeacherView lama tidak dipakai oleh App.tsx.
 
@@ -30,4 +30,8 @@ Source: apps/api/cmd/server/main.go, internal/handler/auth_handler.go, internal/
 
 Smoke HTTP terbaru: tanpa session history 401; student latest/history 200; teacher/admin semua diagnostic route 403; assessment ID tidak ada 404 untuk siswa. Ownership antar siswa telah diuji pada regression PostgreSQL sebelumnya. Smoke ini tidak membuktikan assignment guru karena model/endpoint belum ada. Tidak dibuat assessment baru untuk audit.
 
-Urutan: role guard siswa -> core learning P0 Phase 2–3 -> classroom/assignment dan data guru Phase 4 -> admin serta AI P1. Ranking completion tetap opsional. Tidak perlu build untuk perubahan dokumentasi saja.
+Urutan: role guard siswa -> core learning P0 Phase 2–3 -> classroom/assignment dan data guru Phase 4 -> admin serta AI P1. Ranking completion tetap opsional. Build/lint web, Go race tests PostgreSQL/vet/build, dan browser learning checkpoint telah dijalankan untuk Phase 3.
+
+## Learning Phase 3
+
+Enam lesson dan 72 soal learning terpisah dari diagnostic tersedia. Session role student/owner diwajibkan pada seluruh learning routes. Score berubah hanya setelah tiga reassessment selesai, bukan setelah membaca lesson atau practice. Progress/history/resume memakai storage aktual dan UI membedakan loading/error/empty/success. Bank awal mendukung paling banyak dua siklus per skill; ketika tidak cukup soal baru, API/UI menjelaskan batasnya tanpa menaikkan progress. Klasifikasi dan konten adalah demo awal; review pendidikan eksternal belum dilakukan.

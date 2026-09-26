@@ -56,6 +56,9 @@ func Connect(ctx context.Context, databaseURL string, seedDemoUsers bool) (*DB, 
 		return nil, fmt.Errorf("seed: %w", err)
 	}
 
+	if err := wrapped.SeedLearning(ctx); err != nil {
+		return nil, fmt.Errorf("seed learning: %w", err)
+	}
 	return wrapped, nil
 }
 
@@ -142,6 +145,23 @@ func (db *DB) Migrate(ctx context.Context) error {
  ALTER TABLE assessments ADD COLUMN IF NOT EXISTS learning_path JSONB NOT NULL DEFAULT '[]';
  ALTER TABLE assessment_items ADD COLUMN IF NOT EXISTS probe_for_skill_id TEXT NOT NULL DEFAULT '';
  ALTER TABLE skill_evidence ADD COLUMN IF NOT EXISTS related_target_skill_id TEXT NOT NULL DEFAULT '';
+
+ ALTER TABLE questions ADD COLUMN IF NOT EXISTS purpose TEXT NOT NULL DEFAULT 'diagnostic';
+ CREATE TABLE IF NOT EXISTS lessons (
+  id TEXT PRIMARY KEY, skill_id TEXT NOT NULL UNIQUE REFERENCES skills(id),title TEXT NOT NULL,estimated_minutes INT NOT NULL,steps JSONB NOT NULL,hint TEXT NOT NULL
+ );
+ CREATE TABLE IF NOT EXISTS learning_sessions (
+  id TEXT PRIMARY KEY,student_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,source_assessment_id TEXT NOT NULL REFERENCES assessments(id) ON DELETE CASCADE,skill_id TEXT NOT NULL REFERENCES skills(id),request_id TEXT NOT NULL,rule_version TEXT NOT NULL,stage TEXT NOT NULL,revision INT NOT NULL DEFAULT 0,started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),lesson_completed_at TIMESTAMPTZ,completed_at TIMESTAMPTZ,before_score INT,score INT,outcome TEXT NOT NULL DEFAULT '',stop_reason TEXT NOT NULL DEFAULT '',review_skill_id TEXT NOT NULL DEFAULT '',UNIQUE(student_id,request_id)
+ );
+ CREATE TABLE IF NOT EXISTS learning_start_requests (
+  student_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,request_id TEXT NOT NULL,source_assessment_id TEXT NOT NULL REFERENCES assessments(id) ON DELETE CASCADE,skill_id TEXT NOT NULL REFERENCES skills(id),session_id TEXT NOT NULL REFERENCES learning_sessions(id) ON DELETE CASCADE,PRIMARY KEY(student_id,request_id)
+ );
+ CREATE TABLE IF NOT EXISTS learning_items (
+  id TEXT PRIMARY KEY,session_id TEXT NOT NULL REFERENCES learning_sessions(id) ON DELETE CASCADE,question_id TEXT NOT NULL REFERENCES questions(id),stage TEXT NOT NULL,order_index INT NOT NULL,student_answer TEXT,is_correct BOOLEAN,answered_at TIMESTAMPTZ,UNIQUE(session_id,question_id),UNIQUE(session_id,order_index)
+ );
+ CREATE TABLE IF NOT EXISTS skill_progress (
+  student_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,skill_id TEXT NOT NULL REFERENCES skills(id),source_session_id TEXT NOT NULL REFERENCES learning_sessions(id) ON DELETE CASCADE,score INT NOT NULL,status TEXT NOT NULL,evidence_count INT NOT NULL,correct_count INT NOT NULL,updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),PRIMARY KEY(student_id,skill_id)
+ );
 
 	`
 	_, err := db.ExecContext(ctx, schema)

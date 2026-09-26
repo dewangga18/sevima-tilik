@@ -14,7 +14,7 @@ Kontrak endpoint yang sudah tersedia: [docs/API_CONTRACT.md](docs/API_CONTRACT.m
 
 MVP pertama memprioritaskan kelas 4 dan pengalaman web. React Native + Expo menjadi perluasan setelah demo web selesai.
 
-Status: login/session, beranda siswa, riwayat/statistik, dan diagnostic progresif kelas 4 sudah berjalan melalui Go/PostgreSQL/Docker. Attempt baru memakai aturan demo progressive-demo-v1 dengan pemeriksaan prasyarat serta rekomendasi review; hasil legacy tetap tersedia. Guru/admin memiliki shell dashboard, tetapi data kelas/administrasi belum terhubung. Micro lesson, practice, reassessment, dan mastery jangka panjang belum tersedia.
+Status: login/session, beranda siswa, riwayat/statistik, dan diagnostic progresif kelas 4 sudah berjalan melalui Go/PostgreSQL/Docker. Attempt baru memakai aturan demo progressive-demo-v1 dengan pemeriksaan prasyarat serta rekomendasi review; hasil legacy tetap tersedia. Guru/admin memiliki shell dashboard, tetapi data kelas/administrasi belum terhubung. Micro lesson, adaptive practice, reassessment, dan progress/path terbaru sudah tersedia untuk enam skill kelas 4. Aturan score masih demo awal; mastery jangka panjang belum tersedia.
 
 ## Core Features
 
@@ -22,11 +22,11 @@ Status: login/session, beranda siswa, riwayat/statistik, dan diagnostic progresi
 - Learning path, micro lesson, adaptive practice, dan mastery progress.
 - Insight guru tentang kesulitan siswa dan intervensi berikutnya.
 
-Alur utama yang direncanakan:
+Alur siswa yang sudah berjalan untuk slice kelas 4:
 
 ```text
 Diagnostic -> Learning gap -> Pemeriksaan prasyarat
--> Micro lesson -> Adaptive practice -> Reassessment -> Mastery progress
+-> Micro lesson -> Adaptive practice -> Reassessment -> Progress konsep
 ```
 
 Evaluasi jawaban dan mastery menggunakan aturan deterministic. AI dapat membantu penjelasan atau hint sebagai fitur opsional.

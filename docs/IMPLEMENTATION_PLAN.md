@@ -2,7 +2,7 @@
 
 ## Status
 
-Plan bertahap dengan implementasi awal Phase 1 sudah tersedia. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+Checkpoint siswa Phase 1–3 sudah tersedia untuk slice kelas 4. Prioritas berikutnya Phase 4: assignment kelas dan insight guru. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
 
 Target produk kelas 4–9, tetapi seluruh checkpoint wajib pertama memakai kelas 4. Setiap fase menambah perilaku end-to-end yang bisa didemokan. Checklist belum dicentang sampai bukti checkpoint dicatat di dokumen ini.
 
@@ -28,10 +28,10 @@ Gabungan tidak menghapus prioritas P0 -> P1 -> P2 -> P3 atau keputusan yang masi
 | Database dan driver | PostgreSQL dikonfirmasi pengguna; implementasi memakai pgx yang sudah tersedia | Tidak |
 | Auth | Tentukan provider atau implementasi session minimum dan hashing teruji; akun demo siswa/guru, bukan guest sebagai pengganti auth | Phase 1 |
 | Slice kelas 4 | Usulan jalur pecahan di bawah, menunggu review | Phase 1 content |
-| Bank soal dan rubric | Seed 18 soal tersedia; progressive-demo-v1 memakai tiga jawaban per skill dan cap 18. Ini aturan demo, bukan rubric pendidikan tervalidasi | Variasi konten Phase 3 |
+| Bank soal dan rubric | Seed 18 soal tersedia; progressive-demo-v1 memakai tiga jawaban per skill dan cap 18. Ini aturan demo, bukan rubric pendidikan tervalidasi | 6 lesson + 72 soal practice/reassessment tersedia; review pendidikan eksternal pending |
 | Desain | Konteks sudah jelas; isi direction dan tokens sebelum UI | Phase 1 UI |
 | AI | Opsional; provider, biaya, dan kebutuhan agent belum dikonfirmasi | Integrasi AI saja |
-| Docker lokal | Cek terakhir: Colima belum berjalan, plugin `docker compose` belum dikenali | Checkpoint Docker |
+| Docker lokal | Colima/Compose menjalankan web, API, dan PostgreSQL; checkpoint learning diuji pada stack ini | Tidak |
 
 Jangan memasang dependency atau scaffold sebelum keputusan yang terkait disetujui. Jangan mengisi keputusan yang belum pasti sebagai fakta.
 
@@ -55,7 +55,7 @@ Setiap soal punya skill ID, topic/domain, difficulty, grade range, tipe, opsi, k
 
 - Versikan aturan pemilihan soal, evidence, mastery, difficulty, dan stopping condition.
 - Pisahkan status belum dinilai dari skor rendah. Confidence dan jumlah bukti terlihat pada hasil guru.
-- Versi progressive-demo-v1 menggunakan minimum tiga jawaban dan cap 18 dengan label evidence, bukan Mastered. Window mastery/reassessment Phase 3 tetap harus ditentukan sebelum implementasi; jangan menyamakan evidence diagnostic dengan mastery tervalidasi.
+- Versi progressive-demo-v1 menggunakan minimum tiga jawaban dan cap 18 dengan label evidence, bukan Mastered. Window reassessment Phase 3 memakai tiga jawaban baru sesuai `docs/LEARNING_RULES.md`; jangan menyamakan evidence diagnostic dengan mastery tervalidasi.
 - Satu kesalahan tidak cukup untuk menyatakan root gap. Root gap hanya kandidat setelah soal prasyarat memberi bukti; beberapa kandidat dan hasil inconclusive harus didukung.
 - Backtracking memakai visited set, batas langkah, urutan tie-break stabil, serta deteksi cycle pada seed.
 - Jawaban salah berulang menurunkan level/memeriksa prasyarat; jawaban benar konsisten menaikkan level dalam rentang konten yang tersedia.
@@ -176,7 +176,7 @@ Phase 2 memakai `progressive-demo-v1` dari usulan aturan demo yang disampaikan s
 - [x] Simpan target skill dan provenance jawaban prasyarat; bedakan visible gap, kandidat root gap, misconception candidate, dan belum cukup bukti.
 - [x] Bentuk learning path dari prerequisite yang belum dikuasai dengan urutan topologis; jangan mengunci path karena skill belum pernah diukur seolah gagal.
 - [x] UI hasil menampilkan alasan rekomendasi, kandidat root gap/provenance, dan urutan review; API tidak mengirim kunci/penjelasan/correctness aktif.
-- [ ] Tombol belajar mengarah ke lesson nyata setelah slice lesson Phase 3 tersedia; saat ini UI menyatakan materi/latihan belum tersedia, tidak membuat aksi palsu.
+- [x] Tombol belajar membuka micro lesson nyata untuk enam skill melalui slice Phase 3.
 - [x] Uji fixture kuat/gap/campuran, graph bercabang/cycle, stop condition, dan exhaustion di dekat service Go.
 
 Demo checkpoint diagnostic -> kandidat gap -> rekomendasi path: **LOLOS**. Lesson/practice belum termasuk checkpoint ini.
@@ -191,16 +191,20 @@ Bukti: Go race tests dengan PostgreSQL terisolasi memverifikasi strong/mixed/pre
 
 Goal: gap yang ditemukan punya tindakan pembelajaran dan hasil yang bisa diamati.
 
-Dependencies: Phase 2, lesson reviewed dan soal baru untuk practice/reassessment.
+Dependencies: Phase 2; seed lesson dan bank practice/reassessment terpisah untuk enam skill. Aturan demo/provenance di `docs/LEARNING_RULES.md`; review pendidikan eksternal belum diklaim.
 
-- [ ] Tambahkan lesson/progress dan sesi practice dengan ownership dan status tersimpan.
-- [ ] Path membuka micro lesson satu konsep, hint reviewed, lalu practice pada level bukti siswa.
-- [ ] Perbarui difficulty dan prerequisite recommendation saat salah berulang; tampilkan feedback tanpa mempermalukan siswa.
-- [ ] Reassessment menggunakan soal berbeda; update mastery dan path dari evidence, bukan dari klik selesai lesson.
-- [ ] Home/progress/mastery map mengambil hasil aktual API, termasuk resume saat reload.
-- [ ] Uji batas status mastery, retry jawaban, dan siswa yang belum membaik.
+Slice Phase 3 selesai untuk demo kelas 4: schema/seed -> lesson -> tiga practice -> tiga reassessment -> progress/path/current history, dengan satu answer transaction dan UI state lengkap.
 
-Demo checkpoint: root gap -> lesson -> practice -> reassessment -> mastery/path berubah sesuai jawaban dan bertahan setelah refresh. Lintasan tidak membaik tetap menunjukkan kebutuhan review.
+- [x] Tambahkan lesson/progress dan sesi practice dengan ownership dan status tersimpan.
+- [x] Path membuka micro lesson satu konsep dan practice pada level bukti siswa. Lesson/hint diperiksa secara matematis; review pendidikan eksternal pending.
+- [x] Perbarui difficulty dan prerequisite recommendation saat salah berulang; tampilkan feedback tanpa mempermalukan siswa.
+- [x] Reassessment menggunakan soal berbeda; update mastery dan path dari evidence, bukan dari klik selesai lesson.
+- [x] Home/progress/mastery map mengambil hasil aktual API, termasuk resume saat reload.
+- [x] Uji batas status mastery, retry jawaban, dan siswa yang belum membaik.
+
+Demo checkpoint: **LOLOS** — root gap -> lesson -> practice -> reassessment -> progress/path berubah sesuai jawaban dan bertahan setelah refresh. Lintasan tidak membaik tetap menunjukkan kebutuhan review.
+
+Bukti checkpoint: Go race tests dengan PostgreSQL memverifikasi ownership, concurrent start/answer, retry immutable, rollback completion, strong/mixed/declining/unassessed baselines, exhaustion, dan diagnostic yang lebih baru. Browser: root Perkalian Dasar -> lesson -> 3 practice -> 3 reassessment -> 0% menjadi 100% -> path maju ke Pecahan Senilai; reload/resume/history bertahan. Failure answer mempertahankan pilihan; progress loading/error/empty/success dan retry diuji. Lesson/practice/home tanpa overflow 320/768/1280px; detail progress dapat dibuka via keyboard. Web build/lint dan Go vet/build lolos. Konten demo belum review guru eksternal; tidak mengklaim academic Mastered.
 
 ## Phase 4: Data siswa -> insight guru -> intervensi [P0]
 

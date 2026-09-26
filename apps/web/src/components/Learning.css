@@ -1,0 +1,43 @@
+.learning-lesson, .learning-result { max-width: var(--content-width); }
+.learning-lesson h2, .learning-result h2 { font-size: var(--font-size-xl); line-height: 1.35; margin-bottom: var(--space-3); }
+.learning-meta { color: var(--color-muted); font-size: var(--font-size-sm); margin: var(--space-3) 0; max-width: 70ch; }
+.lesson-steps { list-style: none; margin: var(--space-6) 0; padding: 0; display: grid; gap: var(--space-6); }
+.lesson-steps h3 { font-size: var(--font-size-lg); margin-bottom: var(--space-2); }
+.lesson-steps p { max-width: 70ch; }
+.lesson-example { margin-top: var(--space-3); padding: var(--space-4); border-radius: var(--radius-md); background: var(--color-primary-light); font-size: var(--font-size-lg); }
+.learning-score-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); margin: var(--space-5) 0; }
+.learning-score-comparison div { border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-5); background: var(--color-surface); }
+.learning-score-comparison dt { color: var(--color-muted); font-size: var(--font-size-sm); }
+.learning-score-comparison dd { font-size: var(--font-size-2xl); font-weight: 700; font-variant-numeric: tabular-nums; }
+.learning-result > p { margin-bottom: var(--space-4); max-width: 70ch; }
+.learning-review, .learning-progress-map { margin: var(--space-5) 0; }
+.learning-review summary, .learning-hint summary, .learning-progress-map summary { min-height: 44px; cursor: pointer; font-weight: 600; padding: var(--space-3) 0; }
+.learning-review ol { padding-left: var(--space-5); }
+.learning-review li { padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.learning-review h3 { font-size: var(--font-size-base); margin-bottom: var(--space-2); }
+.learning-review p { margin-bottom: var(--space-2); }
+.practice-feedback { padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.practice-feedback p { margin-top: var(--space-2); }
+.learning-prerequisite-review { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.learning-prerequisite-review p { color: var(--color-muted); max-width: 55ch; }
+.learning-overview { display: flex; flex-direction: column; gap: var(--space-4); }
+.learning-overview .section-heading { margin-bottom: 0; }
+.learning-overview h3, .learning-recent-history h3 { font-size: var(--font-size-lg); margin-bottom: var(--space-4); }
+.learning-current-path ol { list-style-position: inside; padding: 0; }
+.learning-current-path li { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.learning-current-path li p { color: var(--color-muted); margin-top: var(--space-2); font-size: var(--font-size-sm); max-width: 60ch; }
+.learning-current-path .btn { flex-shrink: 0; }
+.learning-progress-map dl > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }
+.learning-progress-map dd { display: flex; flex-direction: column; gap: var(--space-1); }
+.learning-progress-map dd strong { font-size: var(--font-size-lg); font-variant-numeric: tabular-nums; }
+.learning-progress-map dd small { color: var(--color-muted); font-size: var(--font-size-sm); }
+.learning-recent-history { margin-top: var(--space-6); }
+.learning-active-list .history-row { grid-template-columns: minmax(0, 1fr) auto; }
+.start-learning-button { margin: var(--space-4) 0; }
+.profile-statistics { flex: 2; }
+@media (max-width: 600px) {
+  .learning-score-comparison { grid-template-columns: minmax(0, 1fr); }
+  .learning-current-path li, .learning-prerequisite-review { flex-direction: column; align-items: stretch; }
+  .learning-lesson > .btn, .learning-result > .btn { width: 100%; }
+  .learning-progress-map dl > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+}

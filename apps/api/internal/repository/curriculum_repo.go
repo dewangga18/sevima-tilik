@@ -72,6 +72,7 @@ func (r *CurriculumRepository) GetInitialDiagnosticQuestions(ctx context.Context
 		SELECT DISTINCT ON (q.skill_id) q.id, q.skill_id, q.difficulty, q.prompt, q.options, q.answer_key, q.explanation, q.misconception
 		FROM questions q
 		JOIN skills s ON s.id = q.skill_id
+        WHERE q.purpose='diagnostic'
 		ORDER BY q.skill_id, q.difficulty ASC, q.id ASC
 	`)
 	if err != nil {
@@ -116,7 +117,7 @@ func (r *CurriculumRepository) GetQuestionByID(ctx context.Context, id string) (
 }
 
 func (r *CurriculumRepository) GetQuestionBank(ctx context.Context) ([]domain.Question, error) {
-	rows, err := r.db.QueryContext(ctx, `SELECT id,skill_id,difficulty,prompt,options,answer_key,explanation,misconception FROM questions ORDER BY skill_id,difficulty,id`)
+	rows, err := r.db.QueryContext(ctx, `SELECT id,skill_id,difficulty,prompt,options,answer_key,explanation,misconception FROM questions WHERE purpose='diagnostic' ORDER BY skill_id,difficulty,id`)
 	if err != nil {
 		return nil, fmt.Errorf("query question bank: %w", err)
 	}

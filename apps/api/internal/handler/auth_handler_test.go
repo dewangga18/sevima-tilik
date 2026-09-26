@@ -37,6 +37,8 @@ func TestStudentRouteRoles(t *testing.T) {
 	routes := []struct{ method, path string }{
 		{"POST", "/api/diagnostic/start"}, {"POST", "/api/diagnostic/submit"}, {"POST", "/api/diagnostic/answer"},
 		{"GET", "/api/diagnostic/latest"}, {"GET", "/api/diagnostic/history"}, {"GET", "/api/diagnostic/attempt-id"},
+		{"GET", "/api/learning/progress"}, {"GET", "/api/learning/lessons/mul_basic"}, {"GET", "/api/learning/sessions/attempt-id"},
+		{"POST", "/api/learning/start"}, {"POST", "/api/learning/lesson-complete"}, {"POST", "/api/learning/answer"},
 	}
 	for _, route := range routes {
 		for _, role := range []domain.Role{domain.RoleStudent, domain.RoleTeacher, domain.RoleAdmin, "unknown", ""} {

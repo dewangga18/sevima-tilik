@@ -1,6 +1,6 @@
 # Tilik API Contract
 
-Dokumen ini menjelaskan endpoint yang sudah diimplementasikan untuk Phase 1. Phase 2 menambah progressive diagnostic dan rekomendasi path; lesson/practice serta intervensi guru belum menjadi endpoint yang tersedia. Ubah dokumen ini bersama perubahan endpoint sesuai `AGENTS.md`.
+Dokumen ini menjelaskan endpoint yang sudah diimplementasikan untuk Phase 1. Phase 2 menambah progressive diagnostic dan rekomendasi path; Phase 3 menyediakan lesson/practice/reassessment dan progress siswa; intervensi guru belum tersedia. Ubah dokumen ini bersama perubahan endpoint sesuai `AGENTS.md`.
 
 ## Transport dan session
 
@@ -47,6 +47,12 @@ Semua endpoint terlindungi dapat mengembalikan `401` jika session tidak ditemuka
 | GET | `/api/diagnostic/latest` | Session siswa, hanya milik user | 200 |
 | GET | `/api/diagnostic/history` | Session siswa, hanya milik user | 200 |
 | GET | `/api/diagnostic/{id}` | Session siswa + owner attempt | 200 |
+| GET | `/api/learning/progress` | Session siswa, data sendiri | 200 |
+| GET | `/api/learning/lessons/{skill_id}` | Session siswa | 200 |
+| POST | `/api/learning/start` | Session siswa + owner diagnostic source | 200 |
+| GET | `/api/learning/sessions/{id}` | Session siswa + owner | 200 |
+| POST | `/api/learning/lesson-complete` | Session siswa + owner | 200 |
+| POST | `/api/learning/answer` | Session siswa + owner | 200 |
 
 Semua route `/api/diagnostic/*` memerlukan session dengan role `student`. Session tidak valid menghasilkan `401`; role teacher/admin menghasilkan `403` dengan pesan `Fitur ini hanya tersedia untuk siswa`, sebelum request body atau resource diproses. Ownership tetap wajib: siswa tidak dapat membaca/submit attempt siswa lain (`403 Akses ditolak`). Pembatasan berlaku di seluruh environment. Retry setelah `401/403` tidak melakukan perubahan; login dengan akun yang berhak sebelum mencoba lagi. Tidak ada endpoint untuk membaca assessment milik siswa lain atau teacher analytics pada fase ini.
 
@@ -220,8 +226,40 @@ Retry dengan assessment/question/answer yang sama mengembalikan state terbaru ta
 
 400 `Jawaban atau permintaan tidak valid` untuk JSON/field/opsi/mode invalid; 401 session invalid; 403 role/owner invalid; 404 assessment tidak ada; 409 `Jawaban sudah tersimpan dan tidak dapat diubah` untuk perubahan committed; 500 `Jawaban belum bisa disimpan. Silakan coba lagi.` dengan detail server-only. Retry 500 menggunakan payload sama; frontend mempertahankan pilihan untuk retry.
 
-Completion menyimpan evidence dan learning_path bersama jawaban terakhir. Stop reason: `evidence_complete`, `insufficient_evidence` (bank soal/prasyarat tidak cukup), atau `question_limit`. Status skill: `strong_evidence` (3/3), `needs_practice` (0–1/3), `inconclusive` (2/3 atau bukti <3), `unassessed` (0 jawaban). Ini klasifikasi demo, bukan mastery tervalidasi. Kandidat root gap hanya dari rantai prerequisite yang punya evidence langsung; provenance `related_target_skill_id` tersedia. `learning_path` urutan prerequisite dahulu, memuat skill_id/name/reason; tidak membuka lesson yang belum tersedia.
+Completion menyimpan evidence dan learning_path bersama jawaban terakhir. Stop reason: `evidence_complete`, `insufficient_evidence` (bank soal/prasyarat tidak cukup), atau `question_limit`. Status skill: `strong_evidence` (3/3), `needs_practice` (0–1/3), `inconclusive` (2/3 atau bukti <3), `unassessed` (0 jawaban). Ini klasifikasi demo, bukan mastery tervalidasi. Kandidat root gap hanya dari rantai prerequisite yang punya evidence langsung; provenance `related_target_skill_id` tersedia. `learning_path` urutan prerequisite dahulu, memuat skill_id/name/reason; enam skill slice kelas 4 kini dapat membuka lesson melalui learning/start.
 
 ## Compatibility Phase 1
 
 Bulk `/api/diagnostic/submit` hanya untuk `legacy-v1`. Progressive attempt ditolak 400 `Gunakan pengiriman satu jawaban untuk diagnostic progresif`; tidak ada perubahan evidence. Hasil legacy tetap mempertahankan rules/label lama dan dapat dibuka tanpa diproses ulang. Client memilih quiz berdasarkan rule_version.
+
+## Learning Phase 3: shared access/errors
+
+Semua `/api/learning/*` memakai student middleware: 401 session invalid, 403 nonstudent `Fitur ini hanya tersedia untuk siswa`; resource owner berbeda 403 `Akses ditolak`. Semua environment. JSON write maksimal 16 KiB, field asing/trailing JSON/non-object invalid 400 `Permintaan belajar tidak valid`. Detail storage hanya log server. 404 `Aktivitas atau materi tidak ditemukan`; 409 `Aktivitas atau jawaban sudah berubah. Buka kembali dari beranda.` untuk immutable answer/stage conflict; 409 `Soal baru untuk skill ini belum cukup. Pilih rekomendasi lain atau coba setelah materi ditambah.` untuk bank exhaustion; 500 `Data belajar belum bisa diproses. Silakan coba lagi.`. Retry read aman; retry write memakai payload yang sama.
+
+## GET /api/learning/lessons/{skill_id}
+
+200 Lesson: id, skill_id, title, estimated_minutes (2), steps [{heading,body,example}], hint. Tidak memuat kunci soal. Materi adalah konten demo awal yang diperiksa untuk konsistensi matematika, belum review kurikulum eksternal. Unknown skill 404. Tidak mengubah progress.
+
+## POST /api/learning/start
+
+Request: `{source_assessment_id,skill_id,request_id}` string wajib. Source adalah diagnostic progressive-demo-v1 kelas 4 yang completed milik siswa; skill harus bagian results source dan lesson tersedia. 400 jika source/mode/status/skill invalid. Request ID maksimal 100 karakter; unique per siswa. Retry request ID yang sama dengan source/skill berbeda 409; retry sama mengembalikan session yang sama, termasuk setelah completed. Start paralel diserialisasi per siswa dan resume active session untuk skill tersebut. Request ID baru yang meresume session dicatat sebagai alias, sehingga retry sesudah session completed tetap mengembalikan session yang sama. Sebelum session baru dibuat, bank harus memiliki sedikitnya 3 soal practice dan 3 reassessment yang belum pernah ditawarkan kepada siswa itu. Tidak mereset progress/history.
+
+200 LearningSession: id, student_id, source_assessment_id, skill_id/name, rule_version=learning-demo-v1, stage (lesson/practice/reassessment/completed/exhausted), revision, started_at, lesson_completed_at?, completed_at?, before_score?, score?, outcome?, stop_reason?, review_skill_id?, lesson, items[]. Item: id, question_id, stage, order_index, question, student_answer?, answered_at?, is_correct?. Question answer_key tidak pernah dikirim. Pending practice tanpa explanation/is_correct; answered practice memberi feedback setelah commit. Reassessment correctness/solutions disembunyikan sampai session completed/exhausted. lesson completion tidak mengubah score.
+
+## GET /api/learning/sessions/{id}
+
+200 session owned sesuai bentuk di atas. GET tidak membuat aktivitas/jawaban atau reward. Session snapshot dibaca konsisten; digunakan resume setelah reload, termasuk untuk memeriksa response write yang hilang.
+
+## POST /api/learning/lesson-complete
+
+Request `{session_id}`. Transisi lesson -> practice menandai lesson_completed_at dan menawarkan satu soal practice secara atomik; revision naik. Retry setelah transisi mengembalikan state terkini tanpa menambahkan soal/mereset timer. Jika bank habis, stage exhausted dan stop_reason insufficient_questions; tidak membuat score baru. 200 session terbaru.
+
+## POST /api/learning/answer
+
+Request `{session_id,question_id,student_answer}` wajib; answer harus salah satu opsi pending question. 400 untuk opsi/soal belum ditawarkan, 409 untuk jawaban committed berbeda. Retry answer yang sama mengembalikan state terbaru tanpa duplikasi, termasuk setelah completed. Status/revision claim, jawaban, next question, transisi stage, dan progress commit bersama. Konflik concurrent answer menggunakan state terbaru; jawaban kalah tidak menimpa evidence.
+
+Practice 3 jawaban -> reassessment 3 jawaban berbeda dari diagnostic/practice dan belum pernah ditawarkan kepada siswa. Difficulty menggunakan level tersedia: naik setelah benar/turun setelah salah, tie-break jarak level/level/ID; tidak mengulang soal untuk mastery. Dua kesalahan practice berturut-turut dapat memberi review_skill_id prasyarat sebagai rekomendasi review, bukan root-gap diagnosis. Reassessment completed memperbarui score dari tiga jawaban terakhir (rounded percentage), outcome strong_evidence 3/3, inconclusive 2/3, needs_practice 0–1/3. Ini score/evidence demo, bukan mastery pendidikan tervalidasi. before_score mengambil bukti terakhir sebelum sesi; score bisa naik/tetap/turun. Klik lesson selesai dan jawaban practice tidak mengubah score akademis. Stage exhausted tidak mengubah progress.
+
+## GET /api/learning/progress
+
+200 `{source_assessment_id?,skills:[],learning_path:[],active_sessions:[],recent_sessions:[],completed_count}`. Skills: skill_id/name, status, score? (absent untuk unassessed), evidence_count, correct_count, source (diagnostic/reassessment/unassessed), updated_at?. Ambil latest completed progressive diagnostic dan overlay reassessment yang lebih baru; jangan merusak snapshot hasil diagnostic lama. Learning_path topological berisi weak/inconclusive skills dan reason menyebut reassessment jika itulah evidence terbaru, tanpa mengunci skill unassessed seolah gagal. active_sessions memiliki summary id/skill/stage/date; recent_sessions maksimal 5, completed_count seluruh learning completions owner. Loading/error tidak disamakan dengan empty progress. Tidak memuat jawaban/solusi. No data: arrays [], count 0; skill map boleh berisi unassessed untuk slice tersedia.

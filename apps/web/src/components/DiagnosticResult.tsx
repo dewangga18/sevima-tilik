@@ -5,12 +5,16 @@ interface DiagnosticResultProps {
   assessment: Assessment
   onRetake: () => void
   retaking?: boolean
+  onLearn: (sourceId: string, skillId: string) => void
+  learning: boolean
 }
 
 export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
   assessment,
   onRetake,
   retaking = false,
+  onLearn,
+  learning,
 }) => {
   const progressive = assessment.rule_version === 'progressive-demo-v1'
   const items = assessment.items || []
@@ -69,7 +73,8 @@ export const DiagnosticResult: React.FC<DiagnosticResultProps> = ({
           : <p>Belum ada kandidat gap prasyarat yang didukung bukti cukup. Kesulitan pada materi utama tidak otomatis berarti fondasinya lemah.</p>}</div>
         <h4>Urutan review yang disarankan</h4>
         {assessment.learning_path?.length ? <ol className="diagnostic-learning-path">{assessment.learning_path.map(item => <li key={item.skill_id}><strong>{item.skill_name}</strong><p>{item.reason}</p></li>)}</ol> : <p>Tidak ada review tambahan yang teridentifikasi dari jalur ini. Konsep yang belum diuji tetap belum dinilai.</p>}
-        <p className="invitation-note">Materi dan latihan untuk rekomendasi ini belum tersedia di versi ini.</p>
+        {assessment.learning_path?.[0] && <button type="button" className="btn btn-primary start-learning-button" disabled={learning || retaking} onClick={() => onLearn(assessment.id, assessment.learning_path![0].skill_id)}>{learning ? 'Menyiapkan materi...' : `Mulai belajar ${assessment.learning_path[0].skill_name}`}</button>}
+        <p className="invitation-note">Ini hasil diagnostic tersimpan. Progress terbaru setelah belajar ada di profil belajarmu.</p>
       </section>}
 
       {/* Per-Skill Evidence Section */}
