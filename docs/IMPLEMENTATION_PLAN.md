@@ -2,7 +2,7 @@
 
 ## Status
 
-Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal), Phase 4 (kelas, insight guru), dan Phase 6 (reliability) selesai. Phase 5 berjalan: administrasi minimum (akun, role, kelas, enrollment, assignment) sudah lolos checkpoint; reward, streak, daily goal, dan achievement belum diimplementasikan, aturan engagement-nya sudah diputuskan. Slice AI hanya punya kontrak usulan, tanpa kode, dan menunggu keputusan provider/biaya/izin. Phase 7 perluasan ditunda sesuai arahan pengguna. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
+Checkpoint siswa Phase 1–4 sudah tersedia untuk slice kelas 4. Phase 3B (import bank soal), Phase 4 (kelas, insight guru), dan Phase 6 (reliability) selesai. Phase 5 berjalan: administrasi minimum (akun, role, kelas, enrollment, assignment) sudah lolos checkpoint; reward, streak, daily goal, dan achievement belum diimplementasikan, aturan engagement-nya sudah diputuskan. Seluruh integrasi AI (Slice AI, AI-A, AI-B, AI-C) **dibatalkan** atas arahan pengguna karena waktu tidak cukup; tidak ada kode, route, konfigurasi, atau tabel AI di repository. Phase 7 perluasan ditunda sesuai arahan pengguna. Arah produk mengikuti `docs/PRODUCT.md`; keputusan dan checkpoint yang belum terbukti tetap perlu review sebelum dilanjutkan. Kontrak endpoint yang tersedia berada di `docs/API_CONTRACT.md`.
 
 Plan ini menjadi sumber eksekusi tunggal, termasuk generator soal, asisten guru, dan usulan scanner tulisan tangan dari plan AI lama. Semua checklist baru masih pending; rencana endpoint bukan klaim fitur sudah tersedia. Scanner direncanakan sebagai koreksi berbantuan review manusia setelah core P0, bukan penilaian akademis otomatis oleh LLM.
 
@@ -262,7 +262,7 @@ Keputusan aturan engagement (disetujui pengguna, belum diimplementasikan): XP pe
 - [ ] Streak berdasarkan hari belajar dalam zona waktu yang ditetapkan, daily goal sederhana, dan achievement awal untuk diagnostic pertama serta peningkatan mastery.
 - [ ] Tampilkan XP, level, streak, daily goal, achievement di home/progress dengan data aktual.
 - [x] Admin membuat akun/role serta kelas, mengatur enrollment siswa dan assignment guru (beberapa kelas); izin dan navigasi admin terpisah meskipun shell dipakai bersama. Tidak ada public self-upgrade role.
-- [x] Perubahan assignment berlaku untuk detail, agregasi, dan AI; guru yang dilepas dari kelas kehilangan akses pada request berikutnya.
+- [x] Perubahan assignment berlaku untuk detail dan agregasi; guru yang dilepas dari kelas kehilangan akses pada request berikutnya. (Bagian "dan AI" tidak berlaku lagi karena integrasi AI dibatalkan.)
 - [ ] Uji reward retry, batas pergantian hari, dan perubahan role oleh akun tanpa izin.
 
 Checkpoint administrasi: **LOLOS**. Slice vertikal `repository -> service -> handler -> route -> UI` untuk manajemen admin selesai dan terverifikasi pada stack Compose.
@@ -274,14 +274,14 @@ Checkpoint administrasi: **LOLOS**. Slice vertikal `repository -> service -> han
 - Validasi: email duplikat `409`; email, nama, role, kelas, dan panjang kata sandi (8–72) tervalidasi server. Kelas dan akun siswa dibatasi kelas 4 karena hanya kelas 4 yang memiliki konten serta alur diagnostic/lesson/practice/reassessment; grade 5–9 ditolak `400` alih-alih membuat akun yang tidak bisa menyelesaikan siklus belajar.
 - Data hygiene: `grade_level` dikosongkan saat role diubah menjadi guru/admin; `created_at` dibaca ulang dari database setelah create agar response tidak mengirim timestamp-zero.
 - Verifikasi: `go build ./...`, `go vet ./...`, `gofmt` bersih pada file baru; `npm run build` dan `npm run lint` tanpa warning. Smoke HTTP di atas dijalankan di container Compose; data akun/kelas uji dibuat untuk verifikasi lalu dihapus agar seed demo tetap bersih.
-- Batas yang diketahui: belum ada lupa/reset kata sandi admin dan belum ada penghapusan akun atau kelas permanen. Slice AI belum ada kode; kontraknya sudah ditulis di `docs/API_CONTRACT.md` sebagai usulan, bukan kontrak aktif.
+- Batas yang diketahui: belum ada lupa/reset kata sandi admin dan belum ada penghapusan akun atau kelas permanen. Integrasi AI dibatalkan dan tidak ada lagi di repository; tidak ada endpoint, konfigurasi, atau tabel AI.
 - Checklist `[x]` di atas dicentang hanya untuk dua item administrasi. Item reward/streak/achievement tetap `[ ]` karena belum ada implementasi server.
 
 Demo checkpoint: aktivitas memberi reward sekali -> hari belajar tercatat -> achievement muncul sesuai bukti; admin mengelola akun/enrollment lalu akun itu dapat login sesuai role. Menonaktifkan akun mencabut aksesnya.
 
 Scope cut memerlukan catatan persetujuan karena handover menyebut fitur ini must-have. Seed akun adalah fallback demo untuk management, bukan klaim fitur management selesai.
 
-### Slice AI: konfigurasi dan batas bersama [P1, setelah checkpoint P0]
+### Slice AI: konfigurasi dan batas bersama [P1, setelah checkpoint P0] — DIBATALKAN
 
 Dependencies: Phase 4 authorization/evidence dan Phase 3B draft bank. Selaraskan scope scanner dengan `docs/PRODUCT.md` sebelum implementasi. Pilihan provider/model, biaya/kuota, aturan penyimpanan foto dan izin penggunaan data harus ditentukan; dependency baru tetap memerlukan persetujuan. Jangan memakai nama/model lama tanpa memeriksa ketersediaannya saat implementasi.
 
@@ -291,7 +291,7 @@ Dependencies: Phase 4 authorization/evidence dan Phase 3B draft bank. Selaraskan
 - [ ] FE memiliki loading/error/empty/success, timeout dan retry dengan draft tetap tersimpan. Provider tidak tersedia harus ditampilkan jelas; fallback memakai input manual, evidence aktual atau template. Mock demo harus berlabel simulasi dan tidak disimpan sebagai OCR/evidence/nilai nyata.
 - [ ] Definisikan kontrak lengkap di `docs/API_CONTRACT.md` sebelum setiap endpoint: method/path, role/owner/assignment/environment, fields, status/error aman, retry/idempotency dan aturan penyimpanan. Usulan route di bawah belum kontrak aktif.
 
-### Slice AI-A: Generator soal dan asisten guru [P1]
+### Slice AI-A: Generator soal dan asisten guru [P1] — DIBATALKAN
 
 - [ ] Guru/admin meminta draft soal kelas 4 dengan skill/difficulty; validasi struktur, kunci, opsi, penjelasan dan metadata, lalu review sebelum publish. Cegah publish otomatis atau bank soal aktif berubah karena output model mentah.
 - [ ] Form/modal generator memilih skill, grade, difficulty dan konteks; simpan ke draft PostgreSQL melalui alur Phase 3B, bukan tombol yang langsung menerbitkan soal ke assessment.
@@ -304,7 +304,7 @@ Usulan route yang harus didefinisikan sebelum coding: `POST /api/ai/generate-que
 
 Checkpoint: guru assigned dua kelas dapat menganalisis siswa keduanya, ditolak untuk kelas lain; generate -> review draft -> publish yang sah; admin membantu draft. Mastery/evidence tidak berubah karena chat atau generation.
 
-### Slice AI-B: Scanner satu lembar -> review koreksi [P1]
+### Slice AI-B: Scanner satu lembar -> review koreksi [P1] — DIBATALKAN
 
 Goal: membantu membaca jawaban kertas, dengan hasil dan ketidakpastian yang dapat diperiksa guru. Mulai satu lembar kelas 4 sebelum batch.
 
@@ -321,7 +321,7 @@ Usulan route: `POST /api/ai/extract-answer-key` dan `POST /api/ai/scan-correctio
 
 Checkpoint: guru assigned memilih paket/input kunci -> konfirmasi kunci -> upload satu lembar -> periksa ekstraksi -> perbaiki bagian meragukan -> finalisasi koreksi sekali -> reload melihat hasil/provenance. Guru kelas lain ditolak; core learning tetap bekerja ketika AI gagal.
 
-### Slice AI-C: Batch koreksi dan rekap [P1, setelah AI-B lolos]
+### Slice AI-C: Batch koreksi dan rekap [P1, setelah AI-B lolos] — DIBATALKAN
 
 - [ ] Tambahkan multi-file upload dan mapping setiap lembar ke siswa/tugas yang diizinkan. Batas jumlah file/total ukuran dan concurrency worker ditentukan dari pengujian kuota; angka 30+ file dan 3–5 worker dari plan lama adalah usulan, bukan jaminan kapasitas.
 - [ ] Antrean terkontrol dengan job/item ID, status tiap lembar dan progress tersimpan; reload, retry item gagal dan pembatalan tidak menggandakan biaya atau finalisasi. Uji partial failure tanpa menghilangkan hasil item sukses.
@@ -360,7 +360,8 @@ Checkpoint tiap tambahan: tunjukkan perubahan end-to-end dengan data nyata dan b
 1. Expo, leaderboard, animasi dekoratif, assignment, ZIP/Excel/buku nilai dan batch scanner.
 2. Jika integrasi AI dipotong, pertahankan draft/manual review dan evidence aktual; jangan menggantinya dengan mock yang menyamar sebagai hasil nyata.
 3. Perluasan domain/kelas di luar slice kelas 4 dan question levels 3–5.
-4. Dengan persetujuan perubahan MVP: AI eksternal/scanner, achievement tambahan, daily goal, administrasi UI; seed terkontrol sebagai fallback.
+4. Dengan persetujuan perubahan MVP: achievement tambahan, daily goal, administrasi UI; seed terkontrol sebagai fallback.
+5. Integrasi AI (provider key, generator soal, asisten guru, scanner) sudah dibatalkan lebih awal atas arahan pengguna, bukan menunggu jadwal. Halaman Bank soal tetap review manual dan tidak bergantung AI.
 
 Jangan memotong diagnostic evidence, prerequisite check, lesson/practice/reassessment, insight guru, auth/ownership, atau persistence. Deadline pendek berarti re-plan, bukan mengklaim fase selesai tanpa checkpoint.
 

@@ -376,9 +376,11 @@ Request `{"user_id":"usr-..."}`. Id harus ada dengan role `teacher`; akun siswa/
 
 Request body yang sama. Melepas guru berlaku segera: request guru berikutnya ke kelas yang sudah dilepas menghasilkan `403 Akses ditolak` pada `/api/teacher/classes/{class_id}/students` dan `/api/teacher/students/{student_id}/insight`, tanpa perlu login ulang, karena assignment diperiksa di backend pada setiap request. Guru tetap kehilangan akses kelas lain yang tidak ditugaskan kepadanya. Status dan error sama dengan endpoint assignment.
 
-## Slice AI — kontrak usulan, belum diimplementasikan
+## Slice AI — DIBATALKAN, tidak diimplementasikan
 
-Bagian ini **bukan kontrak aktif**. Endpoint di bawah belum didaftarkan di router, tidak punya handler, dan tidak boleh dipanggil client. Disusun lebih awal agar batas keamanan, ownership, dan privasi ditetapkan sebelum ada kode. Implementasi memerlukan persetujuan provider, model, biaya/kuota, dependency, dan aturan retensi data; lihat `docs/IMPLEMENTATION_PLAN.md` Phase 5 Slice AI.
+Integrasi AI dibatalkan atas arahan pengguna karena waktu tidak cukup. **Tidak ada route, handler, konfigurasi, atau tabel AI di repository ini.** Halaman Bank soal yang aktif adalah review manual oleh manusia dan tidak bergantung AI.
+
+Bagian di bawah disimpan hanya sebagai catatan desain yang tidak pernah dijalankan. Endpoint yang disebut **tidak terdaftar di router** dan akan menjawab `404` router default. Jangan jadikan panduan implementasi.
 
 Aturan yang berlaku untuk semua endpoint AI ini, baik saat ini maupun nanti:
 
